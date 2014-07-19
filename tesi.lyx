@@ -85,6 +85,26 @@ TEORIA ED ESEMPI CONCRETI
 \end_layout
 
 \begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+mbox{} 
+\backslash
+thispagestyle{empty} 
+\backslash
+newpage
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
 \align right
 
 \shape italic
@@ -137,7 +157,30 @@ fill}
 \end_inset
 
 
+\end_layout
+
+\begin_layout Standard
 \begin_inset Newpage newpage
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+mbox{} 
+\backslash
+thispagestyle{empty} 
+\backslash
+newpage
+\end_layout
+
 \end_inset
 
 
@@ -173,7 +216,7 @@ Ringraziamenti
 \begin_layout Standard
 Prima di cominciare, voglio ringraziare alcune persone che hanno avuto un
  ruolo importante in tutti questi anni di studio.
- Sicuramente dimenticherò qualcuno...
+ La lista non è sicuramente esaustiva, ma voglio 
 \begin_inset Newline newline
 \end_inset
 
@@ -229,7 +272,14 @@ La vita dell'uomo, fin dalla sua prima comparsa sulla Terra, è sempre stata
  calcolato possano sbagliare di un secondo ogni 100 milioni di anni.
  Esiste anche una nuova concezione di orologi atomici, che utilizza atomi
  di alluminio, e che è stato calcolato possa sbagliare di un secondo dopo
- addirittura 3.7 miliardi di anni.
+ addirittura 3.7 miliardi di anni 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "1"
+
+\end_inset
+
+.
  Nella tecnologia informatica, e soprattutto nei database, la questione
  del tempo è sempre stata messa "in secondo piano", poichè si è sempre privilegi
 ata la conservazione dei dati, piuttosto che la loro accuratezza temporale.
@@ -239,7 +289,7 @@ ata la conservazione dei dati, piuttosto che la loro accuratezza temporale.
  usati.
  Verrà prima di tutto presentata la tecnologia come è stata teorizzata alle
  origini, in seguito verranno presentati alcuni esempi di applicazione in
- SQL e verranno trattate le nuove funzionalità temporali presenti nella
+ SQL-92 e verranno trattate le nuove funzionalità temporali presenti nella
  versione 2011 dello standard SQL.
  Infine, verrà dedicato un capitolo ai nuovi database NoSQL, che con la
  loro particolare filosofia necessitano di un diverso approccio.
@@ -261,7 +311,274 @@ Il concetto del tempo
 \end_layout
 
 \begin_layout Standard
-Molto spesso bla bla bla
+Riflettendo un attimo su una giornata qualsiasi della nostra vita, è facile
+ accorgersi come l'esistenza di ognuno sia scandita, in maniera continua
+ e regolare, da un'entità quasi astratta, ma che con il passare degli anni
+ e delle epoche, e con l'innovazione tecnologica, ha acquistato sempre più
+ valore e significato: il tempo.
+ Ormai non ci si fa quasi più caso, ma non facciamo altro che rincorrere,
+ in maniera sempre più frenetica, il tempo passato: abbiamo degli orari
+ per entrare al lavoro, altri ancora per uscire, altri orari "tradizionali"
+ dedicati ai pasti o al tempo libero, e così via.
+ 
+\end_layout
+
+\begin_layout Standard
+Anche nell'informatica, forse più che in altri ambiti, il tempo è fondamentale:
+ basti pensare alla grande quantità di applicativi che vengono utilizzati
+ nei più disparati contesti, dalle banche ai negozi, dalle centrali elettriche
+ alle automobili, che hanno nelle variazioni temporali un fattore vitale
+ del loro funzionamento.
+ Per fare un esempio, nel caso di una banca, è necessario registrare le
+ operazioni compiute fino ai decimi di secondo, o anche oltre, poichè una
+ variazione minima, soprattutto nell'ambito del trading o della compravendita
+ di titoli e azioni, potrebbe comportare una perdita di denaro anche piuttosto
+ considerevole.
+ 
+\end_layout
+
+\begin_layout Standard
+Ovviamente, tutte questi movimenti e transazioni non sono di competenza
+ dell'applicazione, che si limita solo ad elaborarli in maniera opportuna,
+ ma sono di competenza di una parte ben precisa del sistema utilizzato,
+ cioè il database.
+ Sembra incredibile, ma al giorno d'oggi non tutti coloro che lavorano nel
+ campo dell'informatica e dei software si rendono conto dell'importanza
+ che ha una adeguata pianificazione dei database sotto l'aspetto temporale,
+ anzi: molto spesso tale aspetto viene dimenticato, volutamente o meno,
+ proprio perchè considerato "poco importante".
+ Generalmente, tutte queste vicissitudini riguardo l'organizzazione della
+ struttura dati seguono un andamento abbastanza simile: all'inizio lo sviluppo
+ dell'applicazione procede senza particolari problemi, fino al punto in
+ cui, a causa del rapido incremento del numero dei record (e molto spesso
+ delle dimensioni del sistema software) è necessario rimettere mano alla
+ struttura del database, per distinguere ad esempio tra record validi allo
+ stato attuale, record non più validi e record con validità futura.
+ Solitamente, quando si arriva a questo punto, è necessario mettere mano
+ all'intero sistema, causando disagi considerevoli in materia di costi e
+ di tempo impiegato per la risoluzione.
+ Se poi l'azienda produttrice del software ha dimensioni molto grandi, magari
+ con gruppi indipendenti che lavorano su parti diverse del prodotto, è facile
+ immaginare come un intoppo apparentemente di rapida soluzione si possa
+ trasformare in un problema con dimensioni enormi, così come i relativi
+ oneri.
+ È necessario quindi adottare fin da subito un approccio "temporale" nella
+ creazione dei database, in modo da dedicare magari qualche ora in più nella
+ redazione dello schema della base di dati, ma evitando disagi ben più consisten
+ti nel futuro, sia a medio che lungo termine.
+\end_layout
+
+\begin_layout Section
+Gli elementi basilari
+\end_layout
+
+\begin_layout Standard
+È prassi comune credere che un database temporale sia semplicemente "un
+ database normale, con l'aggiunta di campi di data".
+ In realtà, un database temporale è qualcosa di più di un semplice campo
+ aggiuntivo, e lo dimostra il fatto che si basa su tre aspetti fondamentali,
+ che nei database "classici" non sono presenti:
+\end_layout
+
+\begin_layout Itemize
+
+\shape italic
+Dati temporali
+\end_layout
+
+\begin_layout Itemize
+
+\shape italic
+Tempi
+\end_layout
+
+\begin_layout Itemize
+
+\shape italic
+Tipi di interrogazioni
+\end_layout
+
+\begin_layout Standard
+Ognuna di queste categorie si divide in ulteriori tre elementi, per un totale
+ di nove entità che sono fondamentali per lo studio dei database temporali.
+ 
+\end_layout
+
+\begin_layout Subsection
+I dati temporali
+\end_layout
+
+\begin_layout Standard
+I dati temporali rappresentano delle "quantità" di tempo, più o meno precise
+ a seconda del tipo, che hanno un significato molto vicino a quello utilizzato
+ in ambito comune.
+ Nello specifico, si dividono in:
+\end_layout
+
+\begin_layout Itemize
+
+\shape italic
+Istanti
+\shape default
+, che come nel linguaggio comune rappresentano un momento preciso del tempo
+ (come ad esempio il 19 luglio 2014, 22.36.20, oppure il largamente utilizzato
+ 
+\family typewriter
+NOW()
+\family default
+);
+\end_layout
+
+\begin_layout Itemize
+
+\shape italic
+Intervalli
+\shape default
+, anche questi vicini all'interpretazione comune, che non sono altro che
+ una durata fissa (ad esempio, 3 mesi oppure 5 giorni);
+\end_layout
+
+\begin_layout Itemize
+
+\shape italic
+Periodi, 
+\shape default
+simili agli intervalli, con la caratteristica di avere un inizio e una fine
+ ben precisi (ad esempio, dal 15 luglio 2014 al 30 settembre 2014);
+\end_layout
+
+\begin_layout Subsection
+I tempi
+\end_layout
+
+\begin_layout Standard
+La categoria dei tempi, invece, comprende tre tipi di tempo che possono
+ essere presenti in una tabella, e che hanno funzioni diverse a seconda
+ del loro gruppo di appartenenza.
+ Nello specifico si parla di:
+\end_layout
+
+\begin_layout Itemize
+User-defined time, dove il tempo è inserito dall'utente e non ha alcun significa
+to ai fini della validità dei dati;
+\end_layout
+
+\begin_layout Itemize
+Tempo di validità, oppure definibile come periodo (avendo esso sia una data
+ precisa di inizio che una data precisa di fine) all'interno di cui il dato
+ è considerabile come valido.
+\end_layout
+
+\begin_layout Itemize
+Tempo di transazione, cioè, in genere, l'istante nel quale il record relativo
+ è stato inserito all'interno del database.
+\end_layout
+
+\begin_layout Subsection
+Le interrogazioni
+\end_layout
+
+\begin_layout Standard
+Per quanto riguarda i tipi di interrogazioni, infine, anche qui sono presenti
+ tre diversi rami, riassumibili nel seguente modo:
+\end_layout
+
+\begin_layout Itemize
+Corrente, cioè relativo all'istante attuale;
+\end_layout
+
+\begin_layout Itemize
+Sequenziale, cioè relativo ad ogni istante di tempo
+\end_layout
+
+\begin_layout Itemize
+Non-Sequenziale, cioè che esula dal tempo, ignorandolo completamente.
+\end_layout
+
+\begin_layout Subsection
+Implementazione in SQL standard
+\end_layout
+
+\begin_layout Standard
+Degli aspetti evidenziati, definire cosa è implementato in SQL, e soprattutto
+ in che modo, non è cosa banale, soprattutto perchè gli applicativi che
+ si basano interamente su SQL standard sono diventati ormai molto pochi.
+ I maggiori DBMS (PostgreSQL, SQL Server, e Oracle su tutti) hanno da tempo
+ optato per lo sviluppo di una versione estesa e personalizzata di SQL,
+ in modo da non essere legati alle release, dilazionate negli anni, dello
+ standard ufficiale, e per avere più libertà nell'inserire feature specifiche
+ dei propri prodotti.
+ Se per SQL intendiamo la versione standard, allora una copertura delle
+ funzionalità temporali, seppur blanda e per certi aspetti lacunosa, si
+ ha fin dalla versione del 1992, che poi si è evoluta nel corso degli anni
+ fino ad arrivare all'ultima versione, nel 2011.
+ Nello specifico, nel 1992 sono stati introdotti i tipi basilari per lo
+ sviluppo delle carateristiche sopra elencate, come 
+\family typewriter
+DATE
+\family default
+, 
+\family typewriter
+TIME
+\family default
+, 
+\family typewriter
+TIMESTAMP
+\family default
+ e 
+\family typewriter
+INTERVAL
+\family default
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "2"
+
+\end_inset
+
+.
+ Nelle ultime release, soprattutto nella più recente, è stato aggiunto il
+ costrutto 
+\family typewriter
+PERIOD
+\family default
+ (anche se in una accezione particolare, come si vedrà in seguito), e sono
+ stati apportati notevoli miglioramenti all'intera gestione delle funzionalità
+ temporali.
+ Dal punto di vista dello standard, si può dire che i database temporali
+ sono giunti a compimento solo nel 2011 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "3"
+
+\end_inset
+
+, dopo una fase di teorizzazione che ha visto i suoi inizi nel 1986, all'interno
+ di programmi proprietari, e quindi durata addirittura 25 anni.
+\end_layout
+
+\begin_layout Section
+I costrutti fondamentali
+\end_layout
+
+\begin_layout Subsection
+Tabelle
+\end_layout
+
+\begin_layout Subsubsection
+Tabelle con tempo di validità
+\end_layout
+
+\begin_layout Subsubsection
+Tabelle con tempo di transazione
+\end_layout
+
+\begin_layout Subsubsection
+Tabelle bitemporali
+\end_layout
+
+\begin_layout Subsection
+Istanti e Intervalli
 \end_layout
 
 \begin_layout Standard
@@ -274,11 +591,36 @@ Molto spesso bla bla bla
 \begin_layout Bibliography
 \begin_inset CommandInset bibitem
 LatexCommand bibitem
-key "key-1"
+label "1"
+key "1"
 
 \end_inset
 
-http://www.nist.gov/pml/div688/logicclock_020410.cfm
+NIST's Second 'Quantum Logic Clock' Based on Aluminum Ion is Now World's
+ Most Precise Clock: http://www.nist.gov/pml/div688/logicclock_020410.cfm
+\end_layout
+
+\begin_layout Bibliography
+\begin_inset CommandInset bibitem
+LatexCommand bibitem
+label "2"
+key "2"
+
+\end_inset
+
+SQL Key Words: http://www.postgresql.org/docs/9.2/static/sql-keywords-appendix.html
+\end_layout
+
+\begin_layout Bibliography
+\begin_inset CommandInset bibitem
+LatexCommand bibitem
+label "3"
+key "3"
+
+\end_inset
+
+Temporal features in SQL-2011: http://www.sigmod.org/publications/sigmod-record/12
+09/pdfs/07.industry.kulkarni.pdf
 \end_layout
 
 \end_body
