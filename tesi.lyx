@@ -472,15 +472,11 @@ ata la conservazione dei dati, piuttosto che la loro accuratezza temporale.
  loro particolare filosofia necessitano di un diverso approccio.
 \end_layout
 
-\begin_layout Standard
+\begin_layout Abstract
 \begin_inset Newpage newpage
 \end_inset
 
 
-\end_layout
-
-\begin_layout Part
-Introduzione
 \end_layout
 
 \begin_layout Section
@@ -578,7 +574,6 @@ Tipi di interrogazioni
 \begin_layout Standard
 Ognuna di queste categorie si divide in ulteriori tre elementi, per un totale
  di nove entità che sono fondamentali per lo studio dei database temporali.
- 
 \end_layout
 
 \begin_layout Subsection
@@ -624,6 +619,18 @@ simili agli intervalli, con la caratteristica di avere un inizio e una fine
  ben precisi (ad esempio, dal 15 luglio 2014 al 30 settembre 2014);
 \end_layout
 
+\begin_layout Subsubsection
+Istanti
+\end_layout
+
+\begin_layout Subsubsection
+Intervalli
+\end_layout
+
+\begin_layout Subsubsection
+Periodi
+\end_layout
+
 \begin_layout Subsection
 I tempi
 \end_layout
@@ -636,19 +643,38 @@ La categoria dei tempi, invece, comprende tre tipi di tempo che possono
 \end_layout
 
 \begin_layout Itemize
-User-defined time, dove il tempo è inserito dall'utente e non ha alcun significa
-to ai fini della validità dei dati;
+
+\shape italic
+User-defined time
+\shape default
+, dove il tempo è inserito dall'utente e non ha alcun significato ai fini
+ della validità dei dati;
 \end_layout
 
 \begin_layout Itemize
-Tempo di validità, oppure definibile come periodo (avendo esso sia una data
- precisa di inizio che una data precisa di fine) all'interno di cui il dato
- è considerabile come valido.
+
+\shape italic
+Tempo di validità
+\shape default
+, oppure definibile come periodo (avendo esso sia una data precisa di inizio
+ che una data precisa di fine) all'interno di cui il dato è considerabile
+ come valido.
 \end_layout
 
 \begin_layout Itemize
-Tempo di transazione, cioè, in genere, l'istante nel quale il record relativo
- è stato inserito all'interno del database.
+
+\shape italic
+Tempo di transazione
+\shape default
+, cioè, in genere, l'istante nel quale il record relativo è stato inserito
+ all'interno del database.
+\end_layout
+
+\begin_layout Standard
+Questi concetti hanno senso e utilità pratica solo se sono considerati nel
+ contesto di una tabella, che ne può contenere solo uno, due, oppure tutti
+ e tre, con varie combinazioni adatte a diverse implementazioni, che saranno
+ esaminate nella prossima sezione.
 \end_layout
 
 \begin_layout Subsection
@@ -661,15 +687,39 @@ Per quanto riguarda i tipi di interrogazioni, infine, anche qui sono presenti
 \end_layout
 
 \begin_layout Itemize
-Corrente, cioè relativo all'istante attuale;
+
+\shape italic
+Corrente
+\shape default
+, cioè relativo all'istante attuale;
 \end_layout
 
 \begin_layout Itemize
-Sequenziale, cioè relativo ad ogni istante di tempo
+
+\shape italic
+Sequenziale
+\shape default
+, cioè relativo ad ogni istante di tempo
 \end_layout
 
 \begin_layout Itemize
-Non-Sequenziale, cioè che esula dal tempo, ignorandolo completamente.
+
+\shape italic
+Non-Sequenziale
+\shape default
+, cioè che esula dal tempo, ignorandolo completamente.
+\end_layout
+
+\begin_layout Subsubsection
+Interrogazioni correnti
+\end_layout
+
+\begin_layout Subsubsection
+Interrogazioni sequenziali
+\end_layout
+
+\begin_layout Subsubsection
+Interrogazioni non sequenziali
 \end_layout
 
 \begin_layout Subsection
@@ -742,20 +792,993 @@ I costrutti fondamentali
 Tabelle
 \end_layout
 
+\begin_layout Standard
+Le tabelle temporali non hanno necessariamente una struttura ben definita,
+ infatti possono essere costruite in vari modi, utilizzando varie combinazioni
+ dei tempi e dei tipi di dato temporale precedentemente trattati.
+ Escludendo le tabelle contenenti solo categorie e valori di tempo definiti
+ dall'utente, che non avendo significato ai fini della validità dei dati
+ possono essere considerate come un qualsiasi altro campo, esistono anche
+ qui tre tipi di strutture dati:
+\end_layout
+
+\begin_layout Itemize
+
+\shape italic
+Tabelle con tempo di validità
+\shape default
+, che salvano i dati sulla base del periodo o dell'intervallo di tempo in
+ cui gli stessi sono validi;
+\end_layout
+
+\begin_layout Itemize
+
+\shape italic
+Tabelle con tempo di transazione
+\shape default
+, che salvano i dati sulla base dell'istante dell'inserimento, e rendono
+ quindi possibile l'interrogazione dei dati per capire quando gli stessi
+ si consideravano validi
+\end_layout
+
+\begin_layout Itemize
+
+\shape italic
+Tabelle bitemporali
+\shape default
+, che sono una variante di struttura dati che prevede la presenza sia del
+ tempo di validità, che del tempo di transazione, fornendo quindi la maggiore
+ completezza possibile per lo studio della validità dei dati contenuta in
+ essi.
+\end_layout
+
+\begin_layout Standard
+Di seguito sono presenti alcuni semplici esempi che sono utili per capire
+ meglio come le varie tabelle possono essere utili ai fini della loro interrogaz
+ione.
+ Quando sarà necessario parlare di codice SQL, saranno presentate interrogazioni
+ svolte con il codice della versione del 1992, a cui sarà affiancato, quando
+ opportuno, quello della versione 2011, in modo da poter apprezzare le differenz
+e e i miglioramenti nel corso degli anni.
+\end_layout
+
 \begin_layout Subsubsection
 Tabelle con tempo di validità
+\end_layout
+
+\begin_layout Standard
+Le tabelle con tempo di validità, come accennato sopra, sono delle particolari
+ tabelle che presentano, oltre ai classici dati da memorizzare, anche una
+ coppia di campi che hanno il compito di memorizzare l'intervallo in cui
+ tali dati sono, o erano, validi.
+ Il modo per utilizzare questi due campi è molteplice: si può salvare l'istante
+ iniziale di validità e l'istante finale, oppure l'istante iniziale e l'interval
+lo di validità, o ancora l'intervallo di validità e l'istante finale.
+ Non esiste un modo migliore, poichè tutti e tre i criteri di rappresentazione
+ conducono allo stesso risultato.
+ 
+\end_layout
+
+\begin_layout Standard
+Un esempio chiaro di come possono essere utilizzate le tabelle con tempo
+ di validità può essere trovato nel salvataggio della residenza di un soggetto.
+ Per semplicità, supponiamo che tutte le variazioni del luogo di residenza,
+ invece che ai Comuni, siano in capo a un ente superiore, che si occupa
+ anche di mantenere il database che le contiene.
+ Inoltre, limitiamo la tabella a due sole persone.
+\end_layout
+
+\begin_layout Standard
+Senza tempo di validità, la tabella si presenta come segue: 
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+vspace{20pt}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Tabular
+<lyxtabular version="3" rows="3" columns="3">
+<features rotate="0" tabularvalignment="middle">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+ID_Persona
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+Nome_Persona
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+Luogo_Residenza
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+1
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+Mario Rossi
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+Trento
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+2
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+Giorgio Bianchi
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+Lavis
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+vspace{20pt}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+La tabella, a prima vista, potrebbe dirsi corretta, e in effetti lo è, ma
+ solo se le persone listate non hanno mai effettuato un cambio di residenza.
+ Nel caso in cui Giorgio Bianchi si spostasse a Trento, avremmo:
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+vspace{20pt}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Tabular
+<lyxtabular version="3" rows="3" columns="3">
+<features rotate="0" tabularvalignment="middle">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+ID_Persona
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+Nome_Persona
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+Luogo_Residenza
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+1
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+Mario Rossi
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+Trento
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+2
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+Giorgio Bianchi
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+Trento
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+vspace{20pt}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Tutto ciò fa venir meno la correttezza della tabella, perchè se interrogassimo
+ il database, risulterebbe che Giorgio Bianchi è sempre stato residente
+ a Trento, e si perderebbero le tracce della sua precedente residenza a
+ Lavis.
+\end_layout
+
+\begin_layout Standard
+Per risolvere questo problema, è sufficiente apporre alla tabella due nuovi
+ campi, chiamati 
+\family typewriter
+Data_Inizio
+\family default
+ e 
+\family typewriter
+Data_Fine
+\family default
+, che come è facilmente intuibile si occupano di mantenere il tempo di validità
+ del record al quale si riferiscono.
+ In termini pratici, si avrebbe una tabella siffatta:
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+vspace{20pt}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Tabular
+<lyxtabular version="3" rows="3" columns="5">
+<features rotate="0" tabularvalignment="middle">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+ID_Persona
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+Nome_Persona
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+Luogo_Residenza
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+Data_Inizio
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+Data_Fine
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+1
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+Mario Rossi
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+Trento
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+03.05.1984
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+31.12.9999
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+2
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+Giorgio Bianchi
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+Lavis
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+06.03.1992
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+31.12.9999
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+vspace{20pt}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+dove la data 
+\family typewriter
+31.12.9999
+\family default
+ è una data fittizia, che viene spesso tradotta con la parola chiave 
+\family typewriter
+FOREVER
+\family default
+, che sta semplicemente a significare che il record in oggetto è valido,
+ ovviamente non si sa fino a quando, e si assume come valido all'infinito
+ (o più realisticamente, fino a quando non intervengono nuove variazioni).
+\end_layout
+
+\begin_layout Standard
+Infine, la variazione di residenza viene tradotta come segue:
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+vspace{20pt}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Tabular
+<lyxtabular version="3" rows="4" columns="5">
+<features rotate="0" tabularvalignment="middle">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+ID_Persona
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+Nome_Persona
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+Luogo_Residenza
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+Data_Inizio
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+Data_Fine
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+1
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+Mario Rossi
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+Trento
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+03.05.1984
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+31.12.9999
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+2
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+Giorgio Bianchi
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+Lavis
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+06.03.1992
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+20.07.2014
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+2
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+Giorgio Bianchi
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+Trento
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+20.07.2014
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+31.12.9999
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+vspace{20pt}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Come è facile notare, è stata modificata la data di fine periodo per quanto
+ riguarda la residenza a Lavis di Giorgio Bianchi, e nello stesso istante
+ in cui finisce il primo periodo inizia il secondo, identificato con un
+ nuovo record.
+ In questo modo è possibile risalire a tutte le variazioni di residenza
+ di un soggetto anche a distanza di anni, garantendo così l'integrità dei
+ dati.
+ A fronte di queso vantaggio, emerge però un problema: la chiave primaria,
+ che prima era impostata solo sul campo 
+\family typewriter
+ID_Persona
+\family default
+, perde il suo significato perchè sono presenti due record con la stessa
+ chiave.
+ Chiaramente non si tratta di un errore, poichè è necessario specificare
+ che si tratta dello stesso soggetto, e non di un omonimo che è nato il
+ 20 luglio 2014.
+ È necessario un approccio diverso, più complesso, che sarà spiegato in
+ seguito.
 \end_layout
 
 \begin_layout Subsubsection
 Tabelle con tempo di transazione
 \end_layout
 
+\begin_layout Standard
+Le tabelle con tempo di transazione, di primo acchito, sembrano molto simili
+ alle tabelle con tempo di validità: entrambe hanno due campi aggiuntivi
+ a quelli dei dati della rispettiva tabella, in entrambi i casi i campi
+ si riferiscono a un periodo di tempo (rappresentato con le stesse opzioni:
+ istante di inizio e di fine, o istante di inizio e intervallo, o ancora
+ intervallo e istante di fine), e in entrambi i casi servono per garantire
+ una migliore gestione dei dati stessi.
+\end_layout
+
+\begin_layout Standard
+La principale differenza, però, va oltre tutto questo: infatti è il significato
+ che hanno i due campi aggiuntivi ad essere profondamente diverso: nelle
+ tabelle con tempo di validità è possibile ripercorrere la storia della
+ realtà, guardando le date di validità dei vari record; con le tabelle con
+ tempo di transazione, invece, si riesce a ripercorrere una storia diversa,
+ riguardante lo stato della tabella contenente i record.
+ Infatti, se si vuole trovare come era composta una tabella con tempo di
+ validità ad una certa data, si trovano i record che, al tempo richiesto,
+ risultavano validi oppure passati.
+ Cercando la composizione di una tabella con tempo di transazione, invece,
+ si trova una "fotografia" dello stato della tabella.
+ Questa distinzione può sembrare molto labile, ma nel caso concreto non
+ sono rari i casi in cui un campo ha validità più estesa o più ristretta
+ del tempo di inserimento.
+ Può capitare che un record sia stato inserito prima che lo stesso sia valido,
+ oppure l'esatto contrario.
+\end_layout
+
 \begin_layout Subsubsection
 Tabelle bitemporali
 \end_layout
 
-\begin_layout Subsection
-Istanti e Intervalli
+\begin_layout Standard
+Fare esempio dell'anagrafe, spiegando bene con le tabelle i vari tempi di
+ transazione e di validità.
+ Esempio: richiesto il cambio della residenza, che ha biogno di 15 giorni
+ per essere attuato.
 \end_layout
 
 \begin_layout Standard
