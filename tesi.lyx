@@ -69,16 +69,61 @@
 
 \begin_body
 
-\begin_layout Title
-I DATABASE TEMPORALI:
-\begin_inset Newline newline
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+vfill
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{center}
+\end_layout
+
 \end_inset
 
-TEORIA ED ESEMPI CONCRETI
+
 \end_layout
 
 \begin_layout Standard
-\begin_inset Newpage newpage
+
+\size largest
+UNIVERSITÀ DEGLI STUDI DI TRENTO
+\end_layout
+
+\begin_layout Standard
+
+\size larger
+Dipartimento di Ingegneria e Scienza dell’Informazione
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+vspace{70pt}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename img/logo_unitn.png
+
 \end_inset
 
 
@@ -92,13 +137,143 @@ status open
 
 
 \backslash
-mbox{} 
-\backslash
-thispagestyle{empty} 
-\backslash
-newpage
+vspace{70pt}
 \end_layout
 
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\size large
+CORSO DI LAUREA TRIENNALE IN INFORMATICA
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+vspace{30pt}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Elaborato Finale
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+vspace{30pt}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\size largest
+DATABASE TEMPORALI
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+vspace{50pt}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\size large
+Relatore: Prof.
+ Gabriel Kuper 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+hspace{30pt}
+\end_layout
+
+\end_inset
+
+ Laureando: Andrea Gottardi
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+vspace{20pt}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Anno accademico 2013/2014
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{center}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+date{}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Title
+\begin_inset Newpage newpage
 \end_inset
 
 
@@ -216,7 +391,9 @@ Ringraziamenti
 \begin_layout Standard
 Prima di cominciare, voglio ringraziare alcune persone che hanno avuto un
  ruolo importante in tutti questi anni di studio.
- La lista non è sicuramente esaustiva, ma voglio 
+ La lista non è sicuramente esaustiva, ma anche a chi non è elencato va
+ il mio più sincero ringraziamento.
+ 
 \begin_inset Newline newline
 \end_inset
 
@@ -236,7 +413,7 @@ Prima di tutto, voglio ringraziare la mia famiglia, che mi ha sostenuto,
 Grazie ai miei "colleghi" e compagni di corso Alessandro, Antonio, Mattia
  e Stefano, per aver trascorso insieme la preparazione di questi ultimi
  esami, dove casa mia é diventata il quartier generale dello studio (senza
- disdegnare calcio balilla e Xbox) ;
+ disdegnare calcio balilla e console per videogiochi) ;
 \begin_inset Newline newline
 \end_inset
 
