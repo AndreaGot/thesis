@@ -5,7 +5,7 @@
 \textclass article
 \use_default_options true
 \maintain_unincluded_children false
-\language english
+\language italian
 \language_package default
 \inputencoding auto
 \fontencoding global
@@ -24,6 +24,7 @@
 \output_sync 0
 \bibtex_command default
 \index_command default
+\float_placement H
 \paperfontsize default
 \spacing single
 \use_hyperref false
@@ -56,7 +57,7 @@
 \tocdepth 3
 \paragraph_separation indent
 \paragraph_indentation default
-\quotes_language english
+\quotes_language french
 \papercolumns 1
 \papersides 1
 \paperpagestyle default
@@ -925,10 +926,24 @@ Un esempio chiaro di come possono essere utilizzate le tabelle con tempo
 \end_layout
 
 \begin_layout Standard
-Senza tempo di validità, la tabella si presenta come segue: 
+Senza tempo di validità, la tabella 
+\family typewriter
+RESIDENZA 
+\family default
+si presenta come segue: 
 \end_layout
 
 \begin_layout Standard
+\begin_inset Float table
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
 \begin_inset ERT
 status open
 
@@ -936,7 +951,11 @@ status open
 
 
 \backslash
-vspace{20pt}
+noindent
+\backslash
+makebox[
+\backslash
+textwidth]{%
 \end_layout
 
 \end_inset
@@ -944,13 +963,44 @@ vspace{20pt}
 
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 \begin_inset Tabular
-<lyxtabular version="3" rows="3" columns="3">
+<lyxtabular version="3" rows="4" columns="3">
 <features rotate="0" tabularvalignment="middle">
 <column alignment="center" valignment="top">
 <column alignment="center" valignment="top">
 <column alignment="center" valignment="top">
+<row>
+<cell multicolumn="1" alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+RESIDENZA
+\end_layout
+
+\end_inset
+</cell>
+<cell multicolumn="2" alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell multicolumn="2" alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
 <row>
 <cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
 \begin_inset Text
@@ -1063,15 +1113,35 @@ Lavis
 
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 \begin_inset ERT
 status open
 
 \begin_layout Plain Layout
 
+}
+\end_layout
 
-\backslash
-vspace{20pt}
+\end_inset
+
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Tabella 
+\family typewriter
+RESIDENZA
+\family default
+ senza tempo di validità
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
 \end_layout
 
 \end_inset
@@ -1086,6 +1156,16 @@ La tabella, a prima vista, potrebbe dirsi corretta, e in effetti lo è, ma
 \end_layout
 
 \begin_layout Standard
+\begin_inset Float table
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
 \begin_inset ERT
 status open
 
@@ -1093,7 +1173,11 @@ status open
 
 
 \backslash
-vspace{20pt}
+noindent
+\backslash
+makebox[
+\backslash
+textwidth]{%
 \end_layout
 
 \end_inset
@@ -1101,13 +1185,44 @@ vspace{20pt}
 
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 \begin_inset Tabular
-<lyxtabular version="3" rows="3" columns="3">
+<lyxtabular version="3" rows="4" columns="3">
 <features rotate="0" tabularvalignment="middle">
 <column alignment="center" valignment="top">
 <column alignment="center" valignment="top">
 <column alignment="center" valignment="top">
+<row>
+<cell multicolumn="1" alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+RESIDENZA
+\end_layout
+
+\end_inset
+</cell>
+<cell multicolumn="2" alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell multicolumn="2" alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
 <row>
 <cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
 \begin_inset Text
@@ -1220,15 +1335,35 @@ Trento
 
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 \begin_inset ERT
 status open
 
 \begin_layout Plain Layout
 
+}
+\end_layout
 
-\backslash
-vspace{20pt}
+\end_inset
+
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Tabella 
+\family typewriter
+RESIDENZA
+\family default
+ senza tempo di validità: aggiornamento
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
 \end_layout
 
 \end_inset
@@ -1259,6 +1394,12 @@ Data_Fine
 \end_layout
 
 \begin_layout Standard
+\begin_inset Float table
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
 \begin_inset ERT
 status open
 
@@ -1266,7 +1407,11 @@ status open
 
 
 \backslash
-vspace{20pt}
+noindent
+\backslash
+makebox[
+\backslash
+textwidth]{%
 \end_layout
 
 \end_inset
@@ -1274,15 +1419,64 @@ vspace{20pt}
 
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 \begin_inset Tabular
-<lyxtabular version="3" rows="3" columns="5">
+<lyxtabular version="3" rows="4" columns="5">
 <features rotate="0" tabularvalignment="middle">
 <column alignment="center" valignment="top">
 <column alignment="center" valignment="top">
 <column alignment="center" valignment="top">
 <column alignment="center" valignment="top">
 <column alignment="center" valignment="top">
+<row>
+<cell multicolumn="1" alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+RESIDENZA
+\end_layout
+
+\end_inset
+</cell>
+<cell multicolumn="2" alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell multicolumn="2" alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell multicolumn="2" alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell multicolumn="2" alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
 <row>
 <cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
 \begin_inset Text
@@ -1461,15 +1655,38 @@ Lavis
 
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 \begin_inset ERT
 status open
 
 \begin_layout Plain Layout
 
+}
+\end_layout
 
-\backslash
-vspace{20pt}
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Tabella 
+\family typewriter
+RESIDENZA
+\family default
+ completa di tempo di validità
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
 \end_layout
 
 \end_inset
@@ -1496,6 +1713,16 @@ Infine, la variazione di residenza viene tradotta come segue:
 \end_layout
 
 \begin_layout Standard
+\begin_inset Float table
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
 \begin_inset ERT
 status open
 
@@ -1503,7 +1730,11 @@ status open
 
 
 \backslash
-vspace{20pt}
+noindent
+\backslash
+makebox[
+\backslash
+textwidth]{%
 \end_layout
 
 \end_inset
@@ -1511,15 +1742,64 @@ vspace{20pt}
 
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 \begin_inset Tabular
-<lyxtabular version="3" rows="4" columns="5">
+<lyxtabular version="3" rows="5" columns="5">
 <features rotate="0" tabularvalignment="middle">
 <column alignment="center" valignment="top">
 <column alignment="center" valignment="top">
 <column alignment="center" valignment="top">
 <column alignment="center" valignment="top">
 <column alignment="center" valignment="top">
+<row>
+<cell multicolumn="1" alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+RESIDENZA
+\end_layout
+
+\end_inset
+</cell>
+<cell multicolumn="2" alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell multicolumn="2" alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell multicolumn="2" alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell multicolumn="2" alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
 <row>
 <cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
 \begin_inset Text
@@ -1752,18 +2032,38 @@ Trento
 
 \end_inset
 
-
+}
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 \begin_inset ERT
 status open
 
 \begin_layout Plain Layout
 
+}
+\end_layout
 
-\backslash
-vspace{20pt}
+\end_inset
+
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Tabella 
+\family typewriter
+RESIDENZA
+\family default
+ completa di tempo di validità: aggiornamento
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
 \end_layout
 
 \end_inset
@@ -1829,6 +2129,23 @@ te diverso: nelle tabelle con tempo di validità è possibile ripercorrere
  inserimento nel database in una data successiva all'istante attuale.
 \end_layout
 
+\begin_layout Standard
+Anche in questo caso, può essere d'aiuto un esempio: riprendendo il caso
+ della tabella delle residenze, supponiamo che lo stesso sistema abbia una
+ tabella diversa, chiamata 
+\family typewriter
+RICH_RESIDENZA
+\family default
+ in cui sono salvate le date in cui i vari soggetti presentano la richiesta
+ di concessione di residenza al Comune in cui si sono trasferiti.
+ La tabella senza tempo di transazione è in tutto e per tutto simile alla
+ tabella 1, per cui si sa che in un certo momento entrambe le persone listate
+ hanno presentato richiesta nel loro rispettivo Comune, ma non si sa null'altro:
+ potrebbero aver presentato richiesta nello stesso momento, oppure addirittura
+ a distanza di anni.
+ Per ovviare a questo problema, si crea 
+\end_layout
+
 \begin_layout Subsubsection
 Tabelle bitemporali
 \end_layout
@@ -1873,6 +2190,12 @@ e
 \end_layout
 
 \begin_layout Standard
+\begin_inset Float table
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
 \begin_inset ERT
 status open
 
@@ -1880,14 +2203,11 @@ status open
 
 
 \backslash
-vspace{20pt}
-\end_layout
-
-\begin_layout Plain Layout
-
-
+noindent
 \backslash
-centering
+makebox[
+\backslash
+textwidth]{%
 \end_layout
 
 \end_inset
@@ -1895,7 +2215,7 @@ centering
 
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 \begin_inset Tabular
 <lyxtabular version="3" rows="3" columns="5">
 <features rotate="0" tabularvalignment="middle">
@@ -2082,15 +2402,38 @@ Paolo Rossi
 
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 \begin_inset ERT
 status open
 
 \begin_layout Plain Layout
 
+}
+\end_layout
 
-\backslash
-vspace{20pt}
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Tabella 
+\family typewriter
+PERSONALE
+\family default
+ completa di tempo di validità
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
 \end_layout
 
 \end_inset
@@ -2119,6 +2462,12 @@ e
 \end_layout
 
 \begin_layout Standard
+\begin_inset Float table
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
 \begin_inset ERT
 status open
 
@@ -2126,14 +2475,11 @@ status open
 
 
 \backslash
-centering
-\end_layout
-
-\begin_layout Plain Layout
-
-
+noindent
 \backslash
-vspace{20pt}
+makebox[
+\backslash
+textwidth]{%
 \end_layout
 
 \end_inset
@@ -2141,7 +2487,7 @@ vspace{20pt}
 
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 \begin_inset Tabular
 <lyxtabular version="3" rows="3" columns="7">
 <features rotate="0" tabularvalignment="middle">
@@ -2396,15 +2742,38 @@ Paolo Rossi
 
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 \begin_inset ERT
 status open
 
 \begin_layout Plain Layout
 
+}
+\end_layout
 
-\backslash
-vspace{20pt}
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Tabella 
+\family typewriter
+PERSONALE
+\family default
+ con tempo di validità e tempo di transazione 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
 \end_layout
 
 \end_inset
@@ -2431,6 +2800,12 @@ Per finire, manca solo un passaggio, cioè la promozione di Paolo Rossi:
 \end_layout
 
 \begin_layout Standard
+\begin_inset Float table
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
 \begin_inset ERT
 status open
 
@@ -2438,14 +2813,11 @@ status open
 
 
 \backslash
-begin{center}
-\end_layout
-
-\begin_layout Plain Layout
-
-
+noindent
 \backslash
-vspace{20pt}
+makebox[
+\backslash
+textwidth]{%
 \end_layout
 
 \end_inset
@@ -2453,9 +2825,9 @@ vspace{20pt}
 
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 \begin_inset Tabular
-<lyxtabular version="3" rows="3" columns="7">
+<lyxtabular version="3" rows="4" columns="7">
 <features rotate="0" tabularvalignment="middle">
 <column alignment="center" valignment="top">
 <column alignment="center" valignment="top">
@@ -2623,6 +2995,85 @@ Luca Verdi
 </cell>
 </row>
 <row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+2
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+Paolo Rossi
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+2
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+01.02.2009
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+01.08.2014
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+11.01.2009
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+15.07.2014
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
 <cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
 \begin_inset Text
 
@@ -2651,7 +3102,7 @@ Paolo Rossi
 \begin_layout Plain Layout
 
 \family typewriter
-2
+1
 \end_layout
 
 \end_inset
@@ -2662,7 +3113,7 @@ Paolo Rossi
 \begin_layout Plain Layout
 
 \family typewriter
-01.02.2009
+01.08.2014
 \end_layout
 
 \end_inset
@@ -2684,7 +3135,7 @@ Paolo Rossi
 \begin_layout Plain Layout
 
 \family typewriter
-11.01.2009
+15.07.2014
 \end_layout
 
 \end_inset
@@ -2708,27 +3159,64 @@ Paolo Rossi
 
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 \begin_inset ERT
 status open
 
 \begin_layout Plain Layout
 
-
-\backslash
-end{center}
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-vspace{20pt}
+}
 \end_layout
 
 \end_inset
 
 
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Tabella 
+\family typewriter
+PERSONALE
+\family default
+ con tempo di validità e tempo di transazione: aggiornamento
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Ora la transizione da tabella non temporale a tabella bitemporale è completa:
+ creare e mantenere una tabella del genere è molto più impegnativo rispetto
+ a una tabella convenzionale, ma a fronte di una maggiore complessità ci
+ sono innegabili vantaggi: è possibile non solo risalire allo stato della
+ realtà in qualsiasi data si abbia bisogno, ma è anche possibile, in caso
+ di necessità, anche riportare il database alla situazione che aveva in
+ una determinata data, poichè esaminando i periodi di transazione è possibile
+ capire se un determinato record era già stato inserito o meno, senza dubbio
+ alcuno.
+\end_layout
+
+\begin_layout Standard
+Oltre al caso dell'ufficio del personale, ci sono molti altri contesti in
+ cui il tempo di transazione può rivelarsi determinante: basti pensare alle
+ pratiche da sbrigare per ottenere un certificato, oppure un rinnovo della
+ patente: senza tempo di transazione non si saprebbe con precisione quando
+ la documentazione necessaria è stata consegnata, e ciò comporterebbe il
+ rischio di non ottenere ciò che si è richiesto.
 \end_layout
 
 \begin_layout Part
