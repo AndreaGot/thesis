@@ -1,0 +1,1512 @@
+#LyX 2.1 created this file. For more info see http://www.lyx.org/
+\lyxformat 474
+\begin_document
+\begin_header
+\textclass article
+\begin_preamble
+\usepackage{array}
+\end_preamble
+\use_default_options true
+\maintain_unincluded_children false
+\language italian
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman lmodern
+\font_sans default
+\font_typewriter default
+\font_math auto
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100
+\font_tt_scale 100
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\float_placement H
+\paperfontsize default
+\spacing single
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 0
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 0
+\use_package mhchem 1
+\use_package stackrel 0
+\use_package stmaryrd 0
+\use_package undertilde 0
+\cite_engine basic
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 0
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language french
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+vfill
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{center}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\size largest
+UNIVERSITÀ DEGLI STUDI DI TRENTO
+\end_layout
+
+\begin_layout Standard
+
+\size larger
+Dipartimento di Ingegneria e Scienza dell’Informazione
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+vspace{70pt}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename img/logo_unitn.png
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+vspace{70pt}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\size large
+CORSO DI LAUREA TRIENNALE IN INFORMATICA
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+vspace{30pt}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Elaborato Finale
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+vspace{30pt}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\size largest
+DATABASE TEMPORALI
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+vspace{50pt}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\size large
+Relatore: Prof.
+ Gabriel Kuper 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+hspace{30pt}
+\end_layout
+
+\end_inset
+
+ Laureando: Andrea Gottardi
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+vspace{20pt}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Anno accademico 2013/2014
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{center}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+date{}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Title
+\begin_inset Newpage newpage
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\align right
+
+\shape italic
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+vspace*{
+\backslash
+fill}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\align right
+
+\shape italic
+Any sufficiently advanced technology is equivalent to magic.
+\end_layout
+
+\begin_layout Standard
+\align right
+
+\shape italic
+–Sir Arthur C.
+ Clarke
+\end_layout
+
+\begin_layout Standard
+\align right
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+vspace*{
+\backslash
+fill}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Newpage newpage
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+mbox{} 
+\backslash
+thispagestyle{empty} 
+\backslash
+newpage
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+tableofcontents
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Newpage newpage
+\end_inset
+
+
+\end_layout
+
+\begin_layout Part*
+Ringraziamenti
+\end_layout
+
+\begin_layout Standard
+Prima di cominciare, voglio ringraziare alcune persone che hanno avuto un
+ ruolo importante in tutti questi anni di studio.
+ La lista non è sicuramente esaustiva, ma anche a chi non è elencato va
+ il mio più sincero ringraziamento.
+ 
+\begin_inset Newline newline
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Prima di tutto, voglio ringraziare la mia famiglia, che mi ha sostenuto,
+ incoraggiato e aiutato in tutti questi anni di studio;
+\begin_inset Newline newline
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Grazie ai miei "colleghi" e compagni di corso Alessandro, Antonio, Mattia
+ e Stefano, per aver trascorso insieme la preparazione di questi ultimi
+ esami, dove casa mia é diventata il quartier generale dello studio (senza
+ disdegnare calcio balilla e console per videogiochi) ;
+\begin_inset Newline newline
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Infine, grazie anche alla mia fidanzata Giulia, per aver ascoltato le mie
+ paranoie alla fine di ogni esame, dicendomi che sarebbe andato bene (e
+ puntualmente ci ha azzeccato ogni volta, ma non ho mai voluto ammettere
+ avesse ragione)
+\end_layout
+
+\begin_layout Standard
+\begin_inset Newpage newpage
+\end_inset
+
+
+\end_layout
+
+\begin_layout Abstract
+La vita dell'uomo, fin dalla sua prima comparsa sulla Terra, è sempre stata
+ scandita dal tempo: all'inizio le unità di misura del tempo erano molto
+ approssimate e variabili, basti pensare al concetto di giorno e notte,
+ oppure di alba e tramonto, ma ciò era più che sufficiente per organizzare
+ e gestire al meglio il lavoro, nei campi oppure a caccia.
+ Con il passare del tempo, e con l'invenzione degli orologi, il tempo ha
+ assunto una connotazione sempre più importante: se prima un'approssimazione
+ anche di diverse ore non era particolarmente influente, questa approssimazione
+ è diventata sempre meno estesa, e di conseguenza il calcolo del tempo è
+ diventto più accurato, passando dai minuti, ai secondi, ai millesimi di
+ secondo, fino ad arrivare ai moderni orologi atomici al cesio, che è stato
+ calcolato possano sbagliare di un secondo ogni 100 milioni di anni.
+ Esiste anche una nuova concezione di orologi atomici, che utilizza atomi
+ di alluminio, e che è stato calcolato possa sbagliare di un secondo dopo
+ addirittura 3.7 miliardi di anni 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "1"
+
+\end_inset
+
+.
+ Nella tecnologia informatica, e soprattutto nei database, la questione
+ del tempo è sempre stata messa "in secondo piano", poichè si è sempre privilegi
+ata la conservazione dei dati, piuttosto che la loro accuratezza temporale.
+ In questo documento verrà trattata la questione dei database temporali,
+ una tecnologia non nuova in campo informatico, che rimane tuttora poco
+ conosciuta ai più, ma largamente usata nelle applicazioni reali.
+ Verrà prima di tutto presentata la tecnologia come è stata teorizzata alle
+ origini e alcuni concetti basilari, in seguito verranno presentati alcuni
+ esempi di applicazione in SQL-92 e verranno trattate le nuove funzionalità
+ temporali presenti nella versione 2011 dello standard SQL.
+ I database temporali verranno inoltre trattati sotto un diverso punto di
+ vista, cioè quello dei database cosiddetti NoSQL, che con la loro diversa
+ filosofia hanno bisogno di un approccio differente.
+ Infine, ma non meno importante, verrà presentato un caso concreto di utilizzo
+ dei database temporali, ovvero la Fondazione Bruno Kessler, che li utilizza
+ in maniera proficua ed efficiente.
+\end_layout
+
+\begin_layout Abstract
+\begin_inset Newpage newpage
+\end_inset
+
+
+\end_layout
+
+\begin_layout Part
+Introduzione
+\end_layout
+
+\begin_layout Section
+Il concetto del tempo
+\end_layout
+
+\begin_layout Standard
+Riflettendo un attimo su una giornata qualsiasi della nostra vita, è facile
+ accorgersi come l'esistenza di ognuno sia scandita, in maniera continua
+ e regolare, da un'entità quasi astratta, ma che con il passare degli anni
+ e delle epoche, e con l'innovazione tecnologica, ha acquistato sempre più
+ valore e significato: il tempo.
+ Ormai non ci si fa quasi più caso, ma non facciamo altro che rincorrere,
+ in maniera sempre più frenetica, il tempo passato: abbiamo degli orari
+ per entrare al lavoro, altri ancora per uscire, altri orari "tradizionali"
+ dedicati ai pasti o al tempo libero, e così via.
+ 
+\end_layout
+
+\begin_layout Standard
+Anche nell'informatica, forse più che in altri ambiti, il tempo è fondamentale:
+ basti pensare alla grande quantità di applicativi che vengono utilizzati
+ nei più disparati contesti, dalle banche ai negozi, dalle centrali elettriche
+ alle automobili, che hanno nelle variazioni temporali un fattore vitale
+ del loro funzionamento.
+ Per fare un esempio, nel caso di una banca, è necessario registrare le
+ operazioni compiute fino ai decimi di secondo, o anche oltre, poichè una
+ variazione minima, soprattutto nell'ambito del trading o della compravendita
+ di titoli e azioni, potrebbe comportare una perdita di denaro anche piuttosto
+ considerevole.
+ 
+\end_layout
+
+\begin_layout Standard
+Tutti questi movimenti e transazioni devono naturalmente essere memorizzati
+ da qualche parte, ed è qui che entra in gioco quella che è universalmente
+ riconosciuta come la parte più iportante di ogni sistema software: il database.
+ Sembra incredibile, ma al giorno d'oggi non tutti coloro che lavorano nel
+ campo dell'informatica e dei software si rendono conto dell'importanza
+ che ha una adeguata pianificazione dei database sotto l'aspetto temporale,
+ anzi: molto spesso tale aspetto viene dimenticato, volutamente o meno,
+ proprio perchè è considerato poco importante, e di conseguenza ha una priorità
+ piuttosto bassa.
+ 
+\end_layout
+
+\begin_layout Standard
+Generalmente, tutte queste vicissitudini riguardo l'organizzazione della
+ struttura dati seguono un andamento abbastanza simile: all'inizio lo sviluppo
+ del sistema procede senza particolari problemi, fino al punto in cui, a
+ causa del rapido incremento del numero dei record (e molto spesso delle
+ dimensioni del sistema software) è necessario modificare la struttura del
+ database, per distinguere ad esempio tra record validi allo stato attuale,
+ record non più validi e record con validità futura.
+ Solitamente, quando si arriva a questo punto, è necessario mettere mano
+ anche al codice del software, causando disagi considerevoli in materia
+ di costi e di tempo impiegato per la risoluzione.
+ Se poi l'azienda produttrice del software ha dimensioni molto grandi, magari
+ con gruppi indipendenti che lavorano su parti diverse del prodotto, è facile
+ immaginare come un intoppo apparentemente di rapida soluzione si possa
+ trasformare in un problema di dimensioni enormi, così come i relativi oneri.
+ È necessario quindi adottare fin da subito un approccio "temporale" nella
+ creazione dei database, in modo da dedicare magari qualche ora in più nella
+ redazione dello schema della base di dati, ma evitando disagi ben più consisten
+ti nel futuro, sia a medio che lungo termine.
+\end_layout
+
+\begin_layout Part
+Database temporali: Panoramica
+\end_layout
+
+\begin_layout Section
+Storia e stato dell'arte
+\end_layout
+
+\begin_layout Standard
+La storia dei database temporali inizia con un paradosso: i database convenziona
+li, che memorizzano solo stringhe e numeri senza considerare il tempo, non
+ sono completamente realistici.
+ Infatti, i database di questo tipo rappresentano uno stato del sistema,
+ ma non si sa precisamente quale.
+ Le modifiche vengono attuate in un modo che si può dire distruttivo: i
+ dati che hanno bisogno di un aggiornamento vengono semplicemente modificati,
+ mentre quelli non più validi vengono cancellati, rendendo impossibile determina
+re lo storico del database stesso.
+ Da qui, sono nate molteplici necessità, come quella di tracciare un determinato
+ evento dall'inizio alla fine, oppure similarmente tracciare oggetti e le
+ relazioni che li accomunano.
+ Proprio questi problemi hanno spinto Jacob Ben-Zvi (1982) e James Clifford
+ (1983), indipendentemente l'uno dall'altro, a teorizzare una soluzione
+ che potesse risolverli.
+ Ben-Zvi, soprattutto, ideò per primo i concetti di tempo effettivo e di
+ tempo di registrazione (che verranno successivamente rinominati in tempo
+ di validità e tempo di transazione).
+ Qualche anno più tardi Richard T.
+ Snodgrass, professore universitario considerato oggi tra i più importanti
+ esponenti dei database temporali, introdusse la sua versiona temporale
+ del linguaggio QUEL (un precursore dell'attuale SQL), chiamata TQUEL.
+ All'inizio degli anni '90, quando SQL ha preso piede in tutti i maggiori
+ DBMS, soppiantando QUEL, Snodgrass ha continuato la sua opera pionieristica
+ nel settore temporale dei database, creando prima una estensione di SQL-92
+ stesso, nota come TSQL (da non confondere con T-SQL, o Transact-SQL, una
+ estensione proprietaria di SQL di Microsoft), e successivamente ha posto
+ le basi per la nuova versione dello standard, nota come SQL3, che ha incluso
+ direttamente nello standard i primi concetti temporali.
+ Nell'ultima versione di SQL, SQL-2011, si è chiuso il cerchio, completando
+ il processo di implementazione delle ultime caratteristiche temporali mancanti.
+\end_layout
+
+\begin_layout Section
+Gli elementi basilari
+\end_layout
+
+\begin_layout Standard
+È prassi comune credere che un database temporale sia semplicemente "un
+ database normale, con l'aggiunta di campi di data".
+ In realtà, un database temporale è qualcosa di più di un semplice campo
+ aggiuntivo, e lo dimostra il fatto che si basa su tre aspetti fondamentali,
+ che nei database "classici" non sono presenti:
+\end_layout
+
+\begin_layout Itemize
+
+\shape italic
+Dati temporali
+\end_layout
+
+\begin_layout Itemize
+
+\shape italic
+Tempi
+\end_layout
+
+\begin_layout Itemize
+
+\shape italic
+Tipi di interrogazioni
+\end_layout
+
+\begin_layout Standard
+Ognuna di queste categorie si divide in ulteriori tre elementi, per un totale
+ di nove entità che sono fondamentali per lo studio dei database temporali.
+\end_layout
+
+\begin_layout Subsection
+I dati temporali
+\end_layout
+
+\begin_layout Standard
+I dati temporali rappresentano delle "quantità" di tempo, più o meno precise
+ a seconda del tipo, che hanno un significato molto vicino a quello utilizzato
+ in ambito comune.
+ Nello specifico, si dividono in:
+\end_layout
+
+\begin_layout Itemize
+
+\shape italic
+Istanti
+\shape default
+, che come nel linguaggio comune rappresentano un momento preciso del tempo
+ (come ad esempio il 19 luglio 2014, 22.36.20, oppure il largamente utilizzato
+ 
+\family typewriter
+NOW()
+\family default
+);
+\end_layout
+
+\begin_layout Itemize
+
+\shape italic
+Intervalli
+\shape default
+, anche questi vicini all'interpretazione comune, che non sono altro che
+ una durata fissa (ad esempio, 3 mesi oppure 5 giorni);
+\end_layout
+
+\begin_layout Itemize
+
+\shape italic
+Periodi, 
+\shape default
+simili agli intervalli, con la caratteristica di avere un inizio e una fine
+ ben precisi (ad esempio, dal 15 luglio 2014 al 30 settembre 2014);
+\end_layout
+
+\begin_layout Subsubsection
+Istanti
+\end_layout
+
+\begin_layout Standard
+Gli istanti sono la parte fondamentale e imprescindibile di tutta la teoria
+ sui database temporali.
+ Facendo un paragone con la geometria, possono essere paragonati ai punti,
+ anch'essi considerati l'entità minima e basilare di questa branca della
+ matematica: partendo da essi si possono creare oggetti più complessi, come
+ linee e poligoni.
+ Gli istanti, similarmente, sono solamente un punto specifico del tempo,
+ che accade una volta e poi rimane per sempre nel futuro, e sulla base di
+ essi si può costruire qualsiasi tipo di relazione temporale: un intervallo
+ di un mese avrà sicuramente un istante di inizio e uno di fine, anche se
+ possono non essere noti a priori; periodi di tempo (ad esempio dal 22 luglio
+ 2014 alle 19:00:00 fino al 23 luglio 2014 alle 08:00:00) sono già intrinsecamen
+te delimitati da istanti.
+ Hanno un ruolo talmente importante in ambito temporale, al punto che fino
+ a pochi anni fa erano l'unico modo per definire intervalli e periodi di
+ tempo.
+ Al giorno d'oggi la scelta si è ampliata (nelle recenti versioni di SQL
+ sono presenti costrutti avanzati che permettono la definizione precisa
+ di periodi e intervalli così come sono teorizzati), ma gli istanti rimangono
+ comunque la scelta di espressione temporale più gettonata e di più semplice
+ applicazione.
+\end_layout
+
+\begin_layout Standard
+Uno dei motivi del loro successo è la versatilità: in SQL, fin dalle prime
+ versioni, sono stati introdotti ben tre tipi di rappresentazione, con accuratez
+za differente tra loro, e di conseguenza con diverse applicazioni: 
+\family typewriter
+TIME
+\family default
+, 
+\family typewriter
+DATE
+\family default
+ e 
+\family typewriter
+TIMESTAMP
+\family default
+.
+ 
+\end_layout
+
+\begin_layout Itemize
+
+\family typewriter
+TIME
+\family default
+ serve per salvare ore, minuti, secondi e frazioni di secondo (con formato
+ 
+\family typewriter
+hh:mm:ss.000
+\family default
+, nel caso di precisione a 3 cifre decimali), e supporta le variazioni di
+ fuso orario.
+\end_layout
+
+\begin_layout Itemize
+
+\family typewriter
+DATE
+\family default
+ serve per salvare giorno, mese e anno di una particolare data (con formato
+ 
+\family typewriter
+YYYY-MM-DD
+\family default
+).
+\end_layout
+
+\begin_layout Itemize
+
+\family typewriter
+TIMESTAMP
+\family default
+ è immaginabile come una fusione tra 
+\family typewriter
+TIME
+\family default
+ e 
+\family typewriter
+DATE
+\family default
+, ed è la rappresentazione più accurata in assoluto: 
+\family typewriter
+TIME
+\family default
+ ha una precisione elevata, ma può considerarsi affidabile solo con dati
+ contestualizzati in un singolo giorno, mentre 
+\family typewriter
+DATE
+\family default
+ può essere usato per dati molto estesi nel tempo, ma ha una precisione
+ molto limitata, perchè si sa il giorno a cui il dato si riferisce, ma nulla
+ più.
+ 
+\family typewriter
+TIMESTAMP
+\family default
+, invece, ha il supporto per le date, per le ore e per i fusi orari (con
+ formato 
+\family typewriter
+YYYY-MM-DD hh:mm:ss.000+01:00
+\family default
+, con precisione a 3 posizioni decimali e fuso orario a +01:00 GMT, quello
+ italiano), e la sua precisione arriva oltre il decimo posto decimale (quella
+ effettiva, però, dipende dalle implementazioni), rendendolo l'alternativa
+ migliore per il salvataggio di istanti.
+\end_layout
+
+\begin_layout Standard
+L'utilizzo di questi metodi di rappresentazione, nella stragrande maggioranza
+ delle applicazioni, è più che sufficiente per rappresentare gli istanti.
+ Formalmente parlando, però, i metodi appena descritti non salvano istanti,
+ nonostante la loro precisione arrivi ad essere elevatissima: come precedentemen
+te specificato, gli istanti non sono altro che un momento preciso del tempo,
+ definizione che cozza con quella di precisione, che il vocabolario Treccani
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "7"
+
+\end_inset
+
+ spiega come
+\end_layout
+
+\begin_layout Quotation
+
+\shape italic
+"il grado più o meno alto con cui, nell’eseguire l’esperienza o la lavorazione,
+ ci si avvicina alle condizioni prefissate; p.
+ di una misura, genericamente, la maggiore o minore approssimazione della
+ misura al valore effettivo della grandezza in esame, e specificamente l’errore
+ relativo della misura"
+\end_layout
+
+\begin_layout Standard
+Supponendo come grandezza in esame l'istante nel senso formale (e filosofico)
+ del termine, ne deriva che non sarà mai possibile, almeno con gli strumenti
+ odierni, determinare con esattezza l'entità di un istante, e sarà perciò
+ necessario accontentarsi di una, perquanto precisa, approssimazione.
+\end_layout
+
+\begin_layout Subsubsection
+Intervalli 
+\end_layout
+
+\begin_layout Standard
+A differenza degli istanti, che rappresentano un momento preciso nel tempo,
+ gli intervalli sono dei valori che rappresentano una quantità di tempo
+ definita.
+ Hanno la particolarità di essere relativi, ciò significa che identificano
+ una certa quantità di tempo, che però a meno di ulteriori specificazioni
+ rimane variabile in inizio o fine.
+ È un efficace esempio la semplice frase "Ho vissuto a Trento per tre anni",
+ in cui si sa con certezza per quanto la persona che parla ha vissuto a
+ Trento, e che la stessa persona, in questo momento, vive altrove, ma non
+ si sa di preciso quando è iniziato il periodo di soggiorno a Trento e quando
+ è finito.
+ Per questo gli intervalli sono utilizzati più spesso nella lingua parlata,
+ mentre nell'ambito dei database sono poco utilizzati, se non in combinazione
+ con un istante.
+\end_layout
+
+\begin_layout Standard
+In SQL, gli intervalli sono dei tipi di dato a tutti gli effetti, e si dividono
+ in due tipi: intervalli da anno a mese (
+\family typewriter
+YEAR TO MONTH
+\family default
+) e da giorno a ora (
+\family typewriter
+DAY TO TIME
+\family default
+).
+ Questa terminologia significa che, rispettivamente, gli intervalli possono
+ essere intesi come una quantità di anni e mesi, oppure come una quantità
+ di giorni e di tempo.
+ La precisione di queste due varianti è sensibilmente diversa: in 
+\family typewriter
+YEAR TO MONTH
+\family default
+ è possibile esprimere intervalli solo in termini di anni e mesi, mentre
+ in 
+\family typewriter
+DAY TO TIME
+\family default
+ è possibile esprimere intervalli molto più piccoli, ma anche molto più
+ precisi, in quanto è possibile specificare valori di giorni, ore, minuti,
+ secondi e frazioni di secondo.
+ Non è obbligatorio specificare gli ordini di grandezza più grandi per poter
+ utilizzare quelli più piccoli: considerando 
+\family typewriter
+YEAR TO MONTH
+\family default
+ è possibile utilizzare indifferentemente, per esprimere un intervallo di
+ un anno:
+\end_layout
+
+\begin_layout Itemize
+
+\family typewriter
+INTERVAL '1' YEAR
+\end_layout
+
+\begin_layout Itemize
+
+\family typewriter
+INTERVAL '1-0' YEAR TO MONTH
+\end_layout
+
+\begin_layout Itemize
+
+\family typewriter
+INTERVAL '0-12' YEAR TO MONTH
+\end_layout
+
+\begin_layout Itemize
+
+\family typewriter
+INTERVAL '12' MONTH
+\end_layout
+
+\begin_layout Standard
+Per 
+\family typewriter
+DAY TO TIME
+\family default
+, il concetto è molto simile, è solo necessario sostituire a 
+\family typewriter
+TIME
+\family default
+ la quantità di tempo fino a cui si vuole arrivare, quindi 
+\family typewriter
+HOUR
+\family default
+, 
+\family typewriter
+MINUTE
+\family default
+ o 
+\family typewriter
+SECOND.
+\end_layout
+
+\begin_layout Subsubsection
+Periodi
+\end_layout
+
+\begin_layout Standard
+Come detto nel paragrafo dedicato agli intervalli, nell'utilizzo pratico
+ dei database si ricorre molto raramente all'utilizzo di questi oggetti,
+ perchè rappresentano una quantità di tempo reale, ma impossibile da collocare
+ con certezza nel tempo.
+ È molto più frequente, invece, trovare tabelle che combinano vari campi,
+ contenenti un intervallo o un istante, che in questo modo mettono in relazione
+ l'intervallo stesso con un determinato punto nel tempo.
+ Quando si esegue questa operazione, l'intervallo cambia natura e nome,
+ e diviene periodo.
+ Un periodo è esattamente equiparabile all'intervallo, infatti entrambi
+ hanno una durata, ma la caratteristica del periodo è appunto quella di
+ avere un istante di inizio e un istante di fine.
+\end_layout
+
+\begin_layout Standard
+È utile e importante evidenziare che esistono quattro rappresentazioni di
+ una coppia di istanti come periodo, che vanno interpretati esattamente
+ come i concetti matematici analoghi:
+\end_layout
+
+\begin_layout Itemize
+Rappresentazione "chiuso/chiuso", dove il periodo è formato dal tempo che
+ intercorre tra due istanti, compresi gli estremi; in questo caso il mese
+ di agosto 2014 si scrive, usando istanti di tipi 
+\family typewriter
+DATE
+\family default
+ come 
+\family typewriter
+[2014-08-01, 2014-08-31]
+\family default
+;
+\end_layout
+
+\begin_layout Itemize
+Rappresentazione "chiuso/aperto", dove il periodo è formato dal tempo che
+ intercorre tra due istanti, escluso l'estremo di destra (o comunque quello
+ più avanti nel tempo); in questo secondo caso, sempre il mese di agosto
+ si esprime come 
+\family typewriter
+[2014-08-01, 2014-09-01)
+\family default
+;
+\end_layout
+
+\begin_layout Itemize
+Rappresentazione "aperto/chiuso" dove dove il periodo è formato dal tempo
+ che intercorre tra due istanti, escluso l'estremo di sinistra (o comunque
+ quello più indietro nel tempo); il mese di agosto sarebbe 
+\family typewriter
+(2014-06-30, 2014-08-31]
+\family default
+.
+ Questo tipo di rappresentazione è poco usato; 
+\end_layout
+
+\begin_layout Itemize
+Rappresentazione "aperto/aperto" dove dove il periodo è formato dal tempo
+ che intercorre tra due istanti, esclusi gli estremi; il mese di agosto
+ sarebbe 
+\family typewriter
+(2014-06-30, 2014-09-01
+\family default
+) Questo tipo di rappresentazione è poco usato; 
+\end_layout
+
+\begin_layout Subsubsection
+Predicati temporali: Algebra di Allen
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float table
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+noindent
+\backslash
+makebox[
+\backslash
+textwidth]{
+\backslash
+renewcommand{
+\backslash
+arraystretch}{3}%
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Tabular
+<lyxtabular version="3" rows="8" columns="5">
+<features rotate="0" tabularvalignment="middle">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top" width="0pt">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="middle" width="0pt">
+<column alignment="center" valignment="top">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Relazione
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Inverso
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Illustrazione
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Interpretazione
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Spiegazione
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell multicolumn="1" alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+$ X > Y $
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+$ Y < X $
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename img/Allen_calculus_before.png
+	width 110dd
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="middle" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+X before Y
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+X finisce prima di Y
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+$ X m Y $
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+$ X mi Y $
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename img/Allen_calculus_meet.png
+	width 110dd
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+X meets Y
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+X finisce quando inizia Y
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+$ X o Y $
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+$ X oi Y $
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename img/Allen_calculus_overlap.png
+	width 110dd
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+X overlaps Y
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+X finisce dopo l'inizio di Y
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+$ X s Y $
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+$ X si Y $
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename img/Allen_calculus_start.png
+	width 110dd
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+X starts Y
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+X e Y iniziano insieme
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+$ X d Y $
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+$ X di Y $
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename img/Allen_calculus_during.png
+	width 110dd
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+X during Y
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+X inizia e finisce all'interno di Y
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+$ X f Y $
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+$ X fi Y $
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename img/Allen_calculus_finish.png
+	width 110dd
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none"
