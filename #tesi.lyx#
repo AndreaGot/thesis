@@ -855,74 +855,39 @@ DAY TO TIME
  Questa terminologia significa che, rispettivamente, gli intervalli possono
  essere intesi come una quantità di anni e mesi, oppure come una quantità
  di giorni e di tempo.
- La precisione di queste due varianti è sensibilmente diversa: in 
-\family typewriter
-YEAR TO MONTH
-\family default
- è possibile esprimere intervalli solo in termini di anni e mesi, mentre
- in 
-\family typewriter
-DAY TO TIME
-\family default
- è possibile esprimere intervalli molto più piccoli, ma anche molto più
- precisi, in quanto è possibile specificare valori di giorni, ore, minuti,
- secondi e frazioni di secondo.
+ La precisione di queste due varianti è sensibilmente diversa: in YEAR TO
+ MONTH è possibile esprimere intervalli solo in termini di anni e mesi,
+ mentre in DAY TO TIME è possibile esprimere intervalli molto più piccoli,
+ ma anche molto più precisi, in quanto è possibile specificare valori di
+ giorni, ore, minuti, secondi e frazioni di secondo.
  Non è obbligatorio specificare gli ordini di grandezza più grandi per poter
- utilizzare quelli più piccoli: considerando 
-\family typewriter
-YEAR TO MONTH
-\family default
- è possibile utilizzare indifferentemente, per esprimere un intervallo di
- un anno:
+ utilizzare quelli più piccoli: considerando YEAR TO MONTH è possibile utilizzar
+e indifferentemente, per esprimere un intervallo di un anno:
 \end_layout
 
 \begin_layout Itemize
-
-\family typewriter
 INTERVAL '1' YEAR
 \end_layout
 
 \begin_layout Itemize
-
-\family typewriter
 INTERVAL '1-0' YEAR TO MONTH
 \end_layout
 
 \begin_layout Itemize
-
-\family typewriter
 INTERVAL '0-12' YEAR TO MONTH
 \end_layout
 
 \begin_layout Itemize
-
-\family typewriter
 INTERVAL '12' MONTH
 \end_layout
 
 \begin_deeper
 \begin_layout Standard
-Per 
-\family typewriter
-DAY TO TIME
-\family default
-, il concetto è molto simile, è solo necessario sostituire a 
-\family typewriter
-TIME
-\family default
- la quantità di tempo fino a cui si vuole arrivare, quindi 
-\family typewriter
-HOUR
-\family default
-, 
-\family typewriter
-MINUTE
-\family default
- o 
-\family typewriter
-SECOND
-\family default
-.
+Per DAY TO TIME, il concetto è molto simile, è solo necessario sostituire
+ a TIME la quantità di tempo fino a cui si vuole arrivare, quindi HOUR,
+ MINUTE o SECOND.
+ L'unico limite riguarda la quantità di giorni rappresentabili, fissata
+ a 9999
 \end_layout
 
 \end_deeper
