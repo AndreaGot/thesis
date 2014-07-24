@@ -64,6 +64,7 @@
 \papercolumns 1
 \papersides 1
 \paperpagestyle default
+\listings_params "basicstyle={\ttfamily}"
 \tracking_changes false
 \output_changes false
 \html_math_output 0
@@ -941,7 +942,7 @@ Come detto nel paragrafo dedicato agli intervalli, nell'utilizzo pratico
  e diviene periodo.
  Un periodo è esattamente equiparabile all'intervallo, infatti entrambi
  hanno una durata, ma la caratteristica del periodo è appunto quella di
- avere un istante di inizio e un istante di fine.
+ avere un preciso istante di inizio e un preciso istante di fine.
 \end_layout
 
 \begin_layout Standard
@@ -955,18 +956,1210 @@ Rappresentazione "chiuso/chiuso", dove il periodo è formato dal tempo che
 \end_layout
 
 \begin_layout Itemize
-Rappresentazione "chiuso/aperto", dove il periodo è formato dal tempo che
- intercorre tra due istanti, escluso l'estremo di destra (o comunque quello
- più avanti nel tempo)
+Rappresentazione "chiuso/aperto" come l'intervallo precedente, ma viene
+ escluso l'estremo di destra (o comunque quello più avanti nel tempo)
+\end_layout
+
+\begin_layout Itemize
+Rappresentazione "aperto/chiuso", dove viene escluso l'estremo di sinistra
+ (o comunque quello più indietro nel tempo)
+\end_layout
+
+\begin_layout Itemize
+Rappresentazione "aperto/aperto", dove il periodo è formato dal tempo che
+ intercorre tra due istanti, esclusi entrambi gli estremi;
 \end_layout
 
 \begin_layout Standard
-CONTINUARE CON LE DUE RESTANTI RAPPRESENTAZIONI E DIRE CHE IL PIÙ USATO
- E QUELLO CHIUSO/APERTO
+\begin_inset Float table
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+noindent
+\backslash
+makebox[
+\backslash
+textwidth]{%
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Tabular
+<lyxtabular version="3" rows="5" columns="3">
+<features rotate="0" tabularvalignment="middle">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Rappresentazione
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Istante di inizio
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Istante di fine
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+chiuso/chiuso
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+2014-08-01
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+2014-08-31
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+chiuso/aperto
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+2014-08-01
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+2014-09-01
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+aperto/chiuso
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+2014-07-31
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+2014-08-31
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+aperto/aperto
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+2014-07-31
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+2014-09-01
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Vari tipi di rappresentazione, che definiscono un intervallo corrispondente
+ al mese di agosto
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Le rappresentazioni più usate sono quella chiuso/chiuso e quella chiuso/aperto
+ (quest'ultima utilizzata all'interno di questo documento), poichè sono
+ la rappresentazione più naturale degli intervalli: infatti, anche nel parlare
+ comune, ci si riferisce a un periodo di tempo includendo gli estremi, o
+ al massimo escludendo l'estremo finale.
+ Nulla vieta, però, di rappresentare un periodo scegliendo le rimanenti
+ due varianti della tabella 1.
+\end_layout
+
+\begin_layout Standard
+Indipendentemente dal metodo utilizzato, per garantire la stabilità e la
+ robustezza dei dati (e conseguentemente dell'intero sistema) ci sono alcuni
+ requisiti da rispettare: prima di tutto, la rappresentazione dovrebbe rimanere
+ la stessa per tutta la struttura dati che la ospita, o ancora meglio, in
+ tutto il database; inoltre, è necessario utilizzare delimitatori (in questo
+ caso date) con la stessa granularità, ciò significa che il loro livello
+ di precisione deve essere lo stesso.
+ In entrambi i casi ciò serve per evitare dei "vuoti" o degli equivoci nella
+ comparazione e nell'utilizzo di periodi anche contigui, con rischi potenzialmen
+te molto elevati nel caso fosse necessario ottenere dati riferiti proprio
+ all'istante "non coperto".
+\end_layout
+
+\begin_layout Standard
+I periodi hanno la particolarità di non essere stati mai inclusi nello standard
+ SQL, almeno fino alla versione più recente del 2011.
+ In questa sede è stato aggiunto un nuovo tipo di dato, il periodo (definito
+ come 
+\family typewriter
+PERIOD
+\family default
+), che è formato dagli istanti di inizio e di fine memorizzati nella tabella.
+ Inoltre, è stata inserita una variante per quanto riguarda la modifica
+ e la cancellazione di record: grazie a una nuova sintassi, è possibile
+ specificare il periodo (o la frazione di periodo) di cui si vogliono modificare
+ i dati, e SQL farà il resto: se un record ha un periodo che eccede (in
+ qualsiasi modo) il periodo specificato, allora il linguaggio si occuperà
+ di rimuovere o modificare solo la parte del record che soddisfa la richiesta,
+ aggiungendo quindi nuovi record e/o modificando quelli esistenti.
+\end_layout
+
+\begin_layout Standard
+Per fare un esempio, supponiamo di voler creare una tabella che vuole registrare
+ i giocatori di una squadra di calcio: in questo caso è sufficiente salvare
+ i dati anagrafici (per semplicità, nome e cognome), il periodo di permanenza
+ nella squadra e lo stipendio del giocatore, supponendo per semplicità che
+ questa sia l'unica tabella del database (senza perciò necessità di chiavi
+ esterne o tabelle aggiuntive).
+ Per far ciò, utilizzando i nuovi costrutti di SQL, utilizziamo il seguente
+ codice:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float algorithm
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+CREATE TABLE Giocatori
+\end_layout
+
+\begin_layout Plain Layout
+
+( 
+\end_layout
+
+\begin_layout Plain Layout
+
+	ID_Giocatore INTEGER,
+\end_layout
+
+\begin_layout Plain Layout
+
+	Nome VARCHAR, 
+\end_layout
+
+\begin_layout Plain Layout
+
+	Stipendio INTEGER, 
+\end_layout
+
+\begin_layout Plain Layout
+
+	Data_Inizio DATE, 
+\end_layout
+
+\begin_layout Plain Layout
+
+	Data_Fine DATE, 
+\end_layout
+
+\begin_layout Plain Layout
+
+	PERIOD FOR Periodo (DataInizio, DataFine) 
+\end_layout
+
+\begin_layout Plain Layout
+
+);
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Codice di creazione della tabella 
+\family typewriter
+Giocatori
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+con questo codice verrà creata la tabella Giocatori.
+ Una particolarità è che il periodo, seppur presente, non sarà visibile
+ come campo.
+\end_layout
+
+\begin_layout Standard
+L'inserimento avviene nella usuale maniera, senza ovviamente la necessità
+ di specificare il periodo, perchè sarà automaticamente desunto dalla differenza
+ delle due date inserite:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float algorithm
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+INSERT INTO Giocatori VALUES 
+\end_layout
+
+\begin_layout Plain Layout
+
+(
+\end_layout
+
+\begin_layout Plain Layout
+
+	'Mario Rossi', 
+\end_layout
+
+\begin_layout Plain Layout
+
+	 3000,
+\end_layout
+
+\begin_layout Plain Layout
+
+	 DATE ‘2013-01-01’, 
+\end_layout
+
+\begin_layout Plain Layout
+
+	 DATE '2015-01-01'
+\end_layout
+
+\begin_layout Plain Layout
+
+);
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Inserimento nella tabella 
+\family typewriter
+Giocatori
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+che andrà a costituire la seguente tabella, contenente il giocatore Mario
+ Rossi che riceve uno stipendio di 
+\family typewriter
+3000
+\family default
+, e che ha un contratto dal 01 gennaio 2013 al 31 dicembre 2015.
+ È da notare il fatto che l periodo è nella rappresentazione chiuso/aperto,
+ quindi la data finale va aumentata di un giorno rispetto al periodo effettivo.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float table
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+noindent
+\backslash
+makebox[
+\backslash
+textwidth]{%
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Tabular
+<lyxtabular version="3" rows="3" columns="5">
+<features rotate="0" tabularvalignment="middle">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<row>
+<cell multicolumn="1" alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+Giocatori
+\end_layout
+
+\end_inset
+</cell>
+<cell multicolumn="2" alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell multicolumn="2" alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell multicolumn="2" alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell multicolumn="2" alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+ID_Giocatore
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+Nome
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+Stipendio
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+Data_Inizio
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+Data_Fine
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+1
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+Mario Rossi
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+3000
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+2013-01-01
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+2015-12-31
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\end_inset
+
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Tabella 
+\family typewriter
+Giocatori
+\family default
+ dopo l'inserimento
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Ora, per evidenziare al meglio le nuove caratteristiche del costrutto 
+\family typewriter
+PERIOD
+\family default
+, supponiamo che, grazie alla vittoria del campionato, Mario Rossi riceva
+ uno stipendio di 
+\family typewriter
+5000
+\family default
+ dal 01 giugno 2014 fino a fine anno, per poi tornare alla precedente retribuzio
+ne.
+ Per far ciò, con le versioni di SQL antecedenti al 2011 sarebbe stata necessari
+a una query molto lunga, perchè bisogna controllare prima che il giocatore
+ ricada nella fascia temporale prevista, poi bisogna inserire un nuovo record
+ corrispondente alla nuova situazione contrattuale, e infine bisogna inserire
+ la prosecuzione del contratto dalla fine del periodo premio fino alla scadenza
+ naturale.
+ con SQL-2011 e 
+\family typewriter
+PERIOD
+\family default
+, tutto questo viene svolto in maniera automatica dal sistema, utilizzando
+ una sola query:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float algorithm
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+UPDATE Giocatori 
+\end_layout
+
+\begin_layout Plain Layout
+
+	FOR PORTION OF Periodo 
+\end_layout
+
+\begin_layout Plain Layout
+
+		FROM DATE '2014-06-01'  
+\end_layout
+
+\begin_layout Plain Layout
+
+		TO DATE '2015-01-01' 
+\end_layout
+
+\begin_layout Plain Layout
+
+	SET Stipendio = 5000;
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+
+\family typewriter
+UPDATE
+\family default
+ della tabella 
+\family typewriter
+Giocatori
+\family default
+ 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Il funzionamento di questa query è semplice, ma allo stesso tempo molto
+ potente: il codice non fa altro che cercare i record che hanno un periodo
+ che si interseca con quello specificato nel codice, cioè dal 01 giugno
+ 2014 fino alla fine dell'anno (anche qui, la notazione del periodo utilizzata
+ è quella chiuso/aperto).
+ Se il periodo dei record è interamente contenuto in quello specificato,
+ allora il record viene semplicemente aggiornato con i nuovi valori.
+ Nel caso in cui il periodo del record ecceda, in uno o entrambi i sensi,
+ quello specificato, allora si procede modificando i dati del record esistente
+ per adeguarli alla nuova situazione, e poi aggiungendo una o due righe
+ aggiuntive con i nuovi dati.
+ Nel nostro caso avremo:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float table
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+noindent
+\backslash
+makebox[
+\backslash
+textwidth]{%
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Tabular
+<lyxtabular version="3" rows="5" columns="5">
+<features rotate="0" tabularvalignment="middle">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<row>
+<cell multicolumn="1" alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+Giocatori
+\end_layout
+
+\end_inset
+</cell>
+<cell multicolumn="2" alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell multicolumn="2" alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell multicolumn="2" alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell multicolumn="2" alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+ID_Giocatore
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+Nome
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+Stipendio
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+Data_Inizio
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+Data_Fine
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+1
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+Mario Rossi
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+3000
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+2013-01-01
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+2014-06-01
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+1
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+Mario Rossi
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+5000
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+2014-06-01
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+2015-01-01
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+1
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+Mario Rossi
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+3000
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+2015-01-01
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+2016-01-01
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\end_inset
+
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Tabella 
+\family typewriter
+Giocatori
+\family default
+ dopo l'inserimento
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Il funzionamento è evidente nella tabella 3, che mostra le modifiche compiute
+ sulla tabella 
+\family typewriter
+Giocatori
+\family default
+.
+ Siccome Mario Rossi ha un contratto che include per intero il periodo di
+ premio, eccedendo sia prima che dopo di esso, è stata modificata la riga
+ per adattarla alla nuova situazione, e poi sono stati inseriti due record
+ aggiuntivi: uno per l'intero periodo premio, e uno per la prosecuzione
+ del contratto fino alla scadenza naturale.
+\end_layout
+
+\begin_layout Standard
+Nel caso un giocatore avesse avuto un contratto con scadenza durante il
+ periodo di premio, allora si sarebbe modificato il record esistente esattamente
+ come sopra, e sarebbe stato inserito un record solo, corrispondente al
+ periodo dall'inizio del premio fino a scadenza.
+ Per i contratti iniziati durante il periodo di premio il concetto è inverso,
+ ma analogo.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Newpage newpage
+\end_inset
+
+
 \end_layout
 
 \begin_layout Subsubsection
-Predicati temporali: Algebra di Allen
+Predicati temporali e relazioni
 \end_layout
 
 \begin_layout Standard
@@ -1582,21 +2775,275 @@ status open
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
-I concetti fondamentali dell'algebra degli intervalli di Allen
+I concetti fondamentali delle relazioni tra periodi: Algebra di Allen
 \end_layout
 
 \end_inset
 
 
 \end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Istanti, intervalli e periodi hanno in comune i tipi di predicati in SQL,
+ che sono quattro:
+\end_layout
+
+\begin_layout Itemize
+Uguaglianza, corrispondente al simbolo 
+\begin_inset ERT
+status open
 
 \begin_layout Plain Layout
 
+$ = $
 \end_layout
 
 \end_inset
 
+;
+\end_layout
 
+\begin_layout Itemize
+L'espressione 
+\family typewriter
+IS NULL
+\family default
+;
+\end_layout
+
+\begin_layout Itemize
+L'espressione OVERLAPS, che ha significato diverso rispetto a quella della
+ Tabella 4;
+\end_layout
+
+\begin_layout Itemize
+Una relazione di confronto (ad esempio 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+$ X < Y $
+\end_layout
+
+\end_inset
+
+) sulla quale si può eseguire un ordinamento;
+\end_layout
+
+\begin_layout Standard
+Definire il loro significato preciso è abbastanza semplice se si considerano
+ istanti e intervalli, un po' meno se invece si considerano i periodi.
+\end_layout
+
+\begin_layout Paragraph
+Uguaglianza
+\end_layout
+
+\begin_layout Standard
+Per quanto riguarda l'uguaglianza, tutti e tre gli oggetti sono simili:
+ infatti un istante è uguale a un altro solo se è esattamente lo stesso,
+ così come un intervallo è uguale a un altro se hanno la stessa durata,
+ e un periodo è uguale a un altro solo se hanno sia istanti che intervallo
+ uguale.
+ 
+\end_layout
+
+\begin_layout Paragraph
+
+\family typewriter
+IS NULL
+\end_layout
+
+\begin_layout Standard
+Anche l'espressione 
+\family typewriter
+IS NULL
+\family default
+ è abbastanza facile e la spiegazione ha un senso solo nel caso del periodo,
+ poichè ha due valori invece di uno: se uno dei valori, o entrambi, sono
+ 
+\family typewriter
+NULL
+\family default
+, allora l'intero periodo è uguale a 
+\family typewriter
+NULL
+\family default
+, perchè si tratta di partire da un istante e arrivare in un istante inesistente
+, il che è impossibile.
+\end_layout
+
+\begin_layout Paragraph
+Confronto
+\end_layout
+
+\begin_layout Standard
+Il confronto è la prima grande differenza tra periodi e la coppia istanti/interv
+alli, poichè cambiano i termini di paragone: infatti, mentre istanti e intervall
+i sono ordinabili, i periodi non lo sono.
+ "Ordinabile" significa che, data una coppia di due oggetti di egual tipo,
+ è possibile determinare quale viene prima di un altro: nel caso degli istanti
+ e degli intervalli, che hanno tre relazioni applicabili ("prima", "uguale",
+ "dopo"), ciò è molto facile: essendo un istante un momento preciso nel
+ tempo, che accade una volta e poi è perso per sempre, un altro istante
+ può, al massimo, accadere nello stesso tempo, e quindi le relazioni sono
+ verificate senza dubbio alcuno.
+ Per gli intervalli è lo stesso discorso: al massimo un intervallo potrà
+ avere la stessa durata di un altro, oppure essere più ristretto o più esteso,
+ e anche qui le relazioni sono verificate.
+ I periodi, essendo rappresentati non da un valore unico, ma da una coppia
+ di essi, hanno una gestione molto più complicata, perchè compare ilproblema
+ di dover gestire relazioni più complesse, dovute al fatto che su due periodi
+ distinti, gli istanti di inizio o fine potrebbero essere uguali.
+\end_layout
+
+\begin_layout Standard
+James Frederick Allen, nel 1983, ha formalizzato questo problema introducendo
+ ben 13 relazioni tra periodi, che vengono attualmente chiamati Algebra
+ di Allen.
+ Queste relazioni, esposte nella tabella 4, sono considerabili come 6 coppie
+ (la relazione e il suo inverso) più la relazione di uguaglianza, che ovviamente
+ ha come inverso se stessa.
+\end_layout
+
+\begin_layout Standard
+Nonostante queste 13 relazioni, si dice che i periodi sono parzialmente
+ ordinati, poichè non sempre è possibile ordinarli in ragione del tempo:
+ basti pensare a due periodi che non sono collegati in nessun modo, iniziando
+ e finendo in due momenti distinti.
+ In questo caso, l'ordinamento è possibile, proprio perchè i periodi hanno
+ tempi diversi.
+ nel caso di un periodo che ne include un altro, in un modo tale che 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+$ A d B $
+\end_layout
+
+\end_inset
+
+, allora l'ordinamento non è più possibile, perchè i due periodi hanno una
+ parte di essi "in comune" e perciò diventa impossibile determinare quale
+ dei due viene "prima" dell'altro.
+ Si potrebbe obiettare che, scegliendo il termine di paragone appropriato,
+ è possibile effettuare un ordine preciso: ad esempio, se si considera solo
+ l'istante di inizio, allora si può dire che 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+$B$
+\end_layout
+
+\end_inset
+
+ viene prima di 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+$A$
+\end_layout
+
+\end_inset
+
+, ma ciò non è formalmente corretto, perchè si tratta di un confronto tra
+ singoli istanti, e quindi non si sta parlando di periodi.
+\end_layout
+
+\begin_layout Paragraph
+
+\family typewriter
+OVERLAPS
+\end_layout
+
+\begin_layout Standard
+L'ultimo predicato può essere confuso con il concetto di 
+\family typewriter
+OVERLAPS
+\family default
+, o impropriamente "inclusione", utilizzato dall'Algebra di Allen.
+ Tuttavia, il significato in ambito SQL è molto differente, e allo stesso
+ tempo molto meno forte di quello teorizzato da Allen.
+ Infatti, per 
+\family typewriter
+OVERLAPS
+\family default
+ si intende una situazione in cui un periodo ha in comune con un altro anche
+ solo un istante, per una traduzione in linguaggio comune che potrebbe essere
+ "sovrapposizione".
+ Quindi, questa definizione include le relazioni di Allen 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+$m$
+\end_layout
+
+\end_inset
+
+,
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+$s$
+\end_layout
+
+\end_inset
+
+,
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+$d$
+\end_layout
+
+\end_inset
+
+,
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+$f$
+\end_layout
+
+\end_inset
+
+ e
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+$=$
+\end_layout
+
+\end_inset
+
+, rendendola notevolmente meno restrittiva.
+\end_layout
+
+\begin_layout Standard
+Una particolarità interessante di questa relazione è il fatto di non poter
+ essere applicata a istanti e intervalli, ma sono a combinazioni di essi
+ (come ad esempio i periodi).
 \end_layout
 
 \begin_layout Subsection
@@ -1604,9 +3051,9 @@ I tempi
 \end_layout
 
 \begin_layout Standard
-La categoria dei tempi, invece, comprende tre tipi di tempo che possono
- essere presenti in una tabella, e che hanno funzioni diverse a seconda
- del loro gruppo di appartenenza.
+La categoria dei tempi comprende tre tipi di tempo che possono essere presenti
+ in una tabella, e che hanno funzioni diverse a seconda del loro gruppo
+ di appartenenza.
  Nello specifico si parla di:
 \end_layout
 
@@ -1741,9 +3188,8 @@ key "2"
 \family typewriter
 PERIOD
 \family default
- (anche se in una accezione particolare, come si vedrà in seguito), e sono
- stati apportati notevoli miglioramenti all'intera gestione delle funzionalità
- temporali.
+, e sono stati apportati notevoli miglioramenti all'intera gestione delle
+ funzionalità temporali.
  Dal punto di vista dello standard, si può dire che i database temporali
  sono giunti a compimento solo nel 2011 
 \begin_inset CommandInset citation
@@ -5916,6 +7362,14 @@ Confronti
 SQL-2011
 \end_layout
 
+\begin_layout Subsection
+System time
+\end_layout
+
+\begin_layout Subsection
+Application time
+\end_layout
+
 \begin_layout Section
 NoSQL
 \end_layout
@@ -6031,6 +7485,17 @@ key "7"
 \end_inset
 
 http://www.treccani.it/vocabolario/precisione/
+\end_layout
+
+\begin_layout Bibliography
+\begin_inset CommandInset bibitem
+LatexCommand bibitem
+label "8"
+key "8"
+
+\end_inset
+
+http://www.sigmod.org/publications/sigmod-record/1209/pdfs/07.industry.kulkarni.pdf
 \end_layout
 
 \end_body

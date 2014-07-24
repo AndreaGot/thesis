@@ -64,6 +64,7 @@
 \papercolumns 1
 \papersides 1
 \paperpagestyle default
+\listings_params "basicstyle={\ttfamily}"
 \tracking_changes false
 \output_changes false
 \html_math_output 0
@@ -941,63 +942,32 @@ Come detto nel paragrafo dedicato agli intervalli, nell'utilizzo pratico
  e diviene periodo.
  Un periodo è esattamente equiparabile all'intervallo, infatti entrambi
  hanno una durata, ma la caratteristica del periodo è appunto quella di
- avere un istante di inizio e un istante di fine.
+ avere un preciso istante di inizio e un preciso istante di fine.
 \end_layout
 
 \begin_layout Standard
-È utile e importante evidenziare che esistono quattro rappresentazioni di
- una coppia di istanti come periodo, che vanno interpretati esattamente
- come i concetti matematici analoghi:
+È utile e importante evidenziare che esistono due rappresentazioni di una
+ coppia di istanti come periodo:
 \end_layout
 
 \begin_layout Itemize
 Rappresentazione "chiuso/chiuso", dove il periodo è formato dal tempo che
- intercorre tra due istanti, compresi gli estremi; in questo caso il mese
- di agosto 2014 si scrive, usando istanti di tipi 
-\family typewriter
-DATE
-\family default
- come 
-\family typewriter
-[2014-08-01, 2014-08-31]
-\family default
-;
+ intercorre tra due istanti, compresi gli estremi;
 \end_layout
 
 \begin_layout Itemize
-Rappresentazione "chiuso/aperto", dove il periodo è formato dal tempo che
- intercorre tra due istanti, escluso l'estremo di destra (o comunque quello
- più avanti nel tempo); in questo secondo caso, sempre il mese di agosto
- si esprime come 
-\family typewriter
-[2014-08-01, 2014-09-01)
-\family default
-;
+Rappresentazione "chiuso/aperto" come l'intervallo precedente, ma viene
+ escluso l'estremo di destra (o comunque quello più avanti nel tempo)
 \end_layout
 
 \begin_layout Itemize
-Rappresentazione "aperto/chiuso" dove dove il periodo è formato dal tempo
- che intercorre tra due istanti, escluso l'estremo di sinistra (o comunque
- quello più indietro nel tempo); il mese di agosto sarebbe 
-\family typewriter
-(2014-06-30, 2014-08-31]
-\family default
-.
- Questo tipo di rappresentazione è poco usato; 
+Rappresentazione "aperto/chiuso", dove viene escluso l'estremo di sinistra
+ (o comunque quello più indietro nel tempo)
 \end_layout
 
 \begin_layout Itemize
-Rappresentazione "aperto/aperto" dove dove il periodo è formato dal tempo
- che intercorre tra due istanti, esclusi gli estremi; il mese di agosto
- sarebbe 
-\family typewriter
-(2014-06-30, 2014-09-01
-\family default
-) Questo tipo di rappresentazione è poco usato; 
-\end_layout
-
-\begin_layout Subsubsection
-Predicati temporali: Algebra di Allen
+Rappresentazione "aperto/aperto", dove il periodo è formato dal tempo che
+ intercorre tra due istanti, esclusi entrambi gli estremi;
 \end_layout
 
 \begin_layout Standard
@@ -1012,21 +982,13 @@ status open
 
 \begin_layout Plain Layout
 
-\end_layout
-
-\begin_layout Plain Layout
-
 
 \backslash
 noindent
 \backslash
 makebox[
 \backslash
-textwidth]{
-\backslash
-renewcommand{
-\backslash
-arraystretch}{3}%
+textwidth]{%
 \end_layout
 
 \end_inset
@@ -1036,19 +998,17 @@ arraystretch}{3}%
 
 \begin_layout Plain Layout
 \begin_inset Tabular
-<lyxtabular version="3" rows="8" columns="5">
+<lyxtabular version="3" rows="5" columns="3">
 <features rotate="0" tabularvalignment="middle">
 <column alignment="center" valignment="top">
-<column alignment="center" valignment="top" width="0pt">
 <column alignment="center" valignment="top">
-<column alignment="center" valignment="middle" width="0pt">
 <column alignment="center" valignment="top">
 <row>
 <cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
-Relazione
+Rappresentazione
 \end_layout
 
 \end_inset
@@ -1057,25 +1017,7 @@ Relazione
 \begin_inset Text
 
 \begin_layout Plain Layout
-Inverso
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-Illustrazione
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-Interpretazione
+Istante di inizio
 \end_layout
 
 \end_inset
@@ -1084,28 +1026,18 @@ Interpretazione
 \begin_inset Text
 
 \begin_layout Plain Layout
-Spiegazione
+Istante di fine
 \end_layout
 
 \end_inset
 </cell>
 </row>
 <row>
-<cell multicolumn="1" alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-$ X > Y $
-\end_layout
-
-\end_inset
-
-
+chiuso/chiuso
 \end_layout
 
 \end_inset
@@ -1114,41 +1046,9 @@ $ X > Y $
 \begin_inset Text
 
 \begin_layout Plain Layout
-\begin_inset ERT
-status open
 
-\begin_layout Plain Layout
-
-$ Y < X $
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-\begin_inset Graphics
-	filename img/Allen_calculus_before.png
-	width 110dd
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="middle" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-X before Y
+\family typewriter
+2014-08-01
 \end_layout
 
 \end_inset
@@ -1157,7 +1057,75 @@ X before Y
 \begin_inset Text
 
 \begin_layout Plain Layout
-X finisce prima di Y
+
+\family typewriter
+2014-08-31
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+chiuso/aperto
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+2014-08-01
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+2014-09-01
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+aperto/chiuso
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+2014-07-31
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+2014-08-31
 \end_layout
 
 \end_inset
@@ -1168,77 +1136,40 @@ X finisce prima di Y
 \begin_inset Text
 
 \begin_layout Plain Layout
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-$ X m Y $
-\end_layout
-
-\end_inset
-
-
+aperto/aperto
 \end_layout
 
 \end_inset
 </cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
-\begin_inset ERT
-status open
 
-\begin_layout Plain Layout
-
-$ X mi Y $
-\end_layout
-
-\end_inset
-
-
+\family typewriter
+2014-07-31
 \end_layout
 
 \end_inset
 </cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
-\begin_inset Graphics
-	filename img/Allen_calculus_meet.png
-	width 110dd
 
-\end_inset
-
-
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-X meets Y
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-X finisce quando inizia Y
+\family typewriter
+2014-09-01
 \end_layout
 
 \end_inset
 </cell>
 </row>
-<row>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
-\begin_inset Text
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
 
 \begin_layout Plain Layout
 \begin_inset ERT
@@ -1246,7 +1177,20 @@ status open
 
 \begin_layout Plain Layout
 
-$ X o Y $
+}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Vari tipi di rappresentazione, che definiscono un intervallo corrispondente
+ al mese di agosto
 \end_layout
 
 \end_inset
@@ -1255,9 +1199,253 @@ $ X o Y $
 \end_layout
 
 \end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
+
+
+\end_layout
+
+\begin_layout Standard
+Le rappresentazioni più usate sono quella chiuso/chiuso e quella chiuso/aperto
+ (quest'ultima utilizzata all'interno di questo documento), poichè sono
+ la rappresentazione più naturale degli intervalli: infatti, anche nel parlare
+ comune, ci si riferisce a un periodo di tempo includendo gli estremi, o
+ al massimo escludendo l'estremo finale.
+ Nulla vieta, però, di rappresentare un periodo scegliendo le rimanenti
+ due varianti della tabella 1.
+\end_layout
+
+\begin_layout Standard
+Indipendentemente dal metodo utilizzato, per garantire la stabilità e la
+ robustezza dei dati (e conseguentemente dell'intero sistema) ci sono alcuni
+ requisiti da rispettare: prima di tutto, la rappresentazione dovrebbe rimanere
+ la stessa per tutta la struttura dati che la ospita, o ancora meglio, in
+ tutto il database; inoltre, è necessario utilizzare delimitatori (in questo
+ caso date) con la stessa granularità, ciò significa che il loro livello
+ di precisione deve essere lo stesso.
+ In entrambi i casi ciò serve per evitare dei "vuoti" o degli equivoci nella
+ comparazione e nell'utilizzo di periodi anche contigui, con rischi potenzialmen
+te molto elevati nel caso fosse necessario ottenere dati riferiti proprio
+ all'istante "non coperto".
+\end_layout
+
+\begin_layout Standard
+I periodi hanno la particolarità di non essere stati mai inclusi nello standard
+ SQL, almeno fino alla versione più recente del 2011.
+ In questa sede è stato aggiunto un nuovo tipo di dato, il periodo (definito
+ come 
+\family typewriter
+PERIOD
+\family default
+), che è formato dagli istanti di inizio e di fine memorizzati nella tabella.
+ Inoltre, è stata inserita una variante per quanto riguarda la modifica
+ e la cancellazione di record: grazie a una nuova sintassi, è possibile
+ specificare il periodo (o la frazione di periodo) di cui si vogliono modificare
+ i dati, e SQL farà il resto: se un record ha un periodo che eccede (in
+ qualsiasi modo) il periodo specificato, allora il linguaggio si occuperà
+ di rimuovere o modificare solo la parte del record che soddisfa la richiesta,
+ aggiungendo quindi nuovi record e/o modificando quelli esistenti.
+\end_layout
+
+\begin_layout Standard
+Per fare un esempio, supponiamo di voler creare una tabella che vuole registrare
+ i giocatori di una squadra di calcio: in questo caso è sufficiente salvare
+ i dati anagrafici (per semplicità, nome e cognome), il periodo di permanenza
+ nella squadra e lo stipendio del giocatore, supponendo per semplicità che
+ questa sia l'unica tabella del database (senza perciò necessità di chiavi
+ esterne o tabelle aggiuntive).
+ Per far ciò, utilizzando i nuovi costrutti di SQL, utilizziamo il seguente
+ codice:
+\end_layout
+
+\begin_layout Standard
+
+\begin_inset Float algorithm
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+CREATE TABLE Giocatori
+\end_layout
+
+\begin_layout Plain Layout
+
+( 
+\end_layout
+
+\begin_layout Plain Layout
+
+	ID_Giocatore INTEGER,
+\end_layout
+
+\begin_layout Plain Layout
+
+	Nome VARCHAR, 
+\end_layout
+
+\begin_layout Plain Layout
+
+	Stipendio INTEGER, 
+\end_layout
+
+\begin_layout Plain Layout
+
+	Data_Inizio DATE, 
+\end_layout
+
+\begin_layout Plain Layout
+
+	Data_Fine DATE, 
+\end_layout
+
+\begin_layout Plain Layout
+
+	PERIOD FOR Periodo (DataInizio, DataFine) 
+\end_layout
+
+\begin_layout Plain Layout
+
+);
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+
+Codice di creazione della tabella 
+\family typewriter
+Giocatori
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+con questo codice verrà creata la tabella Giocatori.
+ Una particolarità è che il periodo, seppur presente, non sarà visibile
+ come campo.
+\end_layout
+
+\begin_layout Standard
+
+L'inserimento avviene nella usuale maniera, senza ovviamente la necessità
+ di specificare il periodo, perchè sarà automaticamente desunto dalla differenza
+ delle due date inserite:
+\end_layout
+
+\begin_layout Standard
+
+\begin_inset Float algorithm
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+INSERT INTO Giocatori VALUES 
+\end_layout
+
+\begin_layout Plain Layout
+
+(
+\end_layout
+
+\begin_layout Plain Layout
+
+	'Mario Rossi', 
+\end_layout
+
+\begin_layout Plain Layout
+
+	 3000,
+\end_layout
+
+\begin_layout Plain Layout
+
+	 DATE ‘2013-01-01’, 
+\end_layout
+
+\begin_layout Plain Layout
+
+	 DATE '2015-01-01'
+\end_layout
+
+\begin_layout Plain Layout
+
+);
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+
+Inserimento nella tabella 
+\family typewriter
+Giocatori
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+che andrà a costituire la seguente tabella, contenente il giocatore Mario
+ Rossi che riceve uno stipendio di 
+\family typewriter
+3000
+\family default
+, e che ha un contratto dal 01 gennaio 2013 al 31 dicembre 2015.
+ È da notare il fatto che l periodo è nella rappresentazione chiuso/aperto,
+ quindi la data finale va aumentata di un giorno rispetto al periodo effettivo.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float table
+wide false
+sideways false
+status open
 
 \begin_layout Plain Layout
 \begin_inset ERT
@@ -1265,248 +1453,19 @@ status open
 
 \begin_layout Plain Layout
 
-$ X oi Y $
+
+\backslash
+noindent
+\backslash
+makebox[
+\backslash
+textwidth]{%
 \end_layout
 
 \end_inset
 
 
 \end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
 
 \begin_layout Plain Layout
-\begin_inset Graphics
-	filename img/Allen_calculus_overlap.png
-	width 110dd
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-X overlaps Y
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-X finisce dopo l'inizio di Y
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-$ X s Y $
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-$ X si Y $
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-\begin_inset Graphics
-	filename img/Allen_calculus_start.png
-	width 110dd
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-X starts Y
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-X e Y iniziano insieme
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-$ X d Y $
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-$ X di Y $
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-\begin_inset Graphics
-	filename img/Allen_calculus_during.png
-	width 110dd
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-X during Y
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-X inizia e finisce all'interno di Y
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-$ X f Y $
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-$ X fi Y $
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-\begin_inset Graphics
-	filename img/Allen_calculus_finish.png
-	width 110dd
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none"
+\begin_inset Tabular
