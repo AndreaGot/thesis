@@ -7519,13 +7519,12 @@ Viene inserito un record di aggiornamento della situazione attuale, in cui
 FOREVER
 \family default
 .
- Questo, invece, è il periodo di transizione che va dalla comunicazione
- della promozione fino all'assegnazione effettiva dei benefit.
- (per comodità, 
+ È il periodo di transizione che va dalla comunicazione della promozione
+ fino all'assegnazione effettiva dei benefit (per comodità, 
 \family typewriter
 TRANSIZIONE
 \family default
-)
+).
 \end_layout
 
 \begin_layout Itemize
@@ -9321,6 +9320,10 @@ Database temporali: Applicazioni
 
 \begin_layout Section
 Creazione di tabelle
+\end_layout
+
+\begin_layout Subsection
+
 \end_layout
 
 \begin_layout Section
