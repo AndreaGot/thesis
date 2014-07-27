@@ -9319,11 +9319,96 @@ Database temporali: Applicazioni
 \end_layout
 
 \begin_layout Section
-Creazione di tabelle
+Il problema della chiave primaria
 \end_layout
 
-\begin_layout Subsection
-Il problema della chiave primaria
+\begin_layout Standard
+La chiave primaria, per definizione, è un campo (o gruppo di campi) il cui
+ valore identifica univocamente il record a cui sono associati: basti pensare
+ ai codici dei dipendenti, o alla combinazione codice dipendente e settore
+ aziendale.
+ In una tabella non temporale, questi campi sono perfetti candidati per
+ diventare chiavi primarie: infatti il codice dipendente è univoco, e molto
+ spesso viene incrementato automaticamente, per cui non esiste il rischio
+ che due dipendenti, in tempi diversi, abbiano la stessa chiave identificativa.
+ Anche sulle operazioni di inserimento o modifica, il problema non si pone,
+ poichè si va a modificare l'unica riga interessata, senza alcun rischio.
+\end_layout
+
+\begin_layout Standard
+Per quanti riguarda i database temporali, invece, definire una chiave primaria
+ non è così semplice: il problema è da imputare alla particolare conformazione
+ di queste tabelle: accettando il tempo come discriminante principale dei
+ record (definendo, come spiegato prima, tempo di validità e di transazione),
+ e necessitando di particolari politiche di inserimento e cancellazione
+ per garantire il ripristino di uno stato precedente del sistema, capita
+ spesso che sia necessario "duplicare" alcuni record per variazioni dei
+ dati in essi contenuti.
+ Questa duplicazione genera spesso righe simili alle originali, causando
+ una duplicazione della chiave primaria stessa, e l'impossibilità dell'inserimen
+to.
+ In questo caso, non esiste una soluzione universale, perchè dipende da
+ ciò che nella tabella vuole essere rappresentato.
+ Supponiamo di avere una tabella che gestisca il personale, che abbia come
+ chiave primaria il codice del dipendente (
+\family typewriter
+Cod_Dip
+\family default
+) e il suo settore di appartenenza (
+\family typewriter
+Settore
+\family default
+), completa dei dati che si vogliono salvare (che in questo caso non hanno
+ particolare rilevanza) e da una coppia di istanti che vogliono rappresentare
+ il tempo di validità del record.
+ In ogni caso, la coppia di chiavi primarie già esistente non è sufficiente,
+ perchè nell'eventualità di rinnovo del contratto andrebbe inserita una
+ nuova riga, con un nuovo tempo di validità, che avrebbe uguale 
+\family typewriter
+Cod_Dip
+\family default
+ e uguale 
+\family typewriter
+Settore
+\family default
+, rendendo impossibile l'inserimento.
+ Allo stesso tempo, inserire un identificativo indipendente (ad esempio,
+ un semplice identificatore progressivo del numero di riga, che quindi non
+ avrà mai duplicati) può fornire una soluzione del problema solo apparente,
+ poichè sarebbe comunque possibile aggiungere righe esattamente uguali tra
+ loro a meno del codice appena menzionato, e ciò, per avere una tabella
+ che garantisca la robustezza dei dati, non è tollerabile.
+ La soluzione generale da percorrere, nel caso di tabelle temporali, è sempre
+ quella di aggiungere uno o entrambi i campi data, in modo da rendere possibile
+ l'inserimento di righe con lo stesso 
+\family typewriter
+Cod_Dip
+\family default
+ e 
+\family typewriter
+Settore
+\family default
+, e allo stesso tempo di rendere impossibile la duplicazione di record con
+ gli stessi intervalli, perchè sarebbero senza dubbio dei doppioni già presenti
+ nel sistema.
+ Nonostante queste premesse, in certi casi, il semplice tempo può non essere
+ sufficiente: nel caso in cui un dipendente non possa essere presente in
+ più di un settore, ad esempio per motivi contrattuali, questo tipo di chiavi
+ primarie non è sufficiente perchè, al contrario dei primi casi, è addirittura
+ troppo poco restrittivo.
+ Infatti, se prima veniva limitato l'inserimento di righe lecite sia dal
+ punto di vista tecnico che interpretativo, ora verrebe permesso l'inserimento
+ di righe che sono lecite solo in termini tecnici, lasciando spazio, ad
+ esempio, a una serie di possibili problemi burocratici.
+ 
+\end_layout
+
+\begin_layout Standard
+??ASSERTIONS
+\end_layout
+
+\begin_layout Section
+Creazione di tabelle
 \end_layout
 
 \begin_layout Section
