@@ -9319,7 +9319,17 @@ Database temporali: Applicazioni
 \end_layout
 
 \begin_layout Section
-Il problema della chiave primaria
+Questioni da risolvere
+\end_layout
+
+\begin_layout Subsection
+La definizione di 
+\family typewriter
+NOW
+\end_layout
+
+\begin_layout Subsection
+La chiave primaria
 \end_layout
 
 \begin_layout Standard
@@ -9349,8 +9359,12 @@ Per quanti riguarda i database temporali, invece, definire una chiave primaria
 to.
  In questo caso, non esiste una soluzione universale, perchè dipende da
  ciò che nella tabella vuole essere rappresentato.
- Supponiamo di avere una tabella che gestisca il personale, che abbia come
- chiave primaria il codice del dipendente (
+ Supponiamo di avere una tabella 
+\family typewriter
+RISORSE
+\family default
+ che gestisca il personale, che abbia come chiave primaria il codice del
+ dipendente (
 \family typewriter
 Cod_Dip
 \family default
@@ -9360,7 +9374,15 @@ Settore
 \family default
 ), completa dei dati che si vogliono salvare (che in questo caso non hanno
  particolare rilevanza) e da una coppia di istanti che vogliono rappresentare
- il tempo di validità del record.
+ il tempo di validità del record (che verranno chiamati 
+\family typewriter
+Data_In
+\family default
+ e 
+\family typewriter
+Data_Fi
+\family default
+).
  In ogni caso, la coppia di chiavi primarie già esistente non è sufficiente,
  perchè nell'eventualità di rinnovo del contratto andrebbe inserita una
  nuova riga, con un nuovo tempo di validità, che avrebbe uguale 
@@ -9389,17 +9411,204 @@ Cod_Dip
 Settore
 \family default
 , e allo stesso tempo di rendere impossibile la duplicazione di record con
- gli stessi intervalli, perchè sarebbero senza dubbio dei doppioni già presenti
- nel sistema.
+ gli stessi intervalli, perchè essendo già presenti nel sistema non avrebbero
+ alcuna utilità.
  Nonostante queste premesse, in certi casi, il semplice tempo può non essere
  sufficiente: nel caso in cui un dipendente non possa essere presente in
  più di un settore, ad esempio per motivi contrattuali, questo tipo di chiavi
  primarie non è sufficiente perchè, al contrario dei primi casi, è addirittura
  troppo poco restrittivo.
- Infatti, se prima veniva limitato l'inserimento di righe perfettamente
- lecite, ora verrebe permesso l'inserimento di righe che lecite non sono,
- lasciando spazio a una serie di possibili problemi burocratici.
+ Infatti, se prima veniva limitato l'inserimento di righe lecite sia dal
+ punto di vista tecnico che interpretativo, ora verrebbe permesso l'inserimento
+ di righe che sono lecite solo in termini tecnici, lasciando spazio, ad
+ esempio, a una serie di possibili problemi burocratici.
  
+\end_layout
+
+\begin_layout Standard
+Per risolvere in maniera efficace il problema, è necessario ricorrere a
+ quelle che sono definite chiavi primarie sequenziali.
+ Il loro significato è molto simile a quello che hanno le interrogazioni
+ sequenziali, che sono valide in ogni momento del tempo: infatti, le chiavi
+ primarie sequenziali forniscono un identificativo di record che garantisce
+ la sua unicità in ogni momento del tempo.
+ In questo modo viene scongiurato il rischio che righe uguali, a meno dei
+ tempi di inizio e fine, possano essere sempre (o mai) inserite.
+ SQL viene in aiuto per risolvere questo problema, con il costrutto 
+\family typewriter
+ASSERTION
+\family default
+, che permette di impostare dei criteri a livello di schema, in modo quindi
+ da porli validi nel confronti dell'intera tabella.
+ La sintassi base è la seguente:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float algorithm
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+CREATE ASSERTION <nome assertion>
+\end_layout
+
+\begin_layout Plain Layout
+
+CHECK <condizione da provare>
+\end_layout
+
+\end_inset
+
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Struttura base del costrutto ASSERTIONS
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Che, applicata alla tabella ipotizzata all'inizio, potrebbe essere:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float algorithm
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+CREATE ASSERTION chiave_primaria
+\end_layout
+
+\begin_layout Plain Layout
+
+CHECK
+\end_layout
+
+\begin_layout Plain Layout
+
+	(
+\end_layout
+
+\begin_layout Plain Layout
+
+	NOT EXISTS (
+\end_layout
+
+\begin_layout Plain Layout
+
+				SELECT * FROM RISORSE R1
+\end_layout
+
+\begin_layout Plain Layout
+
+				WHERE 1 < ( SELECT COUNT (Cod_Dip) FROM RISORSE R2
+\end_layout
+
+\begin_layout Plain Layout
+
+							WHERE R1.Cod_Dip = R2.Cod_Dip AND R1.Settore = R2.Settore
+\end_layout
+
+\begin_layout Plain Layout
+
+					  		AND R1.Data_In < R2.Data_Fi AND R1.Data_Fi < R2.Data_In ))
+\end_layout
+
+\begin_layout Plain Layout
+
+	AND NOT EXISTS (
+\end_layout
+
+\begin_layout Plain Layout
+
+					SELECT * FROM RISORSE
+\end_layout
+
+\begin_layout Plain Layout
+
+					WHERE Cod_Dip IS NULL AND Settore IS NULL)
+\end_layout
+
+\begin_layout Plain Layout
+
+	)
+\end_layout
+
+\end_inset
+
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Struttura base del costrutto ASSERTIONS
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+In questo modo, si garantisce che per ogni record inserito non ne esista
+ un altro con dati uguali e periodo in sovrapposizione, e che allo stesso
+ tempo non sia possibile inserire alcun 
+\family typewriter
+NULL
+\family default
+ nei campi che hanno un ruolo nel determinare l'unicità del record (in questo
+ caso 
+\family typewriter
+Cod_Dip
+\family default
+ e 
+\family typewriter
+Settore
+\family default
+).
+ Questo costrutto sembra molto simile alla semplice dichiarazione di chiave
+ primaria con quattro campi (Cod_Dip, Settore, Data_In e Data_Fi), ma c'è
+ molto di più di tutto ciò: 
+\end_layout
+
+\begin_layout Subsection
+L'unicità dei record
 \end_layout
 
 \begin_layout Section
