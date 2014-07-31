@@ -367,15 +367,8 @@ newpage
 \end_layout
 
 \begin_layout Standard
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-tableofcontents
-\end_layout
+\begin_inset CommandInset toc
+LatexCommand tableofcontents
 
 \end_inset
 
@@ -2817,8 +2810,11 @@ IS NULL
 \end_layout
 
 \begin_layout Itemize
-L'espressione OVERLAPS, che ha significato diverso rispetto a quella della
- Tabella 4;
+L'espressione 
+\family typewriter
+OVERLAPS
+\family default
+, che ha significato diverso rispetto a quella della Tabella 4;
 \end_layout
 
 \begin_layout Itemize
@@ -9328,6 +9324,386 @@ La definizione di
 NOW
 \end_layout
 
+\begin_layout Standard
+I database temporali e le tabelle con tempo di validità, molto spesso, sono
+ facili da comprendere perchè adottano uno stile di rappresentazione dei
+ dati che è molto simile all'interpretazione naturale: basti pensare ai
+ metodi di rappresentazione dei periodi, che sono ben quattro ma di cui
+ solo due (chiuso/chiuso e chiuso/aperto) hanno largo utilizzo, proprio
+ perchè sono più naturali agli occhi degli utenti, e ciò aiuta a diminuire
+ gli errori dovuti a complesse interpretazioni nell'inserimento dei dati.
+ Tuttavia, se si vuole avere un approccio teorico e formale a questa materia,
+ molte cose che sembrano a prima vista naturali diventano improvvisamente
+ prive di senso: un esempio è dato dalla rappresentazione dei periodi che
+ comprendono l'istante attuale, in altre parole i periodi correntemente
+ validi.
+ La rappresentazione classica, e presente in gran parte delle implementazioni,
+ consiste nel rappresentare l'istante di fine dei record ancora validi con
+ un istante molto protratto nel tempo.
+ Ciò se analizzato secondo logica, appare di facile comprensione: se un
+ record è valido ora, non si sa quando cesserà di esserlo, e quindi la sua
+ validità potrebbe potenzialmente estendersi all'infinito.
+ Tuttavia, da un punto di vista formale, tutto ciò non rispecchia la realtà:
+ si può tranquillamente supporre, soprattutto nel caso i record rappresentino
+ delle persone, che tra poche decine di anni tutti i record non saranno
+ più validi (ovviamente perchè la vita degli esseri umani non ha una durata
+ molto più estesa), ma la tabella rispecchia l'esatto contrario.
+ Purtroppo, non esistono metodi precisi per rappresentare il concetto di
+ "adesso" (in SQL, 
+\family typewriter
+NOW
+\family default
+), senza causare difficoltà formali di interpretazione, ma esistono tre
+ metodi diversi, ognuno con i propri pro e contro:
+\end_layout
+
+\begin_layout Itemize
+Rappresentazione dei record validi con 
+\family typewriter
+NULL
+\family default
+:
+\end_layout
+
+\begin_layout Itemize
+Rappresentazione dei record validi con un istante molto indietro nel tempo;
+\end_layout
+
+\begin_layout Itemize
+Rappresentazione dei record validi con un istante molto avanti nel tempo.
+\end_layout
+
+\begin_layout Subsubsection
+
+\family typewriter
+NULL
+\end_layout
+
+\begin_layout Standard
+La definizione dei record validi con 
+\family typewriter
+NULL
+\family default
+ si ottiene non inserendo data di fine validità del record.
+ Questo potrebbe sembrare il metodo più efficace, poichè per trovare i record
+ validi basterebbe scrivere la seguente condizione WHERE:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float algorithm
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+[...]
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+WHERE Data_Fine IS NULL
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+[...]
+\end_layout
+
+\end_inset
+
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Condizione WHERE per ricerca record attualmente validi: NULL
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Nella realtà questo causa diversi problemi, sia con gli utenti che con il
+ sistema in sè: la data 
+\family typewriter
+NULL
+\family default
+, infatti, può essere motivo di confusione di un utente, in quanto non è
+ ciò che egli si aspetta parlando di tempo.
+ Inoltre, SQL e molti DBMS gestiscono 
+\family typewriter
+NULL
+\family default
+ in maniera molto differente dalle date normali (ad esempio, ogni confronto
+ con un valore 
+\family typewriter
+NULL
+\family default
+ per SQL restituisce il risultato 
+\family typewriter
+false
+\family default
+) per cui c'è il rischio che vengano persi dati anche importanti per via
+ di problemi intrinsechi nella gestione dei dati stessi.
+ 
+\end_layout
+
+\begin_layout Subsubsection
+Istanti indietro nel tempo
+\end_layout
+
+\begin_layout Standard
+Per registrare dati secondo questo metodo, è necessario scegliere un istante
+ opportunamente lontano nel tempo, da inserire sempre nel campo di fine
+ dei record ancora validi.
+ Supponendo che la data prescelta sia il 01 gennaio 1900 (
+\family typewriter
+1900-01-01
+\family default
+) si ha una condizione WHERE come segue:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float algorithm
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+[...]
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+WHERE Data_Fine = DATE '1900-01-01'
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+[...]
+\end_layout
+
+\end_inset
+
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Condizione WHERE per ricerca record attualmente validi: istanti indietro
+ nel tempo
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Tra i vantaggi di questo metodo vi è il fatto che, se nelle istruzioni SELECT
+ effettuate i dati vengono ordinati per istante di fine, i record attualmente
+ validi sono in cima alla lista, e ciò può essere un enorme pregio soprattutto
+ se il database è molto popolato.
+ Tra i difetti vi è il fatto che l'istante scelto non può essere desunto
+ a priori, in quanti molti DBMS hanno una data di inizio del tempo che varia
+ anche di molti anni, per cui è necessario scegliere un valore facile da
+ ricordare, ma comunque arbitrario, che a parità di sistemi (e di dati memorizza
+ti) potrebbe essere molto diverso.
+\end_layout
+
+\begin_layout Subsubsection
+Istanti avanti nel tempo
+\end_layout
+
+\begin_layout Standard
+Come anticipato, sono la soluzione più utilizzata, poichè sono più aderenti
+ al pensare comune (se non si sa la "scadenza" di un record, lo si suppone
+ valido fino all'infinito).
+ In questo modo, supponendo una data massima pari al 31 dicembre 9999 (
+\family typewriter
+9999-12-31
+\family default
+) sono possibili due tipi di condizioni WHERE, una che seleziona direttamente
+ la data finale:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float algorithm
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+[...]
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+WHERE Data_Fine = DATE '19999-12-31'
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+[...]
+\end_layout
+
+\end_inset
+
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Condizione WHERE per ricerca record attualmente validi: istanti avanti nel
+ tempo
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+e un'altra che, in maniera più naturale, utilizza l'istante attuale per
+ discriminare i record validi:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float algorithm
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+[...]
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+WHERE Data_Inizio <= NOW
+\end_layout
+
+\begin_layout Plain Layout
+
+  AND NOW < Data_Fine
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+[...]
+\end_layout
+
+\end_inset
+
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Condizione WHERE per ricerca record attualmente validi: istante attuale
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+I vantaggi sono evidenti: anche se non si conosce l'istante preciso in cui
+ il proprio DBMS o sistema fissa la fine del tempo, è possibile effettuare
+ comunque delle query che si basano effettivamente, al contrario delle altre
+ metodologie, sull'istante attuale: infatti, mentre gli altri metodi ricercano
+ dati ancora non "formalmente conclusi", questo ricerca dati che valgono
+ esattamente ora.
+ Come detto nell'introduzione, questo metodo nonostante sia il più usato
+ è ben lontano da essere formalmente corretto, ma è quello che permette
+ una rappresentazione dei dati, e una loro successiva interrogazione, più
+ simile per linguaggio e metodologia a quella utilizzata nel parlare comune,
+ e ciò, anche se può sembrare banale, ha una importanza determinante.
+\end_layout
+
 \begin_layout Subsection
 La chiave primaria
 \end_layout
@@ -9648,70 +10024,80 @@ Data_In
 \family typewriter
 Data_Fi
 \family default
-), ma c'è molto di più di tutto ciò: 
+), ma c'è molto di più di tutto ciò: infatti, mentre con la chiave primaria
+ poc'anzi ipotizzata è possibile, tramite una anche minima modifica dei
+ tempi, ottenere record quasi totalmente sovrapposti (e quindi non leciti),
+ questa 
+\family typewriter
+ASSERTION
+\family default
+ non permette ciò, eseguendo un controllo approfondito su ogni record della
+ tabella.
+ 
 \end_layout
 
 \begin_layout Standard
-//tempi leggermente diversi
+Questo metodo, in SQL-2011, può essere evitato usando due costrutti di nuova
+ introduzione che svolgono lo stesso lavoro in molte meno righe di codice,
+ e quindi demendando la gestione al sistema piuttosto che all'utente, rendendo
+ il tutto molto più sicuro ed efficiente.
+ Questi costrutti sono PERIOD e un nuovo metodo di definizione delle chiavi
+ primarie, che verrà trattato nella sezione 8.
+ 
 \end_layout
 
 \begin_layout Subsection
 L'unicità dei record
 \end_layout
 
+\begin_layout Subsection
+Integrità referenziale
+\end_layout
+
+\begin_layout Subsection
+L'importanza di saper posticipare
+\end_layout
+
+\begin_layout Standard
+Nelle applicazioni più sofisticate di SQL, del quale i database temporali
+ sono un esempio, difficilmente a una operazione corrisponde solo una query
+ eseguita sul sistema: molto spesso capita che una operazione apparentemente
+ semplice come un UPDATE possa causare notevoli modifiche in una tabella.
+ Immaginiamo una tabella con tempo di transazione, che per garantire la
+ possibilità di ripristino del database in qualsiasi momento del passato
+ ha bisogno di almeno due operazioni per ogni singolo UPDATE effettuato:
+ se le ASSERTIONS o i vincoli di integrità referenziale agissero subito
+ dopo ogni singola query, le operazioni che andrebbero a buon fine sarebbero
+ molto poche.
+ Se infatti il sistema deve essere perfettamente coerente alla fine della
+ transazione (un insieme di query che ha la possibilità di essere annullato
+ se una delle operazioni che lo compongono ha qualche problema), così non
+ sarà nella maggior parte delle query intermedie.
+ Per risolvere questo problema, si possono utilizzare le parole chiave 
+\family typewriter
+DEFERRABLE INITIALLY DEFERRED
+\family default
+, che non fanno altro che imporre i controlli di integrità referenziale,
+ oppure le assertion, alla fine della transazione presa in esame.
+ In questo modo, ad esempio, sarà possibile creare tabelle collegate tra
+ loro senza la necessità di procedere con ordine dalle tabelle "libere"
+ a quelle "legate", poichè i controlli verranno effettuati alla fine, senza
+ riscontrare nessun errore critico.
+\end_layout
+
 \begin_layout Section
-Creazione di tabelle
-\end_layout
-
-\begin_layout Section
-Modifica di tabelle
+Gestione delle tabelle
 \end_layout
 
 \begin_layout Subsection
-Insert
-\end_layout
-
-\begin_layout Subsubsection
 Tabelle con tempo di validità
-\end_layout
-
-\begin_layout Subsubsection
-Tabelle con tempo di transazione
-\end_layout
-
-\begin_layout Subsubsection
-Tabelle bitemporali
 \end_layout
 
 \begin_layout Subsection
-Update
-\end_layout
-
-\begin_layout Subsubsection
-Tabelle con tempo di validità
-\end_layout
-
-\begin_layout Subsubsection
 Tabelle con tempo di transazione
-\end_layout
-
-\begin_layout Subsubsection
-Tabelle bitemporali
 \end_layout
 
 \begin_layout Subsection
-Delete
-\end_layout
-
-\begin_layout Subsubsection
-Tabelle con tempo di validità
-\end_layout
-
-\begin_layout Subsubsection
-Tabelle con tempo di transazione
-\end_layout
-
-\begin_layout Subsubsection
 Tabelle bitemporali
 \end_layout
 
@@ -9735,6 +10121,14 @@ Application time
 
 \family typewriter
 PERIOD
+\end_layout
+
+\begin_layout Subsubsection
+Applicazioni di PERIOD nella definizione di chiavi primarie
+\end_layout
+
+\begin_layout Standard
+Primary key (field, period WITHOUT OVERLAPS)
 \end_layout
 
 \begin_layout Section
@@ -9761,15 +10155,52 @@ Appendici
 \end_layout
 
 \begin_layout Standard
-\begin_inset ERT
-status open
+\begin_inset FloatList table
 
-\begin_layout Plain Layout
+\end_inset
 
 
-\backslash
-listoftables
 \end_layout
+
+\begin_layout Standard
+\begin_inset Newpage newpage
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset FloatList algorithm
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Newpage newpage
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset toc
+LatexCommand lstlistoflistings
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Newpage newpage
+\end_inset
+
+
+\begin_inset CommandInset index_print
+LatexCommand printindex
+type "idx"
 
 \end_inset
 
@@ -9787,8 +10218,22 @@ listoftables
 Acronimi
 \end_layout
 
-\begin_layout Standard
+\begin_layout Itemize
 SQL - Structured Query Language
+\end_layout
+
+\begin_layout Itemize
+DBMS - Data Base Management System, sistema per la gestione di database
+\end_layout
+
+\begin_layout Itemize
+TSQL - Temporal SQL, versione di SQL sviluppata da Richard T.
+ Snodgrass
+\end_layout
+
+\begin_layout Itemize
+T-SQL - Transact SQL, versione di SQL sviluppata da Microsoft e utilizzata
+ nell'applicativo SQL Server
 \end_layout
 
 \begin_layout Standard
@@ -9886,6 +10331,17 @@ key "8"
 \end_inset
 
 http://www.sigmod.org/publications/sigmod-record/1209/pdfs/07.industry.kulkarni.pdf
+\end_layout
+
+\begin_layout Bibliography
+\begin_inset CommandInset bibitem
+LatexCommand bibitem
+label "9"
+key "9"
+
+\end_inset
+
+TEMPORAL DATA MANAGEMENT IN NOSQL DATABASES; 
 \end_layout
 
 \end_body
