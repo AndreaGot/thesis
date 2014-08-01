@@ -367,15 +367,8 @@ newpage
 \end_layout
 
 \begin_layout Standard
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-tableofcontents
-\end_layout
+\begin_inset CommandInset toc
+LatexCommand tableofcontents
 
 \end_inset
 
@@ -10049,16 +10042,991 @@ Questo metodo, in SQL-2011, può essere evitato usando due costrutti di nuova
  e quindi demendando la gestione al sistema piuttosto che all'utente, rendendo
  il tutto molto più sicuro ed efficiente.
  Questi costrutti sono PERIOD e un nuovo metodo di definizione delle chiavi
- primarie, che verrà trattato nella sezione 8.
+ primarie, che verrà trattato nella sezione 7.
  
 \end_layout
 
 \begin_layout Subsection
-L'unicità dei record
+La questione dell'unicità
+\end_layout
+
+\begin_layout Standard
+È stata appena trattata la questione della chiave primaria, che come è noto
+ garantisce che i campi da essa coperti siano contemporaneamente non nulli
+ e unici.
+ Questa interpretazione fa capire che esiste un altro modo per ottenere
+ lo stesso ruolo della chiave primaria, utilizzando due costrutti molto
+ diffusi: 
+\family typewriter
+NOT NULL
+\family default
+ e 
+\family typewriter
+UNIQUE
+\family default
+.
+\end_layout
+
+\begin_layout Standard
+Anche in questo caso, definire cosa sia "unico", o, al contrario, quali
+ siano i criteri per definire un record un duplicato di un altro, non è
+ cosa facile.
+ Mentre nelle tabelle non temporali è sufficiente valutare se tutti i campi
+ di due record sono equivalenti tra loro, nelle tabelle temporali ciò non
+ sempre è sufficiente, poichè esistono diverse varianti di duplicazione,
+ alcune ammesse e alcune, invece, da evitare:
+\end_layout
+
+\begin_layout Itemize
+Duplicazione da equivalenza di valori, un caso particolare di duplicazione
+ che consiste nell'equivalenza, in due record, di tutti i valori a meno
+ dei campi di tempo di validità.
+ È l'unico tipo di duplicazione ammessa in un sistema di database temporali.
+ Le duplicazioni successive presumono sempre l'esistenza di questo tipo
+ di duplicazione, e hanno differenze solo nell'entità dei campi tempo;
+\end_layout
+
+\begin_layout Itemize
+Duplicazione sequenziale, come sopra con la differenza che i periodi dei
+ due record, definiti dai campi di tempo, sono sovrapposti (quindi sono,
+ a qualche istante, esatti duplicati);
+\end_layout
+
+\begin_layout Itemize
+Duplicazione corrente, variante della duplicazione sequenziale dove i record
+ sono duplicati all'istante attuale.
+\end_layout
+
+\begin_layout Itemize
+Duplicazione non sequenziale, con lo stesso valore della duplicazione non
+ temporale, dove quindi i record sono equivalenti sia in dati, che in periodo
+ di tempo.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float table
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+noindent
+\backslash
+makebox[
+\backslash
+textwidth]{%
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Tabular
+<lyxtabular version="3" rows="7" columns="4">
+<features rotate="0" tabularvalignment="middle">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<row>
+<cell multicolumn="1" alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+PROGETTI
+\end_layout
+
+\end_inset
+</cell>
+<cell multicolumn="2" alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell multicolumn="2" alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell multicolumn="2" alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+ID_Dip
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+Grado
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+Val_Start
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+Val_End
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+1
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+2
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+01.07.2005
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+01.01.2006
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+1
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+2
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+01.01.2007
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+01.01.2012
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+1
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+2
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+01.01.2007
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+01.01.2012
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+1
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+2
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+01.01.2012
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+31.12.9999
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+1
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+2
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+01.01.2007
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+31.12.9999
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Tabella generica 
+\family typewriter
+PROGETTI
+\family default
+ con esempi di duplicazione di record
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Per fare un esempio, supponiamo che la tabella appena descritta rappresenti
+ la situazione di alcuni progetti interni a una azienda, in cui un dipendente
+ può partecipare per un periodo di tempo variabile.
+ In questo caso, tutte le righe sono duplicati da equivalenza di valori,
+ poichè al netto dei campi di tempo i valori sono esattamente gli stessi.
+ Entrando più nello specifico, la prima riga non presenta nessun problema
+ di duplicazione, poichè si tratta di un periodo di tempo che non ha sovrapposiz
+ioni.
+ Il secondo e il terzo record, invece, sono un esempio di duplicazione non
+ sequenziale: in questo caso, infatti, tutti i campi sono uguali tra loro,
+ e quindi si ha un duplicato che nella maggior parte dei casi non è accettato,
+ a differenza degli altri che, a seconda di ciò che la tabella vuole rappresenta
+re, potrebbero essere invece tollerati.
+ Gli ultimi due record, infine, sono un esempio di due tipi di duplicazione.
+ Prima di tutto, sono un esempio di duplicazione sequenziale: i record sono
+ già duplicati da equivalenza di valori, ma hanno anche periodi che si sovrappon
+gono tra loro.
+ La loro relazione, però, non è finita qui: infatti, dato che i record stessi
+ sono validi anche all'istante attuale, sono considerati anche duplicati
+ correnti.
+ Come detto prima, non essendoci particolari limitazioni al numero di progetti
+ in cui un dipendente può far parte, possono essere tollerati anche duplicati
+ sequenziali e correnti, oltre ovviamente a quelli con equivalenza di valori,
+ che sono una costante ricorrente in tutti i sistemi temporali.
+ Nulla vieta, però, di introdurre criteri più stringenti per accettare i
+ record: in questo caso cambia solo la gestione degli stessi, ma la definizione
+ formale rimane la medesima.
+ Più nello specifico, i duplicati seguono questa tabella di implicazioni
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float table
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+noindent
+\backslash
+makebox[
+\backslash
+textwidth]{%
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Tabular
+<lyxtabular version="3" rows="5" columns="5">
+<features rotate="0" tabularvalignment="middle">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+Sequenziali
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+Non sequenziali
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+Correnti
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+Equivalenti
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+Sequenziali
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+X
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+X
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+Non sequenziali
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+X
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+X
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+X
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+Correnti
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+X
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+X
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+X
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+Equivalenti
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+X
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Tabella di implicazione dei vari tipi di duplicazione
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+La tabella va letta nel modo "riga implica colonna".
+ In questo caso:
+\end_layout
+
+\begin_layout Itemize
+se una duplicazione è sequenziale, implicherà sicuramente se stessa, e l'equival
+enza di valori (che, ricordiamo, è condizione comune a tutti i tipi di duplicazi
+one).
+ 
+\end_layout
+
+\begin_layout Itemize
+Una duplicazione non sequenziale, che rappresenta record assolutamente identici
+ tra loro, implicherà oltre a se stessa e l'equivalenza di valori, anche
+ la duplicazione sequenziale, poichè una coppia di record con tempi identici
+ ha, ovviamente, il periodo sovrapposto (in questo caso esattamente uguale).
+ 
+\end_layout
+
+\begin_layout Itemize
+Le duplicazioni correnti implicano, oltre a loro stesse e l'equivalenza
+ di valori, anche le duplicazioni sequenziali poichè rappresentano un caso
+ particolare di queste ultime.
+\end_layout
+
+\begin_layout Itemize
+Infine, le duplicazioni con valore equivalente implicano solamente loro
+ stesse, poichè non considerano in alcun modo il tempo, che invece è considerato
+ da tutte le altre duplicazioni.
+\end_layout
+
+\begin_layout Standard
+Il metodo per risolvere queste duplicazioni, qualora ci sia il bisogno di
+ gestirle, non è molto diverso da quello utilizzato con le chiavi primarie.
+ Infatti, è sufficiente utilizzare i costrutti 
+\family typewriter
+ASSERTION 
+\family default
+e CHECK, e nello specifico proprio quello listato nell'Algoritmo 9, per
+ ottenere con minime modifiche i criteri che si vogliono applicare.
 \end_layout
 
 \begin_layout Subsection
 Integrità referenziale
+\end_layout
+
+\begin_layout Standard
+Come è facile ipotizzare, visti i due paragrafi precedenti, anche le regole
+ di integrità referenziale hanno diverse gestioni a seconda che le due tabelle
+ oggetto di relazione siano entrambe non temporali, una temporale e una
+ non temporale, oppure entrambe temporali.
+ 
+\end_layout
+
+\begin_layout Subsubsection
+Due tabelle non temporali
+\end_layout
+
+\begin_layout Standard
+Se le due tabelle sono entrambe non temporali, allora è sufficiente utilizzare
+ la sintassi consueta, che è la seguente:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float algorithm
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+[...]
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+FOREIGN KEY (P_Id) REFERENCES Persons(P_Id)
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+[...]
+\end_layout
+
+\end_inset
+
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Struttura base del costrutto 
+\family typewriter
+FOREIGN KEY
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+Una tabella temporale e una non temporale
+\end_layout
+
+\begin_layout Standard
+Se la tabella a cui collegarsi è non temporale, allora non ci sono particolari
+ accorgimenti da utilizzare, ed è sufficiente procedere come nel punto precedent
+e.
+ Infatti, la tabella non temporale viene generalmente considerata come una
+ tabella in cui i dati non sono legati al tempo, e quindi non cambiano in
+ funzione di esso.
+ Quindi, si può trattare la relazione in oggetto come se entrambe le tabelle
+ fossero non temporali.
+\end_layout
+
+\begin_layout Standard
+Se invece la situazione è opposta (e quindi la tabella
+\end_layout
+
+\begin_layout Subsubsection
+Entrambe le tabelle sono temporali
+\end_layout
+
+\begin_layout Standard
+Anche in questo caso, come nel caso dei duplicati e della chiave primaria,
+ è necessario ricorrere al costrutto ASSERTION e CHECK, in modo da poter
+ validare ad ogni momento l'esistenza della chiave primaria.
+ Nello specifico, va seguito un particolare ordine:
+\end_layout
+
+\begin_layout Standard
+Una chiave può dirsi chiave esterna sequenziale se, per ogni riga nella
+ tabella origine:
+\end_layout
+
+\begin_layout Itemize
+Esiste un record valido nella tabella destinazione al momento in cui il
+ record origine ha iniziato la validità;
+\end_layout
+
+\begin_layout Itemize
+Esiste un record valido nella tabella destinazione al momento in cui il
+ record origine finisce la validità;
+\end_layout
+
+\begin_layout Itemize
+Non esistono intervalli 
 \end_layout
 
 \begin_layout Subsection
@@ -10078,8 +11046,8 @@ Nelle applicazioni più sofisticate di SQL, del quale i database temporali
  molto poche.
  Se infatti il sistema deve essere perfettamente coerente alla fine della
  transazione (un insieme di query che ha la possibilità di essere annullato
- se una delle operazioni che lo compongono ha qualche problema), così non
- sarà nella maggior parte delle query intermedie.
+ se una delle operazioni che lo compongono ha qualche problema), non è necessari
+amente così nella maggior parte delle query intermedie.
  Per risolvere questo problema, si possono utilizzare le parole chiave 
 \family typewriter
 DEFERRABLE INITIALLY DEFERRED
@@ -10093,7 +11061,19 @@ DEFERRABLE INITIALLY DEFERRED
 \end_layout
 
 \begin_layout Section
-Gestione
+Gestione delle tabelle
+\end_layout
+
+\begin_layout Subsection
+Tabelle con tempo di validità
+\end_layout
+
+\begin_layout Subsection
+Tabelle con tempo di transazione
+\end_layout
+
+\begin_layout Subsection
+Tabelle bitemporali
 \end_layout
 
 \begin_layout Part
@@ -10150,15 +11130,22 @@ Appendici
 \end_layout
 
 \begin_layout Standard
-\begin_inset ERT
-status open
+\begin_inset FloatList table
 
-\begin_layout Plain Layout
+\end_inset
 
 
-\backslash
-listoftables
 \end_layout
+
+\begin_layout Standard
+\begin_inset Newpage newpage
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset FloatList algorithm
 
 \end_inset
 
