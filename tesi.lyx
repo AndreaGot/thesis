@@ -10996,7 +10996,26 @@ e.
 \end_layout
 
 \begin_layout Standard
-Se invece la situazione è opposta (e quindi la tabella
+Se invece la situazione è opposta (e quindi la tabella di destinazione è
+ temporale, mentre la tabella di origine non lo è) la relazione dipende
+ da ciò che serve: se si vuole una interpretazione non temporale, corrente
+ (cioè all'istante attuale) oppure sequenziale (cioè valida in ogni punto
+ del tempo).
+ Nel primo caso, la relazione si crea semplicemente considerando le due
+ tabelle come non temporali, e quindi applicando il normale costrutto SQL.
+ Nel secondo caso, la relazione si ottiene collegando il il record della
+ tabella non temporale al record (o ai record) che in questo momento sono
+ validi.
+ Nel terzo e ultimo caso, bisogna definire il significato di "in ogni momento
+ del tempo", nei confronti di una tabella nontemporale, e quindi non dipendente
+ dal tempo.
+ Le interpretazioni possibili sono due:
+\end_layout
+
+\begin_layout Itemize
+Se la tabella registra la situazione attuale, "estendendo" in qualche modo
+ il suo significato (poichè in realtà rappresenterebbe dati sempre validi)
+ allora si utilizza 
 \end_layout
 
 \begin_layout Subsubsection
@@ -11007,12 +11026,7 @@ Entrambe le tabelle sono temporali
 Anche in questo caso, come nel caso dei duplicati e della chiave primaria,
  è necessario ricorrere al costrutto ASSERTION e CHECK, in modo da poter
  validare ad ogni momento l'esistenza della chiave primaria.
- Nello specifico, va seguito un particolare ordine:
-\end_layout
-
-\begin_layout Standard
-Una chiave può dirsi chiave esterna sequenziale se, per ogni riga nella
- tabella origine:
+ Nello specifico, vanno verificate tre condizioni:
 \end_layout
 
 \begin_layout Itemize
@@ -11026,9 +11040,15 @@ Esiste un record valido nella tabella destinazione al momento in cui il
 \end_layout
 
 \begin_layout Itemize
-Non esistono intervalli (cioè record che finiscono durante il periodo di
- validità della tabella origine e che non sono "estesi" da un altro record
- con validità maggiore e stessi dati) 
+Non esistono "buchi" (cioè record che finiscono durante il periodo di validità
+ della tabella origine e che non sono "estesi" da un altro record con validità
+ maggiore e stessi dati) 
+\end_layout
+
+\begin_layout Standard
+Se tutte queste condizioni sono verificate, allora i record di tabella origine
+ e tabella destinazione possono essere uniti in una relazione di chiave
+ primaria e chiave esterna.
 \end_layout
 
 \begin_layout Subsection
@@ -11066,16 +11086,1387 @@ DEFERRABLE INITIALLY DEFERRED
 Gestione delle tabelle
 \end_layout
 
+\begin_layout Standard
+Le tabelle, a seconda del loro tipo, presentano metodi di gestione (intesi
+ come query eseguibili e concetti applicabili) molto diversi.
+ Per quanto riguarda le tabelle con tempo di validità, che hanno come principale
+ funzionalità quella di rappresentare i dati, verranno esaminati i costrutti
+ SELECT e alcuni metodi per rendere efficienti le tabelle stesse, nonchè
+ alcuni costrutti per modificare le tabelle (INSERT, UPDATE, DELETE) che
+ verranno ripresi anche nei paragrafi successivi.
+ Nelle tabelle con tempo di transazione, invece, verranno privilegiati i
+ metodi utilizzati per mantenere la tabella coerente nel corso del tempo
+ e delle modifiche, con alcuni accenni alle tecniche di ricostruzione di
+ uno stato passato.
+ Infine, nelle tabelle bitemporali, verranno esaminati principalmente gli
+ aspetti delle operazioni eseguibili su di esse, che coniugano aspetti tipici
+ delle tabelle con tempo di validità a concetti propri delle tabelle con
+ tempo di transazione.
+\end_layout
+
 \begin_layout Subsection
 Tabelle con tempo di validità
+\end_layout
+
+\begin_layout Subsubsection
+Interrogazioni correnti
+\end_layout
+
+\begin_layout Standard
+Una delle domande più comuni che ci si pone quando si tratta di ricavare
+ dati da una tabella con tempo di validità è "cosa è valido in questo momento?".
+ Tutte le query che rispondono a questa domanda sono dette interrogazioni
+ correnti, poichè utilizzano come termine di paragone il momento attuale.
+ Per avere una maggior chiarezza nell'esposizione degli esempi che seguono,
+ riprendiamo qui la tabella 8, che rappresenta la residenza di alcuni cittadini,
+ comprensiva di luogo di residenza e, appunto, tempo di validità:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float table
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+noindent
+\backslash
+makebox[
+\backslash
+textwidth]{%
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Tabular
+<lyxtabular version="3" rows="5" columns="5">
+<features rotate="0" tabularvalignment="middle">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<row>
+<cell multicolumn="1" alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+RESIDENZA
+\end_layout
+
+\end_inset
+</cell>
+<cell multicolumn="2" alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell multicolumn="2" alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell multicolumn="2" alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell multicolumn="2" alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+ID_Persona
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+Nome_Persona
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+Luogo_Residenza
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+Val_Start
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+Val_End
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+1
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+Mario Rossi
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+Trento
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+03.05.1984
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+31.12.9999
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+2
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+Giorgio Bianchi
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+Lavis
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+06.03.1992
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+20.07.2014
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+2
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+Giorgio Bianchi
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+Trento
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+20.07.2014
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+31.12.9999
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\end_inset
+
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Tabella 
+\family typewriter
+RESIDENZA
+\family default
+ completa di tempo di validità
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Supponiamo di voler sapere quale sia l'attuale residenza di Giorgio Bianchi.
+ Per far ciò, la query da eseguire è molto semplice, e si tratta solamente
+ di effettuare una normale 
+\family typewriter
+SELECT
+\family default
+ ponendo nella clausola 
+\family typewriter
+WHERE
+\family default
+ il fatto che, nei record considerati, la data attuale (che riassumiamo
+ con la parola chiave 
+\family typewriter
+NOW
+\family default
+) sia all'interno del periodo di validità:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float algorithm
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+SELECT Luogo_Residenza
+\end_layout
+
+\begin_layout Plain Layout
+
+FROM RESIDENZA
+\end_layout
+
+\begin_layout Plain Layout
+
+WHERE Nome_Persona = 'Giorgio Bianchi'
+\end_layout
+
+\begin_layout Plain Layout
+
+  AND Val_Start <= NOW
+\end_layout
+
+\begin_layout Plain Layout
+
+  AND NOW < Val_End
+\end_layout
+
+\end_inset
+
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Interrogazioni correnti: "Dove abita ora Giorgio Bianchi?"
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Che restituisce il valore 
+\family typewriter
+Trento
+\family default
+.
+ Ci sono tre aspetti che vale la pena sottolineare:
+\end_layout
+
+\begin_layout Itemize
+In questo caso non è possibile utilizzare il costrutto BETWEEN, presente
+ in SQL.
+ Il motivo è da ricercarsi nella rappresentazione della tabella: essa infatti
+ ha una rappresentazione chiuso/aperto, che significa che il tempo vale
+ nell'istante di inizio ma non comprende l'istante di fine.
+ BETWEEN, invece, copre entrambi gli estremi, quindi l'utilizzo di quel
+ costrutto avrebbe inserito nel risultato anche le righe con tempo di fine
+ uguale all'istante attuale, causando un errore.
+ 
+\end_layout
+
+\begin_layout Itemize
+Un'altra cosa da notare è che con un semplice WHERE è possibile anche gestire
+ il caso in cui i dati da ottenere siano presenti in tabelle diverse: infatti
+ basta scrivere la terna di condizioni sopra utilizzata per ogni tabella
+ aggiuntiva che viene presa in considerazione nella query.
+\end_layout
+
+\begin_layout Itemize
+Infine, è da notare come sia necessario sostituire (o meglio, modificare)
+ il valore Val_End nel caso non venga utilizzata la notazione in cui i record
+ validi hanno istante di fine pari al più alto valore di data.
+ Nel caso Val_End fosse NULL, oppure pari a una data nel passato, conviene
+ modificare la query aggiungendo una condizione OR in cui si considera questa
+ eventualità.
+\end_layout
+
+\begin_layout Subsubsection
+Interrogazioni di stati passati
+\end_layout
+
+\begin_layout Standard
+Le interrogazioni di stati passati sono molto simili a quelle che coinvolgono
+ il valore NOW: l'unica differenza sta nel l'utilizzo di una data fissata,
+ che viene appunto utilizzata al posto di NOW.
+ In questo caso, per sapere dove Giorgio Bianchi abitava all'inizio del
+ 2001, avremo:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float algorithm
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+SELECT Luogo_Residenza
+\end_layout
+
+\begin_layout Plain Layout
+
+FROM RESIDENZA
+\end_layout
+
+\begin_layout Plain Layout
+
+WHERE Nome_Persona = 'Giorgio Bianchi'
+\end_layout
+
+\begin_layout Plain Layout
+
+  AND Val_Start <= DATE 2011-01-01
+\end_layout
+
+\begin_layout Plain Layout
+
+  AND DATE 2001-01-01 < Val_End
+\end_layout
+
+\end_inset
+
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Interrogazioni di stati passati: "Dove abitava Giorgio Bianchi al 01 gennaio
+ 2001?"
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Che, in questo caso, restituisce 
+\family typewriter
+Lavis
+\family default
+.
+ Anche qui ci sono alcuni aspetti da considerare, che sono gli stessi delle
+ interrogazioni correnti spiegate nel paragrafo precedente.
+\end_layout
+
+\begin_layout Subsubsection
+Interrogazioni sequenziali
+\end_layout
+
+\begin_layout Standard
+Le interrogazioni sequenziali rispondono alla domanda "cosa è valido, o
+ è stato valido, nel corso del tempo?" restituendo tutti i record che, attualmen
+te o nel passato, hanno avuto il valore che viene specificato.
+ Un esempio può essere dato dalla domanda "chi vive, o ha vissuto, a Trento,
+ e quando?", che viene tradotta in SQL nel seguente modo:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float algorithm
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+SELECT *
+\end_layout
+
+\begin_layout Plain Layout
+
+FROM RESIDENZA
+\end_layout
+
+\begin_layout Plain Layout
+
+WHERE Luogo_Residenza = 'Trento'
+\end_layout
+
+\end_inset
+
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Interrogazioni sequenziali: "Chi vive, o ha vissuto, a Trento, e quando?"
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+che restituiscono la seguente tabella:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float table
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+noindent
+\backslash
+makebox[
+\backslash
+textwidth]{%
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Tabular
+<lyxtabular version="3" rows="4" columns="5">
+<features rotate="0" tabularvalignment="middle">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<row>
+<cell multicolumn="1" alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+RESIDENZA
+\end_layout
+
+\end_inset
+</cell>
+<cell multicolumn="2" alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell multicolumn="2" alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell multicolumn="2" alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell multicolumn="2" alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+ID_Persona
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+Nome_Persona
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+Luogo_Residenza
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+Val_Start
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+Val_End
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+1
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+Mario Rossi
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+Trento
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+03.05.1984
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+31.12.9999
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+2
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+Giorgio Bianchi
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+Trento
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+20.07.2014
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+31.12.9999
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\end_inset
+
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Tabella 
+\family typewriter
+RESIDENZA
+\family default
+ con lo storico degli abitanti di Trento
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+In questo caso, va notato come, per avere senso in termini pratici, la tabella
+ debba assolutamente essere ordinata, altrimenti verrebbe meno la rappresentazio
+ne del corso del tempo.
+ Questo, evidentemente, è un esempio molto semplice, ma con lo stesso tipo
+ di interrogazioni è possibile gestire anche tabelle molto più complesse.
+ In questo caso, a causa dell'estrema semplicità della tabella, non sono
+ presenti duplicati, ma va sottolineato come questi possano tranquillamente
+ essere presenti, poichè nessun costrutto è stato utilizzato per limitare
+ i duplicati.
+ Per far ciò, si potrebbe pensare al costrutto DISTINCT, ma anche questo
+ costrutto ha diversi contesti di applicazione, e quindi deve essere valutato
+ caso per caso.
+\end_layout
+
+\begin_layout Subsubsection
+Interrogazioni non sequenziali
+\end_layout
+
+\begin_layout Standard
+Le interrogazioni non sequenziali, infine, sono di tipi di interrogazioni
+ che possono assomigliare molto a quelle sequenziali, con la differenza
+ che il tempo in questo caso non ha significato.
+ Un esempio è la richiesta "Elenca i nomi di chi, in qualche momento, è
+ stato residente a Trento".
+ La query è la seguente:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float algorithm
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+SELECT Nome_Persona
+\end_layout
+
+\begin_layout Plain Layout
+
+FROM RESIDENZA
+\end_layout
+
+\begin_layout Plain Layout
+
+WHERE Luogo_Residenza = 'Trento'
+\end_layout
+
+\end_inset
+
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Interrogazioni non sequenziali: "Chi vive, o ha vissuto, a Trento?"
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+ottenendo come risultato la tabella:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float table
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+noindent
+\backslash
+makebox[
+\backslash
+textwidth]{%
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Tabular
+<lyxtabular version="3" rows="4" columns="1">
+<features rotate="0" tabularvalignment="middle">
+<column alignment="center" valignment="top">
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+RESIDENZA
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+Nome_Persona
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+Mario Rossi
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+Giorgio Bianchi
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\end_inset
+
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Tabella 
+\family typewriter
+RESIDENZA
+\family default
+ con i nomi di chi ha abitato a Trento
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Il risultato, considerando la singola colonna, è uguale a quello della interroga
+zione sequenziale, ma il significato è profondamente diverso.
+ Infatti, se con le interrogazioni sequenziali si può operare sulla base
+ del tempo, tracciando un ipotetico grafico della popolazione di Trento,
+ con questa query si ottengono dati di più difficile utilizzo, poichè so
+ solo che le persone elencate hanno vissuto a Trento, ma non riesco a dire
+ quando.
+ Per assurdo, potrebbero aver vissuto in città nello stesso periodo, in
+ perodi distinti ma vicini, o addirittura a distanza di anni.
+\end_layout
+
+\begin_layout Subsubsection
+Gestione dei duplicati
+\end_layout
+
+\begin_layout Standard
+Come accennato poco fa, per rimuovere i duplicati dalle tabelle con tempo
+ di validità è possibile usare il costrutto DISTINCT.
+ Tuttavia, tale costrutto ha funzioni diverse in base al tipo di duplicati
+ da rimuovere.
+ DISTINCT, infatti, può essere utile per rimuovere duplicati non sequenziali,
+ con valori equivalenti e correnti.
+\end_layout
+
+\begin_layout Standard
+Per i duplicati non sequenziali, cioè record perfettamente identici anche
+ nei campi di validità, si può utilizzare il metodo consueto:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float algorithm
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+SELECT DISTINCT *
+\end_layout
+
+\begin_layout Plain Layout
+
+FROM RESIDENZA
+\end_layout
+
+\begin_layout Plain Layout
+
+WHERE Luogo_Residenza = 'Trento'
+\end_layout
+
+\end_inset
+
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Eliminazione di duplicati non sequenziali
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Va detto però che difficilmente ci sarà il bisogno di utilizzare questo
+ metodo, perchè i duplicati non sequenziali non apportano nessun beneficio
+ alla tabella, per cui si può diretaente prevenire il loro inserimento.
+\end_layout
+
+\begin_layout Standard
+Per i duplicati con valori equivalenti, invece, non è più possibile basare
+ il DISTINCT su tutti i campi, poichè non saranno mai tutti uguali (per
+ definizione i duplicati con valori equivalenti sono uguali in tutti i campi
+ tranne quelli di validità).
+ Per risolvere il problema, bisogna limitare il DISTINCT ai soli campi uguali
+ tra loro:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float algorithm
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+SELECT DISTINCT Id_Persona, Nome_Persona
+\end_layout
+
+\begin_layout Plain Layout
+
+FROM RESIDENZA
+\end_layout
+
+\end_inset
+
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Eliminazione di duplicati con valori equivalenti
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+I duplicati correnti, invece, richiedono una minima modifica, poichè si
+ tratta solo di limitare la SELECT ai campi attualmente validi, per cui:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float algorithm
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+SELECT DISTINCT Id_Persona, Nome_Persona
+\end_layout
+
+\begin_layout Plain Layout
+
+FROM RESIDENZA
+\end_layout
+
+\begin_layout Plain Layout
+
+WHERE Val_End = '9999-12-31'
+\end_layout
+
+\end_inset
+
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Eliminazione di duplicati correnti
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+In questo modo è possibile gestire la maggior parte dei duplicati, ottenendo
+ dei risultati maggiormente leggibili e interpretabili.
+ Questo, però, non copre tutti i casi possibili: esistono infatti anche
+ i duplicati sequenziali, che non sono altro che record che hanno valori
+ equivalenti, ma periodi di validità che si sovrappongono per un certo intervall
+o.
+ Per risolvere anche questo problema, non basta un DISTINCT: è necessario
+ procedere all'unione dei record simili, in modo da renderli più omogenei
+ e ridurne al contempo il numero.
+ Questo procedimento si chiama, in inglese, 
+\family typewriter
+Coalescing
+\family default
+, che in italiano si può tradurre come 
+\family typewriter
+fusione
+\family default
+.
+\end_layout
+
+\begin_layout Subsubsection
+Fusione di record simili
+\end_layout
+
+\begin_layout Subsection
+Modifica di tabelle con tempo di validità
+\end_layout
+
+\begin_layout Subsubsection
+Modificazioni correnti
+\end_layout
+
+\begin_layout Subsubsection
+Modificazioni sequenziali
+\end_layout
+
+\begin_layout Subsubsection
+Modificazioni non sequenziali
 \end_layout
 
 \begin_layout Subsection
 Tabelle con tempo di transazione
 \end_layout
 
+\begin_layout Standard
+Breve riassunto di ciò che sono le tabelle
+\end_layout
+
+\begin_layout Subsubsection
+Manutenzione
+\end_layout
+
+\begin_layout Subsubsection
+Restore di stati precedenti
+\end_layout
+
+\begin_layout Subsubsection
+Vacuuming
+\end_layout
+
 \begin_layout Subsection
 Tabelle bitemporali
+\end_layout
+
+\begin_layout Standard
+10.2
+\end_layout
+
+\begin_layout Subsubsection
+Un approccio grafico
 \end_layout
 
 \begin_layout Part
