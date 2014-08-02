@@ -13512,12 +13512,24 @@ Modifica di tabelle con tempo di validità
 Modificazioni correnti
 \end_layout
 
+\begin_layout Standard
+Modificazioni del tempo attuale, con estensione nel forever
+\end_layout
+
 \begin_layout Subsubsection
 Modificazioni sequenziali
 \end_layout
 
+\begin_layout Standard
+Modificazioni con un periodo passato, presente o futuro
+\end_layout
+
 \begin_layout Subsubsection
 Modificazioni non sequenziali
+\end_layout
+
+\begin_layout Standard
+Modificazioni che non contano i campi tempo
 \end_layout
 
 \begin_layout Subsection
@@ -13586,8 +13598,42 @@ Primary key (field, period WITHOUT OVERLAPS)
 Il caso concreto: Fondazione Bruno Kessler
 \end_layout
 
+\begin_layout Standard
+\begin_inset Newpage newpage
+\end_inset
+
+
+\end_layout
+
 \begin_layout Part
-Conclusioni
+Conclusione
+\end_layout
+
+\begin_layout Standard
+Come è stato esposto in questa tesi, i database temporali dalla loro introduzion
+e fino ai giorni nostri hanno avuto una notevole evoluzione: sono passati
+ da essere poco più di un sogno formulato a fine del secolo scorso, a essere
+ una parte imprescindibile dello standard SQL prima, e di tutti i maggiori
+ sistemi che gestiscono grandi quantità di dati poi.
+ Certo, questa grande potenza e flessibilità mal si coniuga con la semplicità
+ di utilizzo: sono stati introdotti numerosi concetti, e molti altri sono
+ stati volutamente tralasciati o solamente accennati in questo documento
+ proprio perchè si tratta di caratteristiche dedicate a un utilizzo ancora
+ più "estremo" dei database temporali, e molto spesso non pienamente utilizzate
+ nemmeno nei grandi DBMS.
+ Molti soggetti, e la Fondazione Bruno Kessler ne è un esempio, preferiscono
+ utilizzare solo una parte di questa tecnologia, poichè ad esempio le funzionali
+tà transazionali sono o di complicata implementazione, o inutili dal loro
+ scopo di utilizzo (basti pensare ai backup, che se effettuati a intervalli
+ di tempo adeguati, rendono molto meno utili le tabelle citate).
+ Comunque, indipendentemente dal livello di implementazione adottato, con
+ i naturali miglioramenti che ha avuto nel corso degli anni, questa tecnologia
+ si è subito affermata come uno dei modi più validi per rappresentare lo
+ scorrere del tempo, e per mettere "al passo con i tempi" un settore dell'inform
+atica che viene ancora visto dagli utenti (e spesso anche dagli addetti
+ ai lavori) come dedicato alla memorizzazione dei dati, ma che quasi mai
+ viene associato anche a un metodo per mantenere una correttezza temporale
+ dei dati salvati al suo interno.
 \end_layout
 
 \begin_layout Standard

@@ -195,6 +195,10 @@ vspace{30pt}
 \begin_layout Standard
 
 \size largest
+LA QUESTIONE DEL TEMPO NEI DATI:
+\begin_inset Newline newline
+\end_inset
+
 DATABASE TEMPORALI
 \end_layout
 
@@ -13110,7 +13114,7 @@ Tabella generica
 \family typewriter
 PROGETTI
 \family default
- con esempi di duplicazione di record
+ dopo la fusione con eliminazione di duplicati
 \end_layout
 
 \end_inset
@@ -13463,7 +13467,7 @@ Tabella generica
 \family typewriter
 PROGETTI
 \family default
- con esempi di duplicazione di record
+ dopo la fusione senza eliminazione di duplicati
 \end_layout
 
 \end_inset
@@ -13489,12 +13493,15 @@ Questa conformazione della tabella ha il pregio di essere equivalente alla
 \end_layout
 
 \begin_layout Standard
-Le due varianti hanno una Nel caso di presenza di duplicati non sequenziali
- (che, ricordiamo, sono duplicati composti da record uguali in tutto, anche
- nel periodo di validità) è possibile avere due risultati "diversi", poichè
+Le due varianti hanno una ulteriore particolarità, che coinvolge il numero
+ di tabelle che possono costituire un potenziale risultato: nel caso della
+ fusione con eliminazione di tutti i duplicati, la tabella risultante può
+ essere una sola, ma nel caso di presenza di duplicati non sequenziali (che,
+ ricordiamo, sono duplicati composti da record uguali in tutto, anche nel
+ periodo di validità) è possibile avere due risultati "diversi", poichè
  la fusione può prendere indifferentemente uno dei due record che compongono
- il duplicato non sequenziale, ottenendo quindi due risultati formalmente
- diversi, anche se praticamente equivalenti.
+ il duplicato non sequenziale, ottenendo quindi due risultati distinti in
+ maniera formale, anche se assolutamente equivalenti in termini pratici.
 \end_layout
 
 \begin_layout Subsection
@@ -13505,12 +13512,24 @@ Modifica di tabelle con tempo di validità
 Modificazioni correnti
 \end_layout
 
+\begin_layout Standard
+Modificazioni del tempo attuale, con estensione nel forever
+\end_layout
+
 \begin_layout Subsubsection
 Modificazioni sequenziali
 \end_layout
 
+\begin_layout Standard
+Modificazioni con un periodo passato, presente o futuro
+\end_layout
+
 \begin_layout Subsubsection
 Modificazioni non sequenziali
+\end_layout
+
+\begin_layout Standard
+Modificazioni che non contano i campi tempo
 \end_layout
 
 \begin_layout Subsection
@@ -13581,6 +13600,31 @@ Il caso concreto: Fondazione Bruno Kessler
 
 \begin_layout Part
 Conclusioni
+\end_layout
+
+\begin_layout Standard
+Come è stato esposto in questa tesi, i database temporali dalla loro introduzion
+e fino ai giorni nostri hanno avuto una notevole evoluzione: sono passati
+ da essere poco più di un sogno formulato a fine del secolo scorso, a essere
+ una parte imprescindibile dello standard SQL prima, e di tutti i maggiori
+ sistemi che gestiscono grandi quantità di dati poi.
+ Certo, questa grande potenza e flessibilità mal si coniuga con la semplicità
+ di utilizzo: sono stati introdotti numerosi concetti, e molti altri sono
+ stati volutamente tralasciati o solamente accennati in questo documento
+ proprio perchè si tratta di caratteristiche dedicate a un utilizzo ancora
+ più "estremo" dei database temporali, e molto spesso non pienamente utilizzati
+ anche nei grandi DBMS.
+ Molti soggetti, e la Fondazione Bruno Kessler ne è un esempio, preferiscono
+ utilizzare solo una parte di questa tecnologia, poichè ad esempio le funzionali
+tà transazionali sono o di complicata implementazione, o inutili dal loro
+ scopo di utilizzo (basti pensare ai backup, che se effettuati a intervalli
+ di tempo adeguati, rendono molto meno utili le tabelle citate).
+ Comunque, indipendentemente dal livello di implementazione adottato, con
+ i naturali miglioramenti che ha avuto nel corso degli anni, questa tecnologia
+ si è subito affermata come il miglior modo per rappresentare il tempo,
+ e per mettere "al passo con i tempi" un settore dell'informatica che viene
+ ancora visto dagli utenti (e spesso anche dagli addetti ai lavori) come
+ un metodo che memorizza i dati, ma che quasi mai 
 \end_layout
 
 \begin_layout Standard
