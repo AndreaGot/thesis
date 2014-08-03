@@ -391,20 +391,9 @@ Ringraziamenti
 \end_layout
 
 \begin_layout Standard
-Prima di cominciare, voglio ringraziare alcune persone che hanno avuto un
- ruolo importante in tutti questi anni di studio.
- La lista non è sicuramente esaustiva, ma anche a chi non è elencato va
- il mio più sincero ringraziamento.
- 
-\begin_inset Newline newline
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-Prima di tutto, voglio ringraziare la mia famiglia, che mi ha sostenuto,
- incoraggiato e aiutato in tutti questi anni di studio;
+Prima di tutto, voglio ringraziare i miei genitori e i miei fratelli, per
+ avermi incoraggiato e sostenuto in questi anni di studio, e senza i quali
+ non sarei nemmeno riuscito a iniziare questo percorso di formazione.
 \begin_inset Newline newline
 \end_inset
 
@@ -415,7 +404,7 @@ Prima di tutto, voglio ringraziare la mia famiglia, che mi ha sostenuto,
 Grazie ai miei "colleghi" e compagni di corso Alessandro, Antonio, Mattia
  e Stefano, per aver trascorso insieme la preparazione di questi ultimi
  esami, dove casa mia é diventata il quartier generale dello studio (senza
- disdegnare calcio balilla e console per videogiochi) ;
+ disdegnare calcio balilla e videogiochi) ;
 \begin_inset Newline newline
 \end_inset
 
@@ -423,10 +412,31 @@ Grazie ai miei "colleghi" e compagni di corso Alessandro, Antonio, Mattia
 \end_layout
 
 \begin_layout Standard
-Infine, grazie anche alla mia fidanzata Giulia, per aver ascoltato le mie
- paranoie alla fine di ogni esame, dicendomi che sarebbe andato bene (e
- puntualmente ci ha azzeccato ogni volta, ma non ho mai voluto ammettere
- avesse ragione)
+Grazie a tutti i colleghi della Fondazione Bruno Kessler, area Sistemi Informati
+vi, per avermi fatto passare i sei mesi di stage trattandomi come uno di
+ loro e facendomi sentire ogni giorno come a casa;
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Standard
+Grazie anche alla mia fidanzata Giulia, per il sostegno mai mancato in questi
+ anni, ma soprattutto per aver ascoltato le mie paranoie alla fine di ogni
+ esame, dicendomi che sarebbe andato bene (e puntualmente azzeccandoci ogni
+ volta, anche se non ho mai voluto ammettere avesse ragione ☺)
+\begin_inset Newline newline
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Infine, grazie a tutti coloro, parenti, amici o anche semplici conoscenti,
+ che durante questi anni hanno sempre avuto una parola, un incoraggiamento
+ o anche solo un pensiero nei miei confronti, sono certo che questo risultato
+ è arrivato anche grazie a loro.
 \end_layout
 
 \begin_layout Standard
@@ -6094,7 +6104,7 @@ Cosa succederebbe se, in un futuro, venisse richiesto di trovare le persone
  residenti alla data del 20 luglio 2014?
 \end_layout
 
-\begin_layout Standard
+\begin_layout Itemize
 Nella tabella 
 \family typewriter
 RESIDENZA
@@ -6104,13 +6114,17 @@ RESIDENZA
  
 \end_layout
 
-\begin_layout Standard
+\begin_layout Itemize
 Nella tabella 
 \family typewriter
 RICH_RESIDENZA
 \family default
 , invece, Giorgio Bianchi risulta residente a Trento.
- Questo "finto" errore è dato proprio dalla necessità di poter ricostruire
+ 
+\end_layout
+
+\begin_layout Standard
+Questo "finto" errore è dato proprio dalla necessità di poter ricostruire
  il database ogni volta che sia opportuno, ripristinando con esso anche
  gli errori che a quella data erano stati involontariamente commessi ma
  non ancora scoperti.
@@ -13538,19 +13552,24 @@ Modifiche correnti
 
 \begin_layout Standard
 Le modifiche correnti sono il tipo più utilizzato di modifiche, che si traducono
- in operazioni che hanno come periodo iniziale di validità 
+ in operazioni che hanno un estremo del periodo di validità pari a 
 \family typewriter
 NOW
 \family default
- e valgono solo nel futuro (ovviamente riferendosi al momento in cui queste
- modifiche sono effettuate).
+ e i cui effetti valgono solo nel futuro (ovviamente riferendosi al momento
+ in cui queste modifiche sono effettuate).
  Anche i database tradizionali ammettono questo tipo di modifiche, poichè
  non essendoci alcun riferimento al tempo ogni alterazione del database
  ha effetto dal momento in cui viene salvata, e vale da quel momento nel
  futuro.
- Nella trattazione attuale verrà ipotizzato che la tabella possa ammettere
- solo modifiche correnti, poichè la presenza di dati nel futuro altererebbe
- i comportamenti delle operazioni che sono di seguito elencate.
+ Nella trattazione attuale verrà ipotizzato, per semplicità, che la tabella
+ possa ammettere solo modifiche correnti, poichè la presenza di dati con
+ validità che inizia e finisce nel futuro altererebbe i comportamenti delle
+ operazioni che sono di seguito elencate.
+ Comunque, alla fine di ogni paragrafo verranno presentati brevemente, dove
+ applicabili, i passi da seguire per rendere questi meccanismi utilizzabili
+ anche con record che hanno validità interamente futura, oppure con istante
+ di fine non corrispondente a FOREVER.
 \end_layout
 
 \begin_layout Paragraph
@@ -13588,7 +13607,42 @@ INSERT INTO RESIDENZA
 
 \begin_layout Plain Layout
 
-VALUES (3, 'Giulia Verdi', 'Rovereto', NOW, DATE '9999-12-31');
+VALUES 
+\end_layout
+
+\begin_layout Plain Layout
+
+  (
+\end_layout
+
+\begin_layout Plain Layout
+
+   3, 
+\end_layout
+
+\begin_layout Plain Layout
+
+   'Giulia Verdi', 
+\end_layout
+
+\begin_layout Plain Layout
+
+   'Rovereto', 
+\end_layout
+
+\begin_layout Plain Layout
+
+   NOW, 
+\end_layout
+
+\begin_layout Plain Layout
+
+   DATE '9999-12-31'
+\end_layout
+
+\begin_layout Plain Layout
+
+  );
 \end_layout
 
 \end_inset
@@ -14018,6 +14072,29 @@ RESIDENZA
 \end_inset
 
 
+\end_layout
+
+\begin_layout Standard
+INSERT è il costrutto che ha meno differenze tra i due tipi di database,
+ poichè funziona esattamente allo stesso modo.
+ Il metodo di inserimento, siano i record validi nel passato, nel presente
+ o nel futuro, non ha nessuna variazione: l'unico problema da risolvere,
+ nel caso vengano ammesse modifiche non solo correnti, va ricercato nelle
+ chiavi: infatti, può capitare che il record che si vuole inserire sia un
+ duplicato con valori equivalenti, oppure che si formino dei "buchi", ovvero
+ dei periodi in cui nessun record è valido.
+ Nel primo caso, è sufficiente non effettuare l'inserimento poichè significa
+ che la riga che si sta per inserire è già presente, anche se con un periodo
+ di validità diverso.
+ Il secondo caso, per quanto possa essere perfettamente accettabile (pensiamo
+ alla tabella RESIDENZA, se un soggetto va a risiedere fuori dal Trentino
+ e poi vi ritorna), crea dei problemi di integrità referenziale, poichè
+ verrebbero a crearsi i "buchi" poco fa menzionati.
+ Una soluzione consiste nel "riempire questi buchi con valori non rilevanti
+ ai fini della futura ricostruzione della tabella (basti pensare a valori
+ NULL per Luogo_Residenza, che non cambiano la struttura e i valori validi
+ nella tabella), ma che possono essere utilizzati per mantenere l'integrità
+ referenziale.
 \end_layout
 
 \begin_layout Paragraph
@@ -14494,7 +14571,7 @@ Tabella
 \family typewriter
 RESIDENZA
 \family default
- dopo l'arrivo di Giulia Verdi
+ dopo la partenza di Giorgio Bianchi
 \end_layout
 
 \end_inset
@@ -14516,13 +14593,693 @@ Da questo momento, nel caso si volesse sapere la situazione delle residenze
  
 \end_layout
 
+\begin_layout Standard
+In questo caso, per rendere il costrutto valido anche nel caso generale,
+ è necessario seguire questi passi:
+\end_layout
+
+\begin_layout Itemize
+Per le righe che hanno validità iniziata nel passato e fine prevista nel
+ futuro, modificare la fine della validità impostando NOW;
+\end_layout
+
+\begin_layout Itemize
+Cancellare fisicamente (e non solo logicamente) le righe che iniziano nel
+ futuro;
+\end_layout
+
+\begin_layout Standard
+Questo è l'unico caso in cui le righe possono essere effettivamente cancellate:
+ essendo le tabelle con tempo di validità lo specchio della realtà, non
+ avrebbe senso avere record che finiscono ancora prima di iniziare, poichè
+ non potranno mai divenire validi, per cui la cancellazione è un'operazione
+ legittima.
+\end_layout
+
 \begin_layout Paragraph
 UPDATE
 \end_layout
 
 \begin_layout Standard
 Come nel caso delle cancellazioni, anche i costrutti UPDATE differiscono
- in base al tipo di database preso in esame: in un database tradi
+ in base al tipo di database preso in esame: in un database tradizionale,
+ un UPDATE consiste semplicemente nell'aggiornamento della riga o del gruppo
+ di righe preso in esame.
+ Nei database temporali, invece, l'aggiornamento avviene con l'unione di
+ due costrutti: un DELETE logico, e un INSERT, entrambi menzionati nei paragrafi
+ immediatamente precedenti.
+ Nella tabella RESIDENZA, si può effettuare un UPDATE considerando l'eventualità
+ che Mario Rossi, da Trento, intenda spostarsi a Bolzano, in data 05 agosto
+ 2014.
+ In questo caso la query si compone prima dell'inserimento del nuovo record,
+ che avrà periodo di validità da NOW a FOREVER:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float algorithm
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+INSERT INTO RESIDENZA
+\end_layout
+
+\begin_layout Plain Layout
+
+SELECT DISTINCT 
+\end_layout
+
+\begin_layout Plain Layout
+
+  ID_Persona, 
+\end_layout
+
+\begin_layout Plain Layout
+
+  Nome_Persona, 
+\end_layout
+
+\begin_layout Plain Layout
+
+  'Bolzano', 
+\end_layout
+
+\begin_layout Plain Layout
+
+  NOW, 
+\end_layout
+
+\begin_layout Plain Layout
+
+  DATE '9999-12-31'
+\end_layout
+
+\begin_layout Plain Layout
+
+FROM RESIDENZA
+\end_layout
+
+\begin_layout Plain Layout
+
+WHERE ID_Persona = 1
+\end_layout
+
+\begin_layout Plain Layout
+
+  AND Val_End = DATE '9999-12-31'
+\end_layout
+
+\end_inset
+
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Modifiche correnti: UPDATE temporale - Parte 1
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+E successivamente si completa la sequenza di operazioni effettuando il DELETE
+ logico:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float algorithm
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+UPDATE RESIDENZA
+\end_layout
+
+\begin_layout Plain Layout
+
+SET Val_End = NOW
+\end_layout
+
+\begin_layout Plain Layout
+
+WHERE ID_Persona = 1
+\end_layout
+
+\begin_layout Plain Layout
+
+  AND Val_Start < NOW
+\end_layout
+
+\end_inset
+
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Modifiche correnti: UPDATE temporale - Parte 2
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+In questo modo la modifica del record è completa: viene preservata la situazione
+ attuale fino al momento effettivo della modifica, dove vengono applicati
+ i nuovi parametri, in sostanza scindendo il periodo di validità in due
+ parti, dove la prima si riferisce alla situazione prima della modifica,
+ e la seconda alla situazione immediatamente successiva.
+ Il risultato, alla fine del procedimento, è il seguente:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float table
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+noindent
+\backslash
+makebox[
+\backslash
+textwidth]{%
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Tabular
+<lyxtabular version="3" rows="7" columns="5">
+<features rotate="0" tabularvalignment="middle">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<row>
+<cell multicolumn="1" alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+RESIDENZA
+\end_layout
+
+\end_inset
+</cell>
+<cell multicolumn="2" alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell multicolumn="2" alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell multicolumn="2" alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell multicolumn="2" alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+ID_Persona
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+Nome_Persona
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+Luogo_Residenza
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+Val_Start
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+Val_End
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+1
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+Mario Rossi
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+Trento
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+03.05.1984
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+05.08.2014
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+2
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+Giorgio Bianchi
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+Lavis
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+06.03.1992
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+20.07.2014
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+2
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+Giorgio Bianchi
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+Trento
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+20.07.2014
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+04.08.2014
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+3
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+Giulia Verdi
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+Rovereto
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+03.08.2014
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+31.12.9999
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+1
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+Mario Rossi
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+Bolzano
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+05.08.2014
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+31.12.9999
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\end_inset
+
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Tabella 
+\family typewriter
+RESIDENZA
+\family default
+ dopo la partenza di Giorgio Bianchi
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+È bene notare che in questo caso, dove ovviamente ogni soggetto non può
+ risiedere in più di un luogo contemporaneamente, i costrutti DEFERRABLE
+ visti in precedenza hanno un'importanza fondamentale: infatti, se l'ordine
+ delle modifiche è quello listato, alla fine del primo INSERT si assisterebbe
+ a un errore dovuto ai controlli di coerenza e di unicità dei record secondo
+ i criteri fissati per la tabella, che avrebbero evidenziato una duplicazione
+ (in questo caso corrente) di un record, cosa non accettabile.
+ Posticipando i controlli, invece, questo errore non viene rilevato perchè
+ a fine elaborazione la tabella è interamente coerente.
+ 
+\end_layout
+
+\begin_layout Standard
+L'ordine delle query non è rilevante: è infatti possibile effettuare l'UPDATE
+ prima dell'INSERT, avendo cura di modificare a dovere le condizioni nella
+ clausola WHERE, che invertendo le istruzioni o non sarebbero più valide,
+ o sarebbero troppo generiche, includendo più di un record.
+ 
+\end_layout
+
+\begin_layout Standard
+Per rendere generale il procedimento di questa modifica, si devono seguire
+ tre passi:
+\end_layout
+
+\begin_layout Itemize
+Si inserisce una nuova riga, con i dati aggiornati, con validità da NOW
+ alla fine del periodo che ha NOW tra gli istanti di validità;
+\end_layout
+
+\begin_layout Itemize
+Si termina la riga corrente a NOW;
+\end_layout
+
+\begin_layout Itemize
+Si modificano tutti i record che iniziano nel futuro, applicando le stesse
+ modifiche del record attuale.
 \end_layout
 
 \begin_layout Subsubsection
@@ -14641,8 +15398,9 @@ tà transazionali sono o di complicata implementazione, o inutili dal loro
  scorrere del tempo, e per mettere "al passo con i tempi" un settore dell'inform
 atica che viene ancora visto dagli utenti (e spesso anche dagli addetti
  ai lavori) come dedicato alla memorizzazione dei dati, ma che quasi mai
- viene associato anche a un metodo per mantenere una correttezza temporale
- dei dati salvati al suo interno.
+ viene associato anche a un metodo, provvisto di metodologie e particolarità
+ caratteristiche, per mantenere una correttezza temporale dei dati salvati
+ al suo interno.
 \end_layout
 
 \begin_layout Standard
@@ -14803,17 +15561,6 @@ key "8"
 \end_inset
 
 http://www.sigmod.org/publications/sigmod-record/1209/pdfs/07.industry.kulkarni.pdf
-\end_layout
-
-\begin_layout Bibliography
-\begin_inset CommandInset bibitem
-LatexCommand bibitem
-label "9"
-key "9"
-
-\end_inset
-
-TEMPORAL DATA MANAGEMENT IN NOSQL DATABASES; 
 \end_layout
 
 \end_body
