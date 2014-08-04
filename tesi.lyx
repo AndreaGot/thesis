@@ -12619,6 +12619,8 @@ Val_End
 \begin_inset Text
 
 \begin_layout Plain Layout
+
+\family typewriter
 1
 \end_layout
 
@@ -12663,6 +12665,8 @@ Val_End
 \begin_inset Text
 
 \begin_layout Plain Layout
+
+\family typewriter
 1
 \end_layout
 
@@ -12707,6 +12711,8 @@ Val_End
 \begin_inset Text
 
 \begin_layout Plain Layout
+
+\family typewriter
 1
 \end_layout
 
@@ -12751,6 +12757,8 @@ Val_End
 \begin_inset Text
 
 \begin_layout Plain Layout
+
+\family typewriter
 1
 \end_layout
 
@@ -13325,6 +13333,8 @@ Val_End
 \begin_inset Text
 
 \begin_layout Plain Layout
+
+\family typewriter
 1
 \end_layout
 
@@ -13369,6 +13379,8 @@ Val_End
 \begin_inset Text
 
 \begin_layout Plain Layout
+
+\family typewriter
 1
 \end_layout
 
@@ -13413,6 +13425,8 @@ Val_End
 \begin_inset Text
 
 \begin_layout Plain Layout
+
+\family typewriter
 1
 \end_layout
 
@@ -13533,7 +13547,11 @@ Essendo i database temporali una estensione, sotto certi aspetti, di quelli
 \end_layout
 
 \begin_layout Itemize
-Modifiche correnti, che partono da NOW e si sviluppano nel futuro;
+Modifiche correnti, che partono da 
+\family typewriter
+NOW
+\family default
+ e si sviluppano nel futuro;
 \end_layout
 
 \begin_layout Itemize
@@ -13573,6 +13591,8 @@ NOW
 \end_layout
 
 \begin_layout Paragraph
+
+\family typewriter
 INSERT
 \end_layout
 
@@ -13582,11 +13602,19 @@ Citando come esempio la tabella
 RESIDENZA
 \family default
 , a più riprese utilizzata come dimostrazione, si può effettuare una modifica
- corrente, in questo caso un INSERT, supponendo che un nuovo soggetto, chiamato
- per semplicità Giulia Verdi, abbia iniziato a risiedere a Rovereto.
+ corrente, in questo caso un 
+\family typewriter
+INSERT
+\family default
+, supponendo che un nuovo soggetto, chiamato per semplicità Giulia Verdi,
+ abbia iniziato a risiedere a Rovereto.
  Supponendo valida la residenza solo al momento dell'inserimento nel database,
  avvenuta il 03 agosto 2014 (concetto non troppo distante dalla realtà),
- è sufficiente lanciare il seguente comando SQL:
+ è sufficiente lanciare il seguente comando 
+\family typewriter
+SQL
+\family default
+:
 \end_layout
 
 \begin_layout Standard
@@ -13651,7 +13679,11 @@ VALUES
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
-Modifiche correnti: INSERT temporale
+Modifiche correnti: 
+\family typewriter
+INSERT
+\family default
+ temporale
 \end_layout
 
 \end_inset
@@ -13985,6 +14017,8 @@ Trento
 \begin_inset Text
 
 \begin_layout Plain Layout
+
+\family typewriter
 3
 \end_layout
 
@@ -14075,8 +14109,12 @@ RESIDENZA
 \end_layout
 
 \begin_layout Standard
-INSERT è il costrutto che ha meno differenze tra i due tipi di database,
- poichè funziona esattamente allo stesso modo.
+
+\family typewriter
+INSERT
+\family default
+ è il costrutto che ha meno differenze tra i due tipi di database, poichè
+ funziona esattamente allo stesso modo.
  Il metodo di inserimento, siano i record validi nel passato, nel presente
  o nel futuro, non ha nessuna variazione: l'unico problema da risolvere,
  nel caso vengano ammesse modifiche non solo correnti, va ricercato nelle
@@ -14087,17 +14125,27 @@ INSERT è il costrutto che ha meno differenze tra i due tipi di database,
  che la riga che si sta per inserire è già presente, anche se con un periodo
  di validità diverso.
  Il secondo caso, per quanto possa essere perfettamente accettabile (pensiamo
- alla tabella RESIDENZA, se un soggetto va a risiedere fuori dal Trentino
- e poi vi ritorna), crea dei problemi di integrità referenziale, poichè
- verrebbero a crearsi i "buchi" poco fa menzionati.
+ alla tabella 
+\family typewriter
+RESIDENZA
+\family default
+, se un soggetto va a risiedere fuori dal Trentino e poi vi ritorna), crea
+ dei problemi di integrità referenziale, poichè verrebbero a crearsi i "buchi"
+ poco fa menzionati.
  Una soluzione consiste nel "riempire questi buchi con valori non rilevanti
  ai fini della futura ricostruzione della tabella (basti pensare a valori
- NULL per Luogo_Residenza, che non cambiano la struttura e i valori validi
- nella tabella), ma che possono essere utilizzati per mantenere l'integrità
- referenziale.
+ 
+\family typewriter
+NULL
+\family default
+ per Luogo_Residenza, che non cambiano la struttura e i valori validi nella
+ tabella), ma che possono essere utilizzati per mantenere l'integrità referenzia
+le.
 \end_layout
 
 \begin_layout Paragraph
+
+\family typewriter
 DELETE
 \end_layout
 
@@ -14105,16 +14153,34 @@ DELETE
 Mentre l'inserimento non ha alcuna differenza rispetto a quello nelle tabelle
  tradizionali, salvo la necessità di specificare il tempo, per quanto riguarda
  le cancellazioni la situazione è un po' diversa: se nelle tabelle tradizionali
- ci si può affidare al costrutto DELETE, con gli effetti ben noti di eliminazion
-e definitiva della riga o del gruppo di righe selezionato, nei database
- temporali un meccanismo del genere non esiste.
+ ci si può affidare al costrutto 
+\family typewriter
+DELETE
+\family default
+, con gli effetti ben noti di eliminazione definitiva della riga o del gruppo
+ di righe selezionato, nei database temporali un meccanismo del genere non
+ esiste.
  Essendo assolutamente necessario mantenere gli stati passati della tabella
- per poter ripristinare la situazione reale in un dato momento, il DELETE
- viene definito DELETE logico e si configura come un semplice UPDATE, poichè
- per cancellare una riga è sufficiente renderla non più valida, e quindi
- fare esaurire nel passato tale validità.
- Nel caso della tabella RESIDENZA, supponiamo che Giorgio Bianchi lasci
- il Trentino diretto verso un'altra regione italiana.
+ per poter ripristinare la situazione reale in un dato momento, il 
+\family typewriter
+DELETE
+\family default
+ viene definito 
+\family typewriter
+DELETE
+\family default
+ logico e si configura come un semplice 
+\family typewriter
+UPDATE
+\family default
+, poichè per cancellare una riga è sufficiente renderla non più valida,
+ e quindi fare esaurire nel passato tale validità.
+ Nel caso della tabella 
+\family typewriter
+RESIDENZA
+\family default
+, supponiamo che Giorgio Bianchi lasci il Trentino diretto verso un'altra
+ regione italiana.
  Ovviamente non è possibile cancellare la riga correntemente valida, nè
  tantomeno cancellare le righe che si riferiscono a questo soggetto, pena
  la perdita di tutto lo storico ad egli collegato.
@@ -14161,7 +14227,11 @@ WHERE ID_Persona = '2'
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
-Modifiche correnti: DELETE temporale
+Modifiche correnti: 
+\family typewriter
+DELETE
+\family default
+ temporale
 \end_layout
 
 \end_inset
@@ -14495,6 +14565,8 @@ Trento
 \begin_inset Text
 
 \begin_layout Plain Layout
+
+\family typewriter
 3
 \end_layout
 
@@ -14600,7 +14672,11 @@ In questo caso, per rendere il costrutto valido anche nel caso generale,
 
 \begin_layout Itemize
 Per le righe che hanno validità iniziata nel passato e fine prevista nel
- futuro, modificare la fine della validità impostando NOW;
+ futuro, modificare la fine della validità impostando 
+\family typewriter
+NOW
+\family default
+;
 \end_layout
 
 \begin_layout Itemize
@@ -14617,22 +14693,53 @@ Questo è l'unico caso in cui le righe possono essere effettivamente cancellate:
 \end_layout
 
 \begin_layout Paragraph
+
+\family typewriter
 UPDATE
 \end_layout
 
 \begin_layout Standard
-Come nel caso delle cancellazioni, anche i costrutti UPDATE differiscono
- in base al tipo di database preso in esame: in un database tradizionale,
- un UPDATE consiste semplicemente nell'aggiornamento della riga o del gruppo
- di righe preso in esame.
+Come nel caso delle cancellazioni, anche i costrutti 
+\family typewriter
+UPDATE
+\family default
+ differiscono in base al tipo di database preso in esame: in un database
+ tradizionale, un 
+\family typewriter
+UPDATE
+\family default
+ consiste semplicemente nell'aggiornamento della riga o del gruppo di righe
+ preso in esame.
  Nei database temporali, invece, l'aggiornamento avviene con l'unione di
- due costrutti: un DELETE logico, e un INSERT, entrambi menzionati nei paragrafi
- immediatamente precedenti.
- Nella tabella RESIDENZA, si può effettuare un UPDATE considerando l'eventualità
- che Mario Rossi, da Trento, intenda spostarsi a Bolzano, in data 05 agosto
- 2014.
+ due costrutti: un 
+\family typewriter
+DELETE
+\family default
+ logico, e un 
+\family typewriter
+INSERT
+\family default
+, entrambi menzionati nei paragrafi immediatamente precedenti.
+ Nella tabella 
+\family typewriter
+RESIDENZA
+\family default
+, si può effettuare un 
+\family typewriter
+UPDATE
+\family default
+ considerando l'eventualità che Mario Rossi, da Trento, intenda spostarsi
+ a Bolzano, in data 05 agosto 2014.
  In questo caso la query si compone prima dell'inserimento del nuovo record,
- che avrà periodo di validità da NOW a FOREVER:
+ che avrà periodo di validità da 
+\family typewriter
+NOW
+\family default
+ a 
+\family typewriter
+FOREVER
+\family default
+:
 \end_layout
 
 \begin_layout Standard
@@ -14702,7 +14809,11 @@ WHERE ID_Persona = 1
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
-Modifiche correnti: UPDATE temporale - Parte 1
+Modifiche correnti: 
+\family typewriter
+UPDATE
+\family default
+ temporale - Parte 1
 \end_layout
 
 \end_inset
@@ -14716,7 +14827,10 @@ Modifiche correnti: UPDATE temporale - Parte 1
 \end_layout
 
 \begin_layout Standard
-E successivamente si completa la sequenza di operazioni effettuando il DELETE
+E successivamente si completa la sequenza di operazioni effettuando il 
+\family typewriter
+DELETE
+\family default
  logico:
 \end_layout
 
@@ -14757,7 +14871,11 @@ WHERE ID_Persona = 1
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
-Modifiche correnti: UPDATE temporale - Parte 2
+Modifiche correnti: 
+\family typewriter
+UPDATE
+\family default
+ temporale - Parte 2
 \end_layout
 
 \end_inset
@@ -15244,22 +15362,38 @@ RESIDENZA
 
 \begin_layout Standard
 È bene notare che in questo caso, dove ovviamente ogni soggetto non può
- risiedere in più di un luogo contemporaneamente, i costrutti DEFERRABLE
+ risiedere in più di un luogo contemporaneamente, i costrutti 
+\family typewriter
+DEFERRABLE
+\family default
  visti in precedenza hanno un'importanza fondamentale: infatti, se l'ordine
- delle modifiche è quello listato, alla fine del primo INSERT si assisterebbe
- a un errore dovuto ai controlli di coerenza e di unicità dei record secondo
- i criteri fissati per la tabella, che avrebbero evidenziato una duplicazione
- (in questo caso corrente) di un record, cosa non accettabile.
+ delle modifiche è quello listato, alla fine del primo 
+\family typewriter
+INSERT
+\family default
+ si assisterebbe a un errore dovuto ai controlli di coerenza e di unicità
+ dei record secondo i criteri fissati per la tabella, che avrebbero evidenziato
+ una duplicazione (in questo caso corrente) di un record, cosa non accettabile.
  Posticipando i controlli, invece, questo errore non viene rilevato perchè
  a fine elaborazione la tabella è interamente coerente.
  
 \end_layout
 
 \begin_layout Standard
-L'ordine delle query non è rilevante: è infatti possibile effettuare l'UPDATE
- prima dell'INSERT, avendo cura di modificare a dovere le condizioni nella
- clausola WHERE, che invertendo le istruzioni o non sarebbero più valide,
- o sarebbero troppo generiche, includendo più di un record.
+L'ordine delle query non è rilevante: è infatti possibile effettuare l'
+\family typewriter
+UPDATE
+\family default
+ prima dell'
+\family typewriter
+INSERT
+\family default
+, avendo cura di modificare a dovere le condizioni nella clausola 
+\family typewriter
+WHERE
+\family default
+, che invertendo le istruzioni o non sarebbero più valide, o sarebbero troppo
+ generiche, includendo più di un record.
  
 \end_layout
 
@@ -15269,12 +15403,23 @@ Per rendere generale il procedimento di questa modifica, si devono seguire
 \end_layout
 
 \begin_layout Itemize
-Si inserisce una nuova riga, con i dati aggiornati, con validità da NOW
- alla fine del periodo che ha NOW tra gli istanti di validità;
+Si inserisce una nuova riga, con i dati aggiornati, con validità da 
+\family typewriter
+NOW
+\family default
+ alla fine del periodo che ha 
+\family typewriter
+NOW
+\family default
+ tra gli istanti di validità;
 \end_layout
 
 \begin_layout Itemize
-Si termina la riga corrente a NOW;
+Si termina la riga corrente a 
+\family typewriter
+NOW
+\family default
+;
 \end_layout
 
 \begin_layout Itemize
@@ -15287,7 +15432,270 @@ Modifiche sequenziali
 \end_layout
 
 \begin_layout Standard
-Modificazioni con un periodo passato, presente o futuro
+Mentre le modifiche correnti si riferiscono all istante 
+\family typewriter
+NOW
+\family default
+ e si propagano nel futuro, le modifiche sequenziali hanno un tempo di validità
+ delimitato da un intervallo più o meno arbitrario, a seconda dei casi presi
+ in esame, e tale tempo può svolgersi interamente nel passato, interamente
+ nel futuro oppure "a cavallo" tra presente e futuro, comprendendo quindi
+ anche l'istante 
+\family typewriter
+NOW
+\family default
+.
+ 
+\end_layout
+
+\begin_layout Paragraph
+
+\family typewriter
+INSERT
+\end_layout
+
+\begin_layout Standard
+Un inserimento sequenziale può interpretarsi, nella realtà, come l'assunzione
+ a tempo determinato di un dipendente.
+ In questo caso, la query necessaria per l'inserimento, è la seguente:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float algorithm
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+INSERT INTO PERSONALE
+\end_layout
+
+\begin_layout Plain Layout
+
+VALUES 
+\end_layout
+
+\begin_layout Plain Layout
+
+  (
+\end_layout
+
+\begin_layout Plain Layout
+
+    4,
+\end_layout
+
+\begin_layout Plain Layout
+
+    'Giulia Verdi,
+\end_layout
+
+\begin_layout Plain Layout
+
+    3,
+\end_layout
+
+\begin_layout Plain Layout
+
+    DATE '2014-01-09',
+\end_layout
+
+\begin_layout Plain Layout
+
+	DATE '2016-01-01'
+\end_layout
+
+\begin_layout Plain Layout
+
+  )
+\end_layout
+
+\begin_layout Plain Layout
+
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Modifiche correnti: 
+\family typewriter
+INSERT
+\family default
+ temporale
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+In questo caso si è aggiunto un periodo nel futuro: Giulia Verdi inizierà
+ il proprio periodo lavorativo con l'inizio di settembre, e si sa già che
+ il suo contratto avrà fine al termine del 2015.
+ Per garantire che l'inserimento vada sempre a buon fine, rispettando quindi
+ criteri di unicità e integrità referenziale, è necessario modificare la
+ query sopra riportata, in modo da verificare i seguenti requisiti
+\end_layout
+
+\begin_layout Itemize
+Non esistono duplicati nel periodo di validità della riga che si va a inserire;
+\end_layout
+
+\begin_layout Itemize
+Esiste una riga nella tabella collegata all'inizio della validità;
+\end_layout
+
+\begin_layout Itemize
+Esiste una riga nella tabella collegata alla fine della validità;
+\end_layout
+
+\begin_layout Itemize
+Non esistono "buchi" durante il periodo di validità della riga da inserire;
+\end_layout
+
+\begin_layout Standard
+Se tutte queste condizioni sono soddisfatte (e se la query prevede la verifica,
+ tramite una condizione 
+\family typewriter
+WHERE
+\family default
+, di ognuna di esse), la riga, se verrà inserita, rispetterà sicuramente
+ gli standard di unicità e integrità referenziale.
+\end_layout
+
+\begin_layout Paragraph
+
+\family typewriter
+DELETE
+\end_layout
+
+\begin_layout Standard
+Come visto nelle modifiche correnti, l'operazione 
+\family typewriter
+DELETE
+\family default
+ non funziona quasi mai come è lecito aspettarsi: come detto, infatti, la
+ cancellazione non è fisica, ma si effettua solo una "invalidazione" del
+ record, che rimane quindi valido solo nel passato.
+ Nel caso sequenziale, il discorso non è molto differente: ci sono ben quattro
+ casi, contro l'unico delle modifiche correnti, ma rispettano tutti un procedime
+nto generale: 
+\end_layout
+
+\begin_layout Itemize
+Inserire la riga "vecchia" dalla fine del periodo di cancellazione fino
+ alla fine naturale della validità del record;
+\end_layout
+
+\begin_layout Itemize
+Aggiornare l'istante di fine all'inizio del periodo di cancellazione;
+\end_layout
+
+\begin_layout Itemize
+Aggiornare l'istante di inizio alla fine del periodo di cancellazione;
+\end_layout
+
+\begin_layout Itemize
+Cancellare fisicamente le righe completamente coperte dal periodo di applicabili
+tà;
+\end_layout
+
+\begin_layout Standard
+Ovviamente, non in tutti i casi conviene eseguire tutti i passi: in alcuni
+ frangenti è sufficiente eseguire una parte di essi, e a volte addirittura
+ solamente un passo.
+ Basti pensare a una cancellazione di un record interamente coperto dal
+ periodo di cancellazione.
+ In questo caso, non ha senso eseguire i primi tre passi, ma è sufficiente
+ eseguire l'ultimo ed eliminare fisicamente il record oggetto della cancellazion
+e.
+ Nel caso di una cancellazione con periodo completamente all'interno di
+ un record, è necessario eseguire il primo e il secondo passo, e così via.n
+ Come le modifiche correnti, questo è l'unico caso in cui i record vengono
+ effettivamente cancellati.
+ 
+\end_layout
+
+\begin_layout Paragraph
+
+\family typewriter
+UPDATE
+\end_layout
+
+\begin_layout Standard
+Per quanto riguarda le alterazioni del database, un 
+\family typewriter
+UPDATE
+\family default
+ si svolge esattamente come la versione tradizionale, con la differenza
+ che la versione temporale prevede, come è ormai consuetudine, un periodo
+ di applicabilità.
+ In questo caso, è necessario eseguire una serie di operazioni più lunga
+ e complessa, nello specifico:
+\end_layout
+
+\begin_layout Itemize
+Inserire i vecchi record dal loro inizio naturale fino all'inizio del periodo
+ di modifica;
+\end_layout
+
+\begin_layout Itemize
+Inserire i vecchi record dalla fine del periodo di modifica fino alla loro
+ fine naturale;
+\end_layout
+
+\begin_layout Itemize
+Per i record che si sovrappongono al periodo di modifica, effettuare l'update
+ dei campi previsti;
+\end_layout
+
+\begin_layout Itemize
+Modificare la data di inizio dei record che si sovrappongono al periodo
+ di modifica all'inizio di detto periodo
+\end_layout
+
+\begin_layout Itemize
+Modificare la data di fine dei record che si sovrappongono al periodo di
+ modifica, alla fine di detto periodo;
+\end_layout
+
+\begin_layout Standard
+Nel caso di un aggiornamento che coinvolga solo la parte centrale di un
+ record, è necessario svolgere il primo passo, che crea la prima parte del
+ record che rimane invariata, e il secondo che crea la parte omologa alla
+ fine del periodo di validità; successivamente, per creare la parte di record
+ che subisce l'aggiornamento, è necessario svolgere il terzo passo sulla
+ riga iniziale, che ha ancora validità per l'intero periodo, cambiando i
+ dati richiesti.
+ Dopo averla modificata, è necessario, con il quarto passo, adattare la
+ data di inizio del periodo oggetto di variazione, e con il quinto si adatta
+ l'istante finale.
+ 
+\end_layout
+
+\begin_layout Standard
+Al contrario, nel caso in cui il tempo di modifica comprenda l'intero periodo
+ del record, è sufficiente svolgere il terzo passo, modificando semplicemente
+ i dati richiesti.
+ I casi intermedi si svolgono effettuando solo i passi del procedimento
+ che sono più adatti allo scopo.
 \end_layout
 
 \begin_layout Subsubsection
@@ -15295,7 +15703,30 @@ Modifiche non sequenziali
 \end_layout
 
 \begin_layout Standard
-Modificazioni che non contano i campi tempo
+Le modifiche non sequenziali sono, curiosamente, quelle più facili da eseguire
+ in SQL, ma allo stesso tempo quelle più difficili da esprimere in linguaggio
+ naturale, e di conseguenza le meno usate.
+ Come mai questo apparente paradosso? Perchè le modifiche non sequenziali
+ si riferiscono alla rappresentazione della tabella, e non a una interpretazione
+ della realtà, e ciò le rende molto facili da tradurre in linguaggio SQL,
+ ma molto difficili da associare alla situazione reale.
+ Allo stesso tempo, nonostante la facilità di traduzione in SQL, queste
+ modifiche possono causare molti danni al database, poichè i campi tempo
+ vengono trattati esattamente come gli altri campi dati, e quindi non si
+ ha alcuna garanzia che le alterazioni che si stanno per fare non causino
+ alcun duplicato.
+ Anzi, la situazione è opposta: le modifiche non sequenziali causano molti
+ duplicati sequenziali, poichè le alterazioni trattano il tempo come un
+ dato, potendo quindi aggiungere o sottrarre tempo come si fa con i normali
+ numeri, senza però avere la certezza che l'intera operazione sia esente
+ da sovrapposizioni o duplicati, come avviene con le modifiche correnti
+ o sequenziali.
+ Questo è il principale limite delle modifiche non sequenziali: per poter
+ operare tranquillamente è necessario estendere il significato delle modifiche,
+ aggiungendo dei controlli che verificano che l'unicità o l'integrità referenzia
+le sia rispettata, e ciò rende impossibile la definizione di un algoritmo
+ generale, rendendo necessario lavorare con queste query analizzando la
+ situazione caso per caso.
 \end_layout
 
 \begin_layout Subsection
@@ -15303,11 +15734,89 @@ Tabelle con tempo di transazione
 \end_layout
 
 \begin_layout Standard
-Breve riassunto di ciò che sono le tabelle
+Come accennato in precedenza, una tabella con tempo di transazione non è
+ altro che l'insieme di tante "fotografie" (in inglese, snapshot) che mantengono
+ lo stato di una tabella nel corso del tempo.
+ Questo avviene, in maniera molto simile alle tabelle con tempo di validità,
+ associando un periodo a ogni record.
+ Tuttavia, questo periodo non rappresenta il tempo di validità propriamente
+ detto, ma viene definito come tempo di permanenza, cioè il periodo in cui
+ la riga era presente nella tabella prima di subire una cancellazione o
+ una modifica.
+ 
+\end_layout
+
+\begin_layout Standard
+In questo tipo di tabelle difficilmente le righe vengono inserite manualmente,
+ anche se è perfettamente possibile: in genere, l'inserimento viene fatto
+ tramite l'azione di un trigger sulla tabella di cui si vuole mantenere
+ lo stato (detta tabella monitorata), e così funziona anche con le modifiche:
+ anche se è possibile effettuare una modifica manuale ogni volta che occorre
+ nella tabella monitorata, è molto più facile che dette modifiche vengano
+ riflesse automaticamente nella tabella con tempo di transazione, ad esempio
+ con l'effetto di un trigger, o in altro modo.
+ Queste tabelle hanno molto in comune con le tabelle con tempo di validità,
+ e quindi questa sezione tratterà principalmente ciò che differenzia le
+ tabelle con tempo di transazione da quelle con tempo di validità.
 \end_layout
 
 \begin_layout Subsubsection
 Manutenzione
+\end_layout
+
+\begin_layout Standard
+Per manutenzione delle tabelle si intendono tutti i processi atti a mantenere
+ la tabella in uno stato di coerenza con la realtà, e per estensione tutti
+ i metodi che consentono, in un qualsiasi momento, di recuperare lo stato
+ della tabella in un qualsiasi altro momento dalla sua creazione fino al
+ momento attuale.
+ 
+\end_layout
+
+\begin_layout Standard
+Una tabella con tempi di transazione prevede due principali metodi di manutenzio
+ne: la gestione con i trigger e la gestione diretta.
+\end_layout
+
+\begin_layout Paragraph
+Gestione con i trigger
+\end_layout
+
+\begin_layout Standard
+In questo caso parlare di "gestione" o "manutenzione" potrebbe sembrare
+ fuori luogo, poichè con questi termini sembra che l'effettivo controllo
+ sia nelle mani dell'utente, o comunque che chi gestisce abbia un ruolo
+ preponderante nell'operazione.
+ In realtà, tutta questa gestione è "dietro le quinte", affidata ai trigger
+ che sono stati definiti in fase di creazione della tabella stessa.
+\end_layout
+
+\begin_layout Paragraph
+Gestione diretta
+\end_layout
+
+\begin_layout Standard
+Questo genere di gestione, invece che due tabelle come nella gestione con
+ trigger (tabella monitorata e tabella con tempo di transazione), ne utilizza
+ una "reale" (la tabella con tempo di transazione) e una "virtuale", intesa
+ come una vista che si basa sulla tabella reale per ottenere i dati validi
+ in quel momento.
+ 
+\end_layout
+
+\begin_layout Standard
+Finchè una applicazione ha come obiettivo quello di interrogare la tabella
+ virtuale per ottenere i dati senza apportare modifiche, allora la vista
+ compie egregiamente il proprio lavoro, e permette anche un risparmio di
+ spazio: infatti, con le gestione tramite i trigger, c'è il bisogno di mantenere
+ due tabelle formalmente distinte ma con dati uguali, avendo così una ridondanza
+ che va a scapito delle prestazioni, e nel caso la tabella fosse particolarmente
+ grande, anche delle dimensioni su disco.
+\end_layout
+
+\begin_layout Standard
+Nel caso una applicazione avesse bisogno di scrivere sulla tabella, invece,
+ 
 \end_layout
 
 \begin_layout Subsubsection
