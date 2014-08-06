@@ -2361,7 +2361,7 @@ status open
 
 \begin_layout Plain Layout
 
-$ X mi Y $
+$ Y mi X $
 \end_layout
 
 \end_inset
@@ -2434,7 +2434,7 @@ status open
 
 \begin_layout Plain Layout
 
-$ X oi Y $
+$ Y oi X $
 \end_layout
 
 \end_inset
@@ -2507,7 +2507,7 @@ status open
 
 \begin_layout Plain Layout
 
-$ X si Y $
+$ Y si X $
 \end_layout
 
 \end_inset
@@ -2580,7 +2580,7 @@ status open
 
 \begin_layout Plain Layout
 
-$ X di Y $
+$ Y di X $
 \end_layout
 
 \end_inset
@@ -2653,7 +2653,7 @@ status open
 
 \begin_layout Plain Layout
 
-$ X fi Y $
+$ Y fi X $
 \end_layout
 
 \end_inset
@@ -12046,7 +12046,7 @@ ne del corso del tempo.
  essere presenti, poichè nessun costrutto è stato utilizzato per limitare
  i duplicati.
  Per far ciò, si potrebbe pensare al costrutto DISTINCT, ma anche questo
- costrutto ha diversi contesti di applicazione, e quindi deve essere valutato
+ sistema ha diversi contesti di applicazione, e quindi deve essere valutato
  caso per caso.
 \end_layout
 
@@ -15518,8 +15518,6 @@ VALUES
 
 \begin_layout Plain Layout
 
-
-
 \end_layout
 
 \end_inset
@@ -15814,12 +15812,80 @@ Finchè una applicazione ha come obiettivo quello di interrogare la tabella
  grande, anche delle dimensioni su disco.
 \end_layout
 
-\begin_layout Subsubsection
-Restore di stati precedenti
+\begin_layout Standard
+Nel caso una applicazione avesse bisogno di scrivere sulla tabella, invece,
+ è inevitabilmente necessario operare direttamente su di essa, anzichè "per
+ vie traverse" come l'alternativa precedente, alterando quindi i dati in
+ essa contenuti.
+ Questa operazione, che ricordiamo essere molto difficile nelle tabelle
+ con tempo di validità per via della grande quantità di varianti disponibili
+ (ben dodici, comprensive di modifiche correnti nel caso ristretto alle
+ sole modifiche correnti, modifiche correnti nel caso generale, modifiche
+ sequenziali, modifiche non sequenziali), nel caso delle tabelle con tempo
+ di transazione è molto più rapida, poichè ci sono solo modifiche correnti:
+ non è possibile effettuare modifiche nel passato, poichè è già avvenuto
+ e non sarebbe coerente, e similarmente non è possibile modificare il futuro,
+ poichè non si sa con certezza come la situazione si evolverà.
+ Perciò, rimangono solo tre operazioni (INSERT corrente, DELETE corrente
+ e UPDATE corrente) che come esecuzione sono del tutto simili a quelli presenti
+ nelle tabelle con tempo di validità, a cui si fa rimando.
 \end_layout
 
 \begin_layout Subsubsection
-Vacuuming
+Interrogazioni
+\end_layout
+
+\begin_layout Standard
+Le tabelle con tempo di transazione hanno dalla loro parte, anche in questo
+ caso in maniera molto simile alle tabelle con tempo di validità, la facilità
+ di interrogazione.
+ Tuttavia, hanno una differenza sostanziale, che è data dalle interrogazioni
+ nel futuro: mentre le tabelle con tempo di validità permettono questa operazion
+e, che al limite potrà restituire risultati incompleti o imprecisi rispetto
+ all'interrogazione corrente effettuata nello stesso momento, le tabelle
+ con tempo di transazione non rendono disponibile questo tipo di interrogazione.
+ Il motivo è molto semplice: siccome le tabelle con tempo di transazione
+ sono state create per rendere possibile la ricostruzione della tabella
+ in un istante passato o, al limite, presente, ne deriva che una ricostruzione
+ della tabella in un istante futuro, per quanto teoricamente possibile,
+ sarebbe del tutto priva di senso.
+ Oltre a questa, esistono altre due distinzioni fondamentali sulle tabelle
+ con tempo di validità e con tempo di transazione:
+\end_layout
+
+\begin_layout Itemize
+La prima, in questo caso puramente interpretativa piuttosto che sostanziale,
+ è data dal fatto che le modifiche sequenziali di una tabella con tempo
+ di validità rispondono alla richiesta di "Mostrare l'evoluzione di" un
+ certo evento, mentre le tabelle con tempo di transazione, alla stessa interroga
+zione, danno il significato di "Mostrare i cambiamenti del database che
+ corrispondono a" un certo evento.
+ La differenza è abbastanza semplice da apprezzare: molto spesso, infatti,
+ gli eventi sono registrati nel database in istanti precedenti o successivi
+ all'effettivo avvio della validità dell'evento stesso, perciò è facile
+ immaginare come una tabella con tempo di validità e una tabella con tempo
+ di transazione, se interrogate, difficilmente avranno record completamente
+ identici sia in termini di numero che di contenuto.
+\end_layout
+
+\begin_layout Itemize
+La seconda, invece, è data dal fatto che una interrogazione sequenziale
+ effettuata su una tabella con tempo di validità ritorna sempre una nuova
+ tabella con tempo di validità, mentre una tabella con tempo di transazione,
+ al contrario, non ritorna mai una tabella con tempo di transazione.
+ La spiegazione di questo concetto va ricercata nelle caratteristiche intrinsech
+e della tabella: infatti una tabella con tempo di validità, anche se ristretta,
+ è caratterizzata da un periodo che vale solo nei confronti del record in
+ cui è salvato, per cui anche una proiezione della tabella non ne altera
+ la correttezza.
+ Una tabella con tempo di transazione, invece, è considerata tale solo se
+ è possibile, ad ogni momento, recuperare uno stato precedente della tabella
+ stessa.
+ Quindi, se si effettua una query sequenziale, verranno evidenziati solo
+ i record che rispettano le condizioni, il che è corretto, ma allo stesso
+ tempo fa venir meno la possibilità di ripristino di uno stato precedente,
+ poichè il risultato che deriverebbe da un tentativo in questo senso non
+ sarebbe sicuramente completo.
 \end_layout
 
 \begin_layout Subsection
@@ -15827,11 +15893,23 @@ Tabelle bitemporali
 \end_layout
 
 \begin_layout Standard
-10.2
+Unione di tabelle con tempo di validità e tempo di transazione
 \end_layout
 
-\begin_layout Subsubsection
-Un approccio grafico
+\begin_layout Standard
+9 operazioni
+\end_layout
+
+\begin_layout Standard
+current
+\end_layout
+
+\begin_layout Standard
+sequenced
+\end_layout
+
+\begin_layout Standard
+non sequenced
 \end_layout
 
 \begin_layout Part
@@ -15842,12 +15920,44 @@ Confronti
 SQL-2011
 \end_layout
 
-\begin_layout Subsection
-System time
+\begin_layout Standard
+SQL-2011 è la più recente release dello standard SQL, ed è considerata la
+ release più importante in materia di database temporali.
+ Da ormai molto tempo quasi nessun DBMS segue scrupolosamente le direttive
+ dello standard SQL, poichè nel corso degli anni sono state sviluppate versioni
+ che, se per alcuni aspetti sono praticamente identiche alla versione standard,
+ per altri aspetti sono molto diverse dall'originale.
+ Questo perchè ogni produttore di software ha la propria filosofia, che
+ cerca di infondere nel prodotto che poi verrà destinato alla vendita.
+ Comunque, anche se non è più utilizzato nella sua forma base, SQL ha ancora
+ la capacità di dettare le regole e di definire le innovazioni in materia,
+ e perciò, anche per garantire una trattazione generale e slegata da ogni
+ soluzione proprietaria, in questa sezione verranno trattate le principali
+ caratteristiche dello standard.
 \end_layout
 
-\begin_layout Subsection
-Application time
+\begin_layout Standard
+Le innovazioni principali sono:
+\end_layout
+
+\begin_layout Itemize
+Il supporto ai periodi, una lacuna che si protraeva da alcuni anni e che
+ è stata colmata solo in questa versione;
+\end_layout
+
+\begin_layout Itemize
+Il supporto, seppur modificato e adattato, all'Algebra di Allen, tramite
+ l'introduzione di costrutti utili allo scopo;
+\end_layout
+
+\begin_layout Itemize
+La definizione delle tabelle con tempo di validità (qui definite "Application
+ time period tables"), anche qui con l'introduzione di speciali parole chiave;
+\end_layout
+
+\begin_layout Itemize
+La definizione delle tabelle con tempo di transazione (qui definite "system-vers
+ioned tables"), con nuovi costrutti;
 \end_layout
 
 \begin_layout Subsection
@@ -15856,16 +15966,316 @@ Application time
 PERIOD
 \end_layout
 
+\begin_layout Standard
+L'introduzione dei periodi è sicuramente il cambiamento più rilevante per
+ quanto riguarda gli aspetti temporali di SQL, ed è anche quello grazie
+ al quale sono possibili altre particolari innovazioni, come la gestione
+ delle chiavi primarie e la gestione dell'integrità referenziale.
+\end_layout
+
 \begin_layout Subsubsection
-Applicazioni di PERIOD nella definizione di chiavi primarie
+Utilizzo dei periodi
+\end_layout
+
+\begin_layout Paragraph
+Creazione di tabelle
 \end_layout
 
 \begin_layout Standard
-Primary key (field, period WITHOUT OVERLAPS)
+Si può finalmente definire un periodo, ma ovviamente continuano a essere
+ necessari gli istanti di inizio e fine (il periodo è un campo in più)
+\end_layout
+
+\begin_layout Paragraph
+Chiavi Primarie
+\end_layout
+
+\begin_layout Standard
+è possibile definire chiavi primarie che controllano autonomamente che il
+ periodo non sia sovrapposto
+\end_layout
+
+\begin_layout Paragraph
+Integrità referenziale
+\end_layout
+
+\begin_layout Subsection
+Algebra di Allen applicata a SQL
+\end_layout
+
+\begin_layout Standard
+Con la release 2011, SQL introduce delle specifiche parole chiave che supportano
+ il confronto tra periodi.
+ e parole chiave sono molto simili a quelle introdotte da Allen nell'algebra
+ omonima, ma nel caso di SQL sono stati leggermente modificati nel comportamento
+, in modo da rendere il loro comportamento leggermente più flessibile di
+ quello teorizzato agli inizi.
+ Le nuove parole chiave sono 
+\family typewriter
+CONTAINS, OVERLAPS, EQUALS, PRECEDES, SUCCEEDS, IMMEDIATELY PRECEDES
+\family default
+ e 
+\family typewriter
+IMMEDIATELY SUCCEEDS
+\family default
+, e sono definiti come segue:
+\end_layout
+
+\begin_layout Itemize
+
+\family typewriter
+X CONTAINS Y
+\family default
+ è verificato se il periodo X contiene completamente il periodo Y.
+ Questa definizione è molto meno restrittiva di quella equivalente in algebra
+ di Allen, perchè quest'ultime considera un periodo contenuto in un altro
+ solo se non condividono gli istanti di inizio e/o di fine, poichè altrimenti
+ ricadrebbero in altri casi.
+ Il costrutto comprende:
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+
+\family typewriter
+Y starts X
+\end_layout
+
+\begin_layout Itemize
+
+\family typewriter
+Y finishes X
+\end_layout
+
+\begin_layout Itemize
+
+\family typewriter
+Y during X
+\end_layout
+
+\begin_layout Itemize
+
+\family typewriter
+Y equal X
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+
+\family typewriter
+X OVERLAPS Y
+\family default
+ ha un significato molto diverso in SQL: mentre l'algebra di Allen definisce
+ sovrapposti due periodi che hano più di un istante in comune, per SQL è
+ sufficiente che l'istante in comune sia solo uno.
+ inoltre, mentre in SQL 
+\family typewriter
+X OVERLAPS Y
+\family default
+ è uguale a 
+\family typewriter
+Y OVERLAPS X
+\family default
+, nell'algebra dei periodi ciò non è vero.
+ Ne deriva che questo costrutto, in SQL, comprende molti casi dell'algebra
+ dei periodi, ovvero:
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+
+\family typewriter
+X overlaps Y
+\end_layout
+
+\begin_layout Itemize
+
+\family typewriter
+Y overlaps X
+\end_layout
+
+\begin_layout Itemize
+
+\family typewriter
+X during Y 
+\end_layout
+
+\begin_layout Itemize
+
+\family typewriter
+Y during X
+\end_layout
+
+\begin_layout Itemize
+
+\family typewriter
+X starts Y
+\end_layout
+
+\begin_layout Itemize
+
+\family typewriter
+Y starts X
+\end_layout
+
+\begin_layout Itemize
+
+\family typewriter
+X finishes Y
+\end_layout
+
+\begin_layout Itemize
+
+\family typewriter
+Y finishes X
+\end_layout
+
+\begin_layout Itemize
+
+\family typewriter
+X equals Y
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+
+\family typewriter
+X EQUALS Y
+\family default
+ ha lo stesso significato sia in SQL che in algebra di Allen;
+\end_layout
+
+\begin_layout Itemize
+
+\family typewriter
+X PRECEDES Y
+\family default
+ si considera vero se X condivide al massimo l'istante di fine con quello
+ di inizio di Y.
+ Perciò, nell'algebra dei periodi, corrisponde a:
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+
+\family typewriter
+X before Y
+\end_layout
+
+\begin_layout Itemize
+
+\family typewriter
+X meets Y
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+
+\family typewriter
+X SUCCEEDS Y
+\family default
+ è la controparte finale del punto precedente.
+ Si considera vero se X condivide al massimo l'istante di inizio con quello
+ di fine di Y, perciò equivale a:
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+
+\family typewriter
+Y meets X
+\end_layout
+
+\begin_layout Itemize
+
+\family typewriter
+X after Y
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+
+\family typewriter
+X IMMEDIATELY PRECEDES Y
+\family default
+ corrisponde al costrutto 
+\family typewriter
+X meets Y
+\end_layout
+
+\begin_layout Itemize
+
+\family typewriter
+X IMMEDIATELY SUCCEEDS Y
+\family default
+ corrisponde al costrutto 
+\family typewriter
+Y meets X
+\end_layout
+
+\begin_layout Standard
+Come è possibile vedere, l'interpretazione che lo standard dà a queste parole
+ chiave è, in alcuni casi, molto meno stringente della controparte teorica.
+ Questo può sembrare un errore, ma in realtà è stato fatto anche per privilegiar
+e la logica: in molti casi (
+\family typewriter
+during
+\family default
+ uno su tutti) l'algebra di Allen è fin troppo specifica, a volte anche
+ poco naturale (come mai due periodi che iniziano insieme e finiscono in
+ istanti diversi non sono considerati uno sovrapposto all'altro?), e una
+ implementazione letterale di questi concetti renderebbe molto difficile
+ la scrittura e la successiva comprensione del codice, poichè per verificare
+ una condizione logicamente valida, è spesso necessario eseguire nel codice
+ almeno due test, fino addirittura a sette.
+ SQL risolve questo problema accorpando le regole di Allen che sono logicamente
+ simili, rendendo così i test effettuati numericamente minori, ma allo stesso
+ tempo assolutamente completi.
+\end_layout
+
+\begin_layout Subsection
+System time
+\end_layout
+
+\begin_layout Standard
+tabelle con tempo di transazione
+\end_layout
+
+\begin_layout Subsection
+Application time
+\end_layout
+
+\begin_layout Standard
+tabelle con tempo di validità
 \end_layout
 
 \begin_layout Section
 Il caso concreto: Fondazione Bruno Kessler
+\end_layout
+
+\begin_layout Itemize
+Utilizzo dei database temporali nella gestione del personale
+\end_layout
+
+\begin_layout Itemize
+Rapporti di lavoro, anagrafe, residenze, coordinate bancarie
+\end_layout
+
+\begin_layout Itemize
+Nessuna tabella con tempo di transazion
+\end_layout
+
+\begin_layout Itemize
+il backup, che viene effettuato su base giornaliera su server a Milano,
+ è più sicuro e facilmente recuperabile
+\end_layout
+
+\begin_layout Itemize
+Viene usato SQL server
+\end_layout
+
+\begin_layout Itemize
+SQL server non ha impostazione prettamente temporale
 \end_layout
 
 \begin_layout Standard
@@ -16003,24 +16413,13 @@ SQL Key Words: http://www.postgresql.org/docs/9.2/static/sql-keywords-appendix.h
 \begin_layout Bibliography
 \begin_inset CommandInset bibitem
 LatexCommand bibitem
-label "3"
-key "3"
-
-\end_inset
-
-Temporal features in SQL-2011: http://www.sigmod.org/publications/sigmod-record/12
-09/pdfs/07.industry.kulkarni.pdf
-\end_layout
-
-\begin_layout Bibliography
-\begin_inset CommandInset bibitem
-LatexCommand bibitem
 label "4"
 key "4"
 
 \end_inset
 
-http://mate.dm.uba.ar/~tera2005/ConfVaisman.pdf
+Temporal databases: state-of-the-art and applications: http://mate.dm.uba.ar/~tera2
+005/ConfVaisman.pdf
 \end_layout
 
 \begin_layout Bibliography
@@ -16031,7 +16430,8 @@ key "5"
 
 \end_inset
 
-http://www.cs.arizona.edu/~rts/pubs/TODS87.pdf
+The Temporal Query Language TQuel - Richard Snodgrass http://www.cs.arizona.edu/~rt
+s/pubs/TODS87.pdf
 \end_layout
 
 \begin_layout Bibliography
@@ -16042,7 +16442,8 @@ key "6"
 
 \end_inset
 
-http://www.cs.arizona.edu/~rts/initiatives/tsql2/tsqldesignapproach.pdf
+TSQL: A Design Approach - Richard Snodgrass http://www.cs.arizona.edu/~rts/initiati
+ves/tsql2/tsqldesignapproach.pdf
 \end_layout
 
 \begin_layout Bibliography
@@ -16053,7 +16454,7 @@ key "7"
 
 \end_inset
 
-http://www.treccani.it/vocabolario/precisione/
+Definizione di precisione - http://www.treccani.it/vocabolario/precisione/
 \end_layout
 
 \begin_layout Bibliography
@@ -16064,7 +16465,45 @@ key "8"
 
 \end_inset
 
-http://www.sigmod.org/publications/sigmod-record/1209/pdfs/07.industry.kulkarni.pdf
+Temporal features in SQL:2011- Krishna Kulkarni, Jan-Eike Michels http://www.sigm
+od.org/publications/sigmod-record/1209/pdfs/07.industry.kulkarni.pdf
+\end_layout
+
+\begin_layout Bibliography
+\begin_inset CommandInset bibitem
+LatexCommand bibitem
+label "9"
+key "9"
+
+\end_inset
+
+Developing Time-Oriented Database Applications in SQL, Richard T.
+ Snodgrass - http://www.cs.arizona.edu/people/rts/tdbbook.pdf
+\end_layout
+
+\begin_layout Bibliography
+\begin_inset CommandInset bibitem
+LatexCommand bibitem
+label "10"
+key "10"
+
+\end_inset
+
+Adding Transaction Time to SQL/Temporal - Richard T.
+ Snodgrass, Michael H.
+ Böhlen, Christian S.
+ Jensen, and Andreas Steiner
+\end_layout
+
+\begin_layout Bibliography
+\begin_inset CommandInset bibitem
+LatexCommand bibitem
+label "11"
+key "11"
+
+\end_inset
+
+http://www.jtc1sc32.org/doc/N2151-2200/32N2153T-text_for_ballot-FDIS_9075-1.pdf
 \end_layout
 
 \end_body
