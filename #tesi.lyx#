@@ -16253,29 +16253,78 @@ tabelle con tempo di validità
 Il caso concreto: Fondazione Bruno Kessler
 \end_layout
 
-\begin_layout Itemize
-Utilizzo dei database temporali nella gestione del personale
+\begin_layout Standard
+Nel periodo di stage, da dicembre 2013 fino ad aprile 2014, che ho passato
+ in Fondazione Bruno Kessler, area Sistemi Informativi, ho avuto spesso
+ a che fare con i database, anche perchè sono stato frequentemente impegnato
+ in lavori di manipolazione e analisi dei dati.
+ Non tutti i database della Fondazione, però, sono database temporali: gestendo
+ una gran mole di informazioni di tutti tipi, impostare ogni tabella o database
+ con un approccio temporale diventerebbe, a lungo andare, complicato e inutilmen
+te faticoso, anche perchè non sempre i database necessitano di questo tipo
+ di organizzazione.
+ Per questo motivo, tra tutti le tabelle che ho avuto modo di utilizzare,
+ ho notato che le uniche ad avere un'impostazione temporale sono soprattutto
+ quelle dedicate al personale, come residenza e coordinate bancarie.
 \end_layout
 
-\begin_layout Itemize
-Rapporti di lavoro, anagrafe, residenze, coordinate bancarie
+\begin_layout Standard
+Un dubbio che potrebbe sorgere riguarda l'effettiva utilità dell'approccio
+ temporale: a cosa serve mantenere tutti i dati di un dipendente, quando
+ ciò che lo riguarda (come cedolini paga o comunicazioni) si rivolge solo
+ all'istante attuale? Il motivo è presto detto: per garantire la coerenza
+ di tutte le operazioni effettuate, non è possibile aggiornare il profilo
+ del singolo dipendente, poichè verrebbero inevitabilmente alterati tutti
+ i dati inseriti nel passato: è necessario quindi inserire un nuovo record,
+ corredato di tempo di validità, ad ogni cambio di residenza o di coordinate
+ bancarie, in modo da poter facilmente recuperare tutto ciò che serve in
+ caso di bisogno.
+ 
 \end_layout
 
-\begin_layout Itemize
-Nessuna tabella con tempo di transazion
+\begin_layout Standard
+Una cosa che mi ha colpito della gestione dei database in Fondazione Bruno
+ Kessler è la mancanza di tabelle con tempo di transizione: potrebbero essere
+ utili, sopratutto se è necessario valutare la situazione di una tabella
+ nel passato grazie alla possibilità di ricostruire lo stato che aveva all'epoca
+, ma FBK adotta un sistema alternativo.
+ La funzione delle tabelle con tempo di transazione è sostituita, a mio
+ parere egregiamente, dall'utilizzo di frequenti backup: Durante la giornata,
+ a intervalli regolari, e durante la notte, la situazione del database del
+ personale viene sincronizzata con il server fisico dove risiede, che si
+ trova a Milano e viene gestito da una società esterna, mentre i database
+ locali vengono sincronizzati sui server presenti nella Fondazione stessa.
+ Questo, unito ai frequenti backup che vengono eseguiti e conservati per
+ un periodo di tempo che va da un mese a qualche anno, rende i database
+ molto sicuri e robusti anche senza l'applicazione precisa delle regole
+ e dei concetti spiegati in questa tesi.
+ 
 \end_layout
 
-\begin_layout Itemize
-il backup, che viene effettuato su base giornaliera su server a Milano,
- è più sicuro e facilmente recuperabile
+\begin_layout Standard
+Il sistema usato in tutti i database è SQL Server, che di base non ha una
+ impostazione prettamente temporale: questo potenziale problema viene aggirato
+ tramite l'impostazione, in fase di creazione delle tabelle, di una coppia
+ di campi che viene automaticamente popolata in caso di inserimento di un
+ nuovo dato.
+ Non esiste una vera e propria gestione dei tempi effettuata come nello
+ standard SQL-2011, con i costrutti PERIOD che permettono l'automatica scissione
+ dei periodi di validità dove richiesto, ma vengono utilizzati trigger oppure
+ query successive, che in ogni caso non pregiudicano la stabilità del sistema
+ poichè non viene salvata l'ora, ma solo il giorno della modifica stessa.
 \end_layout
 
-\begin_layout Itemize
-Viene usato SQL server
-\end_layout
-
-\begin_layout Itemize
-SQL server non ha impostazione prettamente temporale
+\begin_layout Standard
+Nonostante l'approccio non sia certamente aderente a ciò che è stato esposto
+ fino a questo momento, trovo che il sistema di tabelle temporali utilizzato
+ da Fondazione Bruno Kessler sia molto efficiente e coerente con gli obiettivi
+ che la Fondazione stessa si pone.
+ Infatti, anche se in maniera molto semplificata rispetto alla teorizzazione
+ originaria, questo metodo riesce a ridurre al minimo le aggiunte e le modifiche
+ strettamente funzionali, come appunto i campi di data, che è necessario
+ fare alle tabelle e agli interi database, in modo da mantenere semplice
+ la gestione ma allo stesso tempo rendere la consultazione anche di record
+ remoti nel tempo semplice, comprensibile e soprattutto veloce.
 \end_layout
 
 \begin_layout Standard
