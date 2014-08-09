@@ -479,9 +479,6 @@ ata la conservazione dei dati, piuttosto che la loro precisione temporale.
  origini e alcuni concetti basilari, in seguito verranno presentati alcuni
  esempi di applicazione in SQL-92 e verranno trattate le nuove funzionalità
  temporali presenti nella versione 2011 dello standard SQL.
- I database temporali verranno inoltre trattati sotto un diverso punto di
- vista, cioè quello dei database cosiddetti NoSQL, che con la loro diversa
- filosofia hanno bisogno di un approccio differente.
  Infine, ma non meno importante, verrà presentato un caso concreto di utilizzo
  dei database temporali, ovvero la Fondazione Bruno Kessler, che li utilizza
  in maniera proficua ed efficiente.
@@ -16261,7 +16258,15 @@ Le tabelle provviste di application time, rispetto alle tabelle con tempo
  sono esattamente gli stessi.
  Hanno però il difetto di avere una gestione delle operazioni abbastanza
  macchinosa (ricordiamo che per eseguire i costrutti UPDATE sono necessarie
- fino a cinque query per ottenere il risultato richiesto)
+ fino a cinque query per ottenere il risultato richiesto), ma con la nuova
+ release di SQL tutti i controlli sono molto semplificati dall'utilizzo
+ intrinseco del comando PERIOD, che se utilizzato in maniera adeguata in
+ tutte le sue applicazioni permette di demandare a SQL il controllo sulla
+ tabella, risparmiando così tempo e fatica, e lasciando meno spazio ad errori.
+ Le interrogazioni sono state già coperte nel paragrafo dedicato a PERIOD,
+ qui verranno esposte le caratteristiche che nelle tabelle con tempo di
+ validità hanno una particolare variante, cioè la gestione della chiave
+ primaria con i periodi e l'integrità referenziale.
 \end_layout
 
 \begin_layout Paragraph
@@ -16741,6 +16746,199 @@ Con il termine adottato nello standard SQL di Application time non si intende
  passaggi.
 \end_layout
 
+\begin_layout Subsubsection
+System time tables
+\end_layout
+
+\begin_layout Standard
+Analogamente a quanto avviene per le application time tables, le system
+ time tables corrispondono, nella denominazione adottata fin qui, alle tabelle
+ con tempo di transazione.
+ Tuttavia, le differenze rispetto alla versione nota sono più marcate, e
+ consentono di avere una gestione delle tabelle più efficiente e sicura.
+ Ricordiamo, infatti, che le tabelle con tempo di transazione servono per
+ garantire la possibilità di ripristinare la tabella monitorata a uno stato
+ precedente, in qualsiasi momento sia necessario (ovviamente compreso tra
+ l'inizio dell'utilizzo della tabella e l'istante attuale).
+ Da qui, ne deriva che esistono differenti esigenze da soddisfare nello
+ stesso momento: tra tutte, lo stato della tabella deve essere automaticamente
+ preservato ad ogni operazione di scrittura della stessa, e sarebbe indicato
+ rendere questa operazione in più automatica possibile in modo da evitare
+ errori, o ancora meglio, lasciare che sia il sistema ad occuparsi di queste
+ operazioni "critiche".
+ SQL-2011 prevede il supporto per questo problema, introducendo il cosiddetto
+ "system versioning".
+ Una tabella con tempo di transazione, per implementare il system versioning,
+ deve essere creata come segue:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float algorithm
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+CREATE TABLE Giocatori
+\end_layout
+
+\begin_layout Plain Layout
+
+( 
+\end_layout
+
+\begin_layout Plain Layout
+
+	ID_Giocatore INTEGER,
+\end_layout
+
+\begin_layout Plain Layout
+
+	Nome VARCHAR, 
+\end_layout
+
+\begin_layout Plain Layout
+
+	Stipendio INTEGER,
+\end_layout
+
+\begin_layout Plain Layout
+
+    Sys_start DATE GENERATED ALWAYS AS ROW START, 
+\end_layout
+
+\begin_layout Plain Layout
+
+    Sys_end DATE GENERATED ALWAYS AS ROW END,
+\end_layout
+
+\begin_layout Plain Layout
+
+    PERIOD FOR SYSTEM_TIME (Sys_start,  Sys_end) ) 
+\end_layout
+
+\begin_layout Plain Layout
+
+    WITH SYSTEM VERSIONING
+\end_layout
+
+\begin_layout Plain Layout
+
+)
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Algoritmo di creazione di una system-versioned table
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+e presenta alcuni concetti chiave che è importante sottolineare in dettaglio:
+\end_layout
+
+\begin_layout Itemize
+GENERATED ALWAYS è una parola chiave che serve per sottolineare il fatto
+ che il campo a cui è associata deve essere completato automaticamente senza
+ intervento dell'utente.
+ nello specifico, le parole chiave aggiuntive ROW START e ROW END significano
+ rispettivamente che deve essere inserito il tempo di inizio della transazione,
+ e il tempo più alto possibile (che abbiamo chiamato FOREVER).
+\end_layout
+
+\begin_layout Itemize
+SYSTEM_TIME invece è una parola chiave necessaria per definire le tabelle
+ come "system versioned", in contrasto con le tabelle con tempo di applicazione
+ in cui il periodo poteva avere un nome arbitrario;
+\end_layout
+
+\begin_layout Itemize
+WITH SYSTEM VERSIONING è la seconda paroal chiave necessaria per rendere
+ la tabella "system versioned";
+\end_layout
+
+\begin_layout Standard
+Come è possibile notare, la struttura base della query è molto più complessa
+ rispetto a quella dedicata alle tabelle con tempo di applicazione: questa
+ complessità è data dai costrutti appena elencati, che servono per permettere
+ al sistema di popolare i campi di tempo di transazione (che possono essere,
+ a discrezione dell'utente, sia di tipo DATE che TIMESTAMP), rendendo così
+ molto più facile la gestione della tabella stessa.
+ Una tabella system versioned presenta, nei confronti di una tabella con
+ tempo di validità, le seguenti differenze:
+\end_layout
+
+\begin_layout Itemize
+Come appena specificato, un utente non può autonomamente modificare il tempo
+ di transazione di una tabella system versioned, poichè essendo questa operazion
+e gestita dal sistema, verrebbero inevitabilmente alterate le capacità di
+ ripristino esatto di uno stato precedente del database.
+\end_layout
+
+\begin_layout Itemize
+il costrutto INSERT si occupa autonomamente di inserire nel campo di inizio
+ periodo il tempo della transazione di cui l'operazione fa parte, e come
+ tempo di fine il tempo più alto possibile;
+\end_layout
+
+\begin_layout Itemize
+i costrutti UPDATE e DELETE devono poter operare solo su record attualmente
+ validi: modificare record non più validi causerebbe potenziali incoerenze
+ nello stato della tabella;
+\end_layout
+
+\begin_layout Standard
+Anche le operazioni stesse funzionano in maniera diversa: UPDATE, per esempio,
+ crea una copia della riga da modificare, in modo da preservare la coerenza
+ della tabella, e imposta il tempo di fine alla data della transazione corrente.
+ Allo stesso modo, modifica la riga attuale impostando la data di inizio
+ alla data della transazione, modificando ciò che serve, e salvando il tutto
+ (il tempo di fine non viene modificato poichè è già impostato a FOREVER).
+ È importante notare che un UPDATE non effettua, sull'inserimento, i controlli
+ che un normale INSERT avvierebbe, poichè la copia della riga verrebbe sicuramen
+te segnalata come un errore, e quindi non effettuata.
+ Il DELETE, invece, funziona esattamente come quello delle tabelle con tempo
+ di applicazione, modificando la data finale del record inserendo quella
+ di esecuzione della transazione.
+\end_layout
+
+\begin_layout Standard
+La gestione delle chiavi primarie e dell'integrità referenziale è considerevolme
+nte più semplice, in questo genere di tabelle: siccome le righe considerabili
+ sono solo quelle valide, quindi quelle correnti, si può anche evitare di
+ considerare il tempo nella definizione.
+ Infatti, se le righe correnti sono valide ai fini dei controlli effettuati,
+ lo saranno anche dopo essere state invalidate, in qualsiasi contesto tale
+ invalidazione sia avvenuta, perciò non c'è mai il bisogno di dover controllare
+ che la storia della tabella sia coerente.
+\end_layout
+
 \begin_layout Section
 Il caso concreto: Fondazione Bruno Kessler
 \end_layout
@@ -16862,6 +17060,21 @@ atica che viene ancora visto dagli utenti (e spesso anche dagli addetti
  viene associato anche a un metodo, provvisto di metodologie e particolarità
  caratteristiche, per mantenere una correttezza temporale dei dati salvati
  al suo interno.
+ Personalmente, credo che la tecnologia dei database temporali sia un ottimo
+ metodo per rappresentare dati che hanno bisogno di essere sempre più vicini,
+ anche per comportamento, alla realtà dei fatti.
+ Grazie alle innovazioni apportate nell'ultima release dello standard, l'utilizz
+o di questi metodi è diventato molto più facile, veloce ed efficiente, anche
+ se è ancora lontano dal considerarsi completo di tutte le caratteristiche
+ necessarie.
+ Nonostante ciò, sono convinto che nelle prossime versioni di SQL tutti
+ le lacune ad oggi presenti verranno colmate, e le funzionalità già implementate
+ verranno ulteriormente affinate, in modo che la scelta sulla struttura
+ del database, ove la situazione lo richieda, vada a ricadere sempre più
+ verso un sistema temporale, che forse è di più difficile implementazione,
+ ma che apporta, ai fini dell'economia aziendale e del sistema, innegabili
+ vantaggi in termini di completezza dei dati.
+ 
 \end_layout
 
 \begin_layout Standard
@@ -17051,6 +17264,19 @@ key "11"
 \end_inset
 
 http://www.jtc1sc32.org/doc/N2151-2200/32N2153T-text_for_ballot-FDIS_9075-1.pdf
+\end_layout
+
+\begin_layout Bibliography
+\begin_inset CommandInset bibitem
+LatexCommand bibitem
+label "12"
+key "12"
+
+\end_inset
+
+Temporal features in SQL:2011 - Kulkarni http://metadata-standards.org/Document-l
+ibrary/Documents-by-number/WG2-N1501-N1550/WG2_N1536_koa046-Temporal-features-in
+-SQL-standard.ppt
 \end_layout
 
 \end_body
