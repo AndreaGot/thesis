@@ -10133,13 +10133,16 @@ Se invece la situazione è opposta (e quindi la tabella di destinazione è
 \begin_layout Itemize
 Se la tabella registra la situazione attuale, "estendendo" in qualche modo
  il suo significato (poichè in realtà rappresenterebbe dati sempre validi)
- allora si utilizza il caso corrente, solo a parti invertite;
+ allora si utilizza il caso corrente, solo a parti invertite, controllando
+ quindi che la tabella di destinazione abbia un record attuale;
 \end_layout
 
 \begin_layout Itemize
 Se la tabella, come è il suo scopo effettivo, registra dati indipendenti
  dal tempo, allora è sufficiente utilizzare un consueto controllo di integrità
- referenziale, poichè
+ referenziale, poichè la tabella di destinazione è legata alla tabella per
+ criteri che non sono temporali, quindi saranno validi indipendentemente
+ dallo stato attuale del record.
 \end_layout
 
 \begin_layout Subsubsection
@@ -10173,6 +10176,9 @@ Non esistono "buchi" (cioè record che finiscono durante il periodo di validità
 Se tutte queste condizioni sono verificate, allora i record di tabella origine
  e tabella destinazione possono essere uniti in una relazione di chiave
  primaria e chiave esterna.
+ In ogni caso, è necessario effettuare un CHECK sulla tabella che controlli,
+ dopo ogni operazione, che nessun record sia presente nella tabella e non
+ abbia nessun record correlato o non valido nella tabella destinazione.
 \end_layout
 
 \begin_layout Subsection
@@ -15057,13 +15063,9 @@ Il supporto, seppur modificato e adattato, all'Algebra di Allen, tramite
 \end_layout
 
 \begin_layout Itemize
-La definizione delle tabelle con tempo di validità (qui definite "Application
- time period tables"), anche qui con l'introduzione di speciali parole chiave;
-\end_layout
-
-\begin_layout Itemize
-La definizione delle tabelle con tempo di transazione (qui definite "system-vers
-ioned tables"), con nuovi costrutti;
+L'introduzione dei concetti di "Application time" e "System time", che corrispon
+dono rispettivamente a tempo di validità e tempo di transazione, con alcune
+ modifiche rispetto alla trattazione teorica delle pagine precedenti;
 \end_layout
 
 \begin_layout Subsection
@@ -15996,480 +15998,6 @@ Nel caso un giocatore avesse avuto un contratto con scadenza durante il
  ma analogo.
 \end_layout
 
-\begin_layout Paragraph
-Chiavi Primarie
-\end_layout
-
-\begin_layout Standard
-La potenza, e al contempo la flessibilità, dei periodi non si ferma alle
- tabelle: è possibile, infatti, anche definire delle chiavi primarie che
- comprendono anche questo nuovo elemento, in modo da applicare automaticamente
- i controlli che valutano se il record che si sta per inserire rispetta
- i criteri fissati.
- Il codice per applicare una chiave primaria è il seguente:
-\end_layout
-
-\begin_layout Standard
-\begin_inset Float algorithm
-wide false
-sideways false
-status open
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset listings
-inline false
-status open
-
-\begin_layout Plain Layout
-
-[...]
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\begin_layout Plain Layout
-
-ALTER TABLE GIOCATORI 
-\end_layout
-
-\begin_layout Plain Layout
-
-ADD PRIMARY KEY 
-\end_layout
-
-\begin_layout Plain Layout
-
-(
-\end_layout
-
-\begin_layout Plain Layout
-
-  ID_Giocatore,   
-\end_layout
-
-\begin_layout Plain Layout
-
-  Periodo 
-\end_layout
-
-\begin_layout Plain Layout
-
-  WITHOUT OVERLAPS
-\end_layout
-
-\begin_layout Plain Layout
-
-)
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\begin_layout Plain Layout
-
-[...]
-\end_layout
-
-\end_inset
-
-
-\begin_inset Caption Standard
-
-\begin_layout Plain Layout
-Applicazione di una chiave primaria temporale alla tabella GIOCATORI
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-E consiste nel verificare automaticamente che, per ogni record inserito,
- il periodo relativo non sia in sovrapposizione con quello di altri record
- contraddistinti dal medesimo codice.
- Per fare un esempio, supponiamo di aver aggiornato con l'algoritmo precedente
- la tabella sopra specificata, e di voler inserire il seguente record, che
- documenta il cambiamento di contratto di Mario Rossi per due mesi con stipendio
- di 5000:
-\end_layout
-
-\begin_layout Standard
-\begin_inset Float table
-wide false
-sideways false
-status open
-
-\begin_layout Plain Layout
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-noindent
-\backslash
-makebox[
-\backslash
-textwidth]{%
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Tabular
-<lyxtabular version="3" rows="2" columns="5">
-<features rotate="0" tabularvalignment="middle">
-<column alignment="center" valignment="top">
-<column alignment="center" valignment="top">
-<column alignment="center" valignment="top">
-<column alignment="center" valignment="top">
-<column alignment="center" valignment="top">
-<row>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\family typewriter
-ID_Giocatore
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\family typewriter
-Nome
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\family typewriter
-Stipendio
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\family typewriter
-Data_Inizio
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\family typewriter
-Data_Fine
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\family typewriter
-1
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\family typewriter
-Mario Rossi
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\family typewriter
-5000
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\family typewriter
-2014-08-01
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\family typewriter
-2014-10-01
-\end_layout
-
-\end_inset
-</cell>
-</row>
-</lyxtabular>
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-}
-\end_layout
-
-\end_inset
-
-
-\begin_inset Caption Standard
-
-\begin_layout Plain Layout
-Tabella 
-\family typewriter
-Giocatori
-\family default
- dopo l'inserimento
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-Come è possibile notare dalla tabella 30, questo record, seppur formalmente
- lecito, non potrà essere inserito in virtù dell'operazione di aggiunta
- della chiave primaria, poichè il controllo della chiave primaria riscontrerà
- una sovrapposizione tra questo record e il secondo presente nella tabella,
- negando quindi l'inserimento.
- In un certo senso, è possibile sintetizzare questo comando dicendo che
- la chiave primaria sul periodo, con l'opzione WITHOUT OVERLAPS, consente
- di prevenire i duplicati sequenziali, mentre senza questa opzione vengono
- considerati solo i duplicati con periodi esattamente uguali (che non è
- appropriato definire non sequenziali, poichè i campi diversi da quelli
- specificati potrebbero essere diversi).
-\end_layout
-
-\begin_layout Paragraph
-Integrità referenziale
-\end_layout
-
-\begin_layout Standard
-Allo stesso modo delle speciali innovazioni applicate alle chiavi primarie,
- che coinvolgono i periodi, anche l'integrità referenziale può essere garantita
- utilizzando un semplice costrutto che risparmia molto lavoro di controllo.
- Infatti, per assicurarsi che un record soddisfi i requisiti di integrità
- referenziale è necessario verificare se nell'istante di inizio, nell'istante
- di fine e durante il periodo è presente un record valido nella tabella
- collegata.
- Questo, nei modi consueti, crea molti problemi di gestione, soprattutto
- perchè è necessario mettere in pratica una lunga serie di controlli.
- Tutto questo, con i nuovi costrutti, non è più necessario.
- Infatti, è sufficiente inserire una chiave esterna nel modo di seguito
- specificato:
-\end_layout
-
-\begin_layout Standard
-\begin_inset Float algorithm
-wide false
-sideways false
-status open
-
-\begin_layout Plain Layout
-\begin_inset listings
-inline false
-status open
-
-\begin_layout Plain Layout
-
-[...]
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\begin_layout Plain Layout
-
-ALTER TABLE Tabella1 
-\end_layout
-
-\begin_layout Plain Layout
-
-ADD FOREIGN KEY  
-\end_layout
-
-\begin_layout Plain Layout
-
-(
-\end_layout
-
-\begin_layout Plain Layout
-
-  Campo, 
-\end_layout
-
-\begin_layout Plain Layout
-
-  PERIOD Periodo1
-\end_layout
-
-\begin_layout Plain Layout
-
-)  
-\end_layout
-
-\begin_layout Plain Layout
-
-REFERENCES Tabella2  
-\end_layout
-
-\begin_layout Plain Layout
-
-(  
-\end_layout
-
-\begin_layout Plain Layout
-
-  Campo2, 
-\end_layout
-
-\begin_layout Plain Layout
-
-  PERIOD Periodo2
-\end_layout
-
-\begin_layout Plain Layout
-
-)
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\begin_layout Plain Layout
-
-[...]
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Caption Standard
-
-\begin_layout Plain Layout
-Applicazionedi una chiave esterna temporale, con il costrutto PERIOD
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-E in questo modo verranno automaticamente verificati tutti i controlli che
- costituiscono la validità di una chiave esterna, e nello specifico:
-\end_layout
-
-\begin_layout Itemize
-Esiste un record valido nella tabella destinazione al momento in cui il
- record origine ha iniziato la validità;
-\end_layout
-
-\begin_layout Itemize
-Esiste un record valido nella tabella destinazione al momento in cui il
- record origine finisce la validità;
-\end_layout
-
-\begin_layout Itemize
-Non esistono "buchi" (cioè record che finiscono durante il periodo di validità
- della tabella origine e che non sono "estesi" da un altro record con validità
- maggiore e stessi dati) 
-\end_layout
-
-\begin_layout Standard
-Ovviamente questo scenario si applica nel caso in cui le tabelle siano entrambe
- temporali.
- Per i casi intermedi (una sola tabella temporale, oppure nessuna temporale)
- il discorso si restringe molto, a volte non rendendo nemmeno necessario
- l'utilizzo di questi accorgimenti.
-\end_layout
-
 \begin_layout Standard
 
 \end_layout
@@ -16705,23 +16233,508 @@ during
  almeno due test, fino addirittura a sette.
  SQL risolve questo problema accorpando le regole di Allen che sono logicamente
  simili, rendendo così i test effettuati numericamente minori, ma allo stesso
- tempo assolutamente completi.
+ tempo addirittura più completi.
 \end_layout
 
 \begin_layout Subsection
-System time
+Application time e System time
+\end_layout
+
+\begin_layout Standard
+Le ultime modifiche rilevanti presenti in SQL-2011, in termini temporali,
+ riguardano l'introduzione ufficiale di due concetti, definiti "Application
+ Time" e "System time" che corrispondono rispettivamente al tempo di validità
+ e al tempo di transazione, che applicati alle tabelle hanno trattazione
+ del tutto paragonabile a quella effettuata nelle pagine precedenti.
+ L'unica differenza sostanziale riguarda il costrutto PERIOD, che può essere
+ applicato dalla creazione delle tabelle, alla loro interrogazione, alla
+ modifica, e sarà esaminato nelle prossime righe.
+\end_layout
+
+\begin_layout Subsubsection
+Application time tables
+\end_layout
+
+\begin_layout Standard
+Le tabelle provviste di application time, rispetto alle tabelle con tempo
+ di validità già conosciute, cambiano solo nel nome
+\end_layout
+
+\begin_layout Paragraph
+Chiavi Primarie
+\end_layout
+
+\begin_layout Standard
+La potenza, e al contempo la flessibilità, dei periodi non si ferma alle
+ tabelle: è possibile, infatti, anche definire delle chiavi primarie che
+ comprendono anche questo nuovo elemento, in modo da applicare automaticamente
+ i controlli che valutano se il record che si sta per inserire rispetta
+ i criteri fissati.
+ Il codice per applicare una chiave primaria è il seguente:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float algorithm
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+[...]
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+ALTER TABLE GIOCATORI 
+\end_layout
+
+\begin_layout Plain Layout
+
+ADD PRIMARY KEY 
+\end_layout
+
+\begin_layout Plain Layout
+
+(
+\end_layout
+
+\begin_layout Plain Layout
+
+  ID_Giocatore,   
+\end_layout
+
+\begin_layout Plain Layout
+
+  Periodo 
+\end_layout
+
+\begin_layout Plain Layout
+
+  WITHOUT OVERLAPS
+\end_layout
+
+\begin_layout Plain Layout
+
+)
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+[...]
+\end_layout
+
+\end_inset
+
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Applicazione di una chiave primaria temporale alla tabella GIOCATORI
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+E consiste nel verificare automaticamente che, per ogni record inserito,
+ il periodo relativo non sia in sovrapposizione con quello di altri record
+ contraddistinti dal medesimo codice.
+ Per fare un esempio, supponiamo di aver aggiornato con l'algoritmo precedente
+ la tabella sopra specificata, e di voler inserire il seguente record, che
+ documenta il cambiamento di contratto di Mario Rossi per due mesi con stipendio
+ di 5000:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float table
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+noindent
+\backslash
+makebox[
+\backslash
+textwidth]{%
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Tabular
+<lyxtabular version="3" rows="2" columns="5">
+<features rotate="0" tabularvalignment="middle">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+ID_Giocatore
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+Nome
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+Stipendio
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+Data_Inizio
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+Data_Fine
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+1
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+Mario Rossi
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+5000
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+2014-08-01
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+2014-10-01
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\end_inset
+
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Record di esempio tabella 
+\family typewriter
+GIOCATORI
+\family default
+: sovrapposizione di periodi
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Come è possibile notare dalla tabella 30, questo record, seppur formalmente
+ lecito, non potrà essere inserito in virtù dell'operazione di aggiunta
+ della chiave primaria, poichè il controllo della chiave primaria riscontrerà
+ una sovrapposizione tra questo record e il secondo presente nella tabella,
+ negando quindi l'inserimento.
+ In un certo senso, è possibile sintetizzare questo comando dicendo che
+ la chiave primaria sul periodo, con l'opzione WITHOUT OVERLAPS, consente
+ di prevenire i duplicati sequenziali, mentre senza questa opzione vengono
+ considerati solo i duplicati con periodi esattamente uguali (che non è
+ appropriato definire non sequenziali, poichè i campi diversi da quelli
+ specificati potrebbero essere diversi).
+\end_layout
+
+\begin_layout Paragraph
+Integrità referenziale
+\end_layout
+
+\begin_layout Standard
+Allo stesso modo delle speciali innovazioni applicate alle chiavi primarie,
+ che coinvolgono i periodi, anche l'integrità referenziale può essere garantita
+ utilizzando un semplice costrutto che risparmia molto lavoro di controllo.
+ Infatti, per assicurarsi che un record soddisfi i requisiti di integrità
+ referenziale è necessario verificare se nell'istante di inizio, nell'istante
+ di fine e durante il periodo è presente un record valido nella tabella
+ collegata.
+ Questo, nei modi consueti, crea molti problemi di gestione, soprattutto
+ perchè è necessario mettere in pratica una lunga serie di controlli.
+ Tutto questo, con i nuovi costrutti, non è più necessario.
+ Infatti, è sufficiente inserire una chiave esterna nel modo di seguito
+ specificato:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float algorithm
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+[...]
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+ALTER TABLE Tabella1 
+\end_layout
+
+\begin_layout Plain Layout
+
+ADD FOREIGN KEY  
+\end_layout
+
+\begin_layout Plain Layout
+
+(
+\end_layout
+
+\begin_layout Plain Layout
+
+  Campo, 
+\end_layout
+
+\begin_layout Plain Layout
+
+  PERIOD Periodo1
+\end_layout
+
+\begin_layout Plain Layout
+
+)  
+\end_layout
+
+\begin_layout Plain Layout
+
+REFERENCES Tabella2  
+\end_layout
+
+\begin_layout Plain Layout
+
+(  
+\end_layout
+
+\begin_layout Plain Layout
+
+  Campo2, 
+\end_layout
+
+\begin_layout Plain Layout
+
+  PERIOD Periodo2
+\end_layout
+
+\begin_layout Plain Layout
+
+)
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+[...]
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Applicazionedi una chiave esterna temporale, con il costrutto PERIOD
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+E in questo modo verranno automaticamente verificati tutti i controlli che
+ costituiscono la validità di una chiave esterna, e nello specifico:
+\end_layout
+
+\begin_layout Itemize
+Esiste un record valido nella tabella destinazione al momento in cui il
+ record origine ha iniziato la validità;
+\end_layout
+
+\begin_layout Itemize
+Esiste un record valido nella tabella destinazione al momento in cui il
+ record origine finisce la validità;
+\end_layout
+
+\begin_layout Itemize
+Non esistono "buchi" (cioè record che finiscono durante il periodo di validità
+ della tabella origine e che non sono "estesi" da un altro record con validità
+ maggiore e stessi dati) 
+\end_layout
+
+\begin_layout Standard
+Ovviamente questo scenario si applica nel caso in cui le tabelle siano entrambe
+ temporali.
+ Per i casi intermedi (una sola tabella temporale, oppure nessuna temporale)
+ il discorso si restringe molto, a volte non rendendo nemmeno necessario
+ l'utilizzo di questi accorgimenti.
 \end_layout
 
 \begin_layout Standard
 tabelle con tempo di transazione
 \end_layout
 
-\begin_layout Subsection
-Application time
-\end_layout
-
 \begin_layout Standard
-tabelle con tempo di validità
+Con il termine adottato nello standard SQL di Application time non si intende
+ altro che il concetto di tempo di validità menzionato all'inizio.
+ Di conseguenza, è possibile creare anche delle application time tables,
+ che come dice il nome hanno la stessa funzione delle tabelle con tempo
+ di validità.
+ Rispetto alla teoria, però, cambiano le operazioni eseguibili su di essa,
+ poichè è disponibile anche il costrutto PERIOD, che semplifica molto questi
+ passaggi.
 \end_layout
 
 \begin_layout Section

@@ -15063,13 +15063,9 @@ Il supporto, seppur modificato e adattato, all'Algebra di Allen, tramite
 \end_layout
 
 \begin_layout Itemize
-La definizione delle tabelle con tempo di validità (qui definite "Application
- time period tables"), anche qui con l'introduzione di speciali parole chiave;
-\end_layout
-
-\begin_layout Itemize
-La definizione delle tabelle con tempo di transazione (qui definite "system-vers
-ioned tables"), con nuovi costrutti;
+L'introduzione dei concetti di "Application time" e "System time", che corrispon
+dono rispettivamente a tempo di validità e tempo di transazione, con alcune
+ modifiche rispetto alla trattazione teorica delle pagine precedenti;
 \end_layout
 
 \begin_layout Subsection
@@ -16002,6 +15998,272 @@ Nel caso un giocatore avesse avuto un contratto con scadenza durante il
  ma analogo.
 \end_layout
 
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Subsection
+Algebra di Allen applicata a SQL
+\end_layout
+
+\begin_layout Standard
+Con la release 2011, SQL introduce delle specifiche parole chiave che supportano
+ il confronto tra periodi.
+ e parole chiave sono molto simili a quelle introdotte da Allen nell'algebra
+ omonima, ma nel caso di SQL sono stati leggermente modificati nel comportamento
+, in modo da rendere il loro comportamento leggermente più flessibile di
+ quello teorizzato agli inizi.
+ Le nuove parole chiave sono 
+\family typewriter
+CONTAINS, OVERLAPS, EQUALS, PRECEDES, SUCCEEDS, IMMEDIATELY PRECEDES
+\family default
+ e 
+\family typewriter
+IMMEDIATELY SUCCEEDS
+\family default
+, e sono definiti come segue:
+\end_layout
+
+\begin_layout Itemize
+
+\family typewriter
+X CONTAINS Y
+\family default
+ è verificato se il periodo X contiene completamente il periodo Y.
+ Questa definizione è molto meno restrittiva di quella equivalente in algebra
+ di Allen, perchè quest'ultime considera un periodo contenuto in un altro
+ solo se non condividono gli istanti di inizio e/o di fine, poichè altrimenti
+ ricadrebbero in altri casi.
+ Il costrutto comprende:
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+
+\family typewriter
+Y starts X
+\end_layout
+
+\begin_layout Itemize
+
+\family typewriter
+Y finishes X
+\end_layout
+
+\begin_layout Itemize
+
+\family typewriter
+Y during X
+\end_layout
+
+\begin_layout Itemize
+
+\family typewriter
+Y equal X
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+
+\family typewriter
+X OVERLAPS Y
+\family default
+ ha un significato molto diverso in SQL: mentre l'algebra di Allen definisce
+ sovrapposti due periodi che hano più di un istante in comune, per SQL è
+ sufficiente che l'istante in comune sia solo uno.
+ inoltre, mentre in SQL 
+\family typewriter
+X OVERLAPS Y
+\family default
+ è uguale a 
+\family typewriter
+Y OVERLAPS X
+\family default
+, nell'algebra dei periodi ciò non è vero.
+ Ne deriva che questo costrutto, in SQL, comprende molti casi dell'algebra
+ dei periodi, ovvero:
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+
+\family typewriter
+X overlaps Y
+\end_layout
+
+\begin_layout Itemize
+
+\family typewriter
+Y overlaps X
+\end_layout
+
+\begin_layout Itemize
+
+\family typewriter
+X during Y 
+\end_layout
+
+\begin_layout Itemize
+
+\family typewriter
+Y during X
+\end_layout
+
+\begin_layout Itemize
+
+\family typewriter
+X starts Y
+\end_layout
+
+\begin_layout Itemize
+
+\family typewriter
+Y starts X
+\end_layout
+
+\begin_layout Itemize
+
+\family typewriter
+X finishes Y
+\end_layout
+
+\begin_layout Itemize
+
+\family typewriter
+Y finishes X
+\end_layout
+
+\begin_layout Itemize
+
+\family typewriter
+X equals Y
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+
+\family typewriter
+X EQUALS Y
+\family default
+ ha lo stesso significato sia in SQL che in algebra di Allen;
+\end_layout
+
+\begin_layout Itemize
+
+\family typewriter
+X PRECEDES Y
+\family default
+ si considera vero se X condivide al massimo l'istante di fine con quello
+ di inizio di Y.
+ Perciò, nell'algebra dei periodi, corrisponde a:
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+
+\family typewriter
+X before Y
+\end_layout
+
+\begin_layout Itemize
+
+\family typewriter
+X meets Y
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+
+\family typewriter
+X SUCCEEDS Y
+\family default
+ è la controparte finale del punto precedente.
+ Si considera vero se X condivide al massimo l'istante di inizio con quello
+ di fine di Y, perciò equivale a:
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+
+\family typewriter
+Y meets X
+\end_layout
+
+\begin_layout Itemize
+
+\family typewriter
+X after Y
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+
+\family typewriter
+X IMMEDIATELY PRECEDES Y
+\family default
+ corrisponde al costrutto 
+\family typewriter
+X meets Y
+\end_layout
+
+\begin_layout Itemize
+
+\family typewriter
+X IMMEDIATELY SUCCEEDS Y
+\family default
+ corrisponde al costrutto 
+\family typewriter
+Y meets X
+\end_layout
+
+\begin_layout Standard
+Come è possibile vedere, l'interpretazione che lo standard dà a queste parole
+ chiave è, in alcuni casi, molto meno stringente della controparte teorica.
+ Questo può sembrare un errore, ma in realtà è stato fatto anche per privilegiar
+e la logica: in molti casi (
+\family typewriter
+during
+\family default
+ uno su tutti) l'algebra di Allen è fin troppo specifica, a volte anche
+ poco naturale (come mai due periodi che iniziano insieme e finiscono in
+ istanti diversi non sono considerati uno sovrapposto all'altro?), e una
+ implementazione letterale di questi concetti renderebbe molto difficile
+ la scrittura e la successiva comprensione del codice, poichè per verificare
+ una condizione logicamente valida, è spesso necessario eseguire nel codice
+ almeno due test, fino addirittura a sette.
+ SQL risolve questo problema accorpando le regole di Allen che sono logicamente
+ simili, rendendo così i test effettuati numericamente minori, ma allo stesso
+ tempo addirittura più completi.
+\end_layout
+
+\begin_layout Subsection
+Application time e System time
+\end_layout
+
+\begin_layout Standard
+Le ultime modifiche rilevanti presenti in SQL-2011, in termini temporali,
+ riguardano l'introduzione ufficiale di due concetti, definiti "Application
+ Time" e "System time" che corrispondono rispettivamente al tempo di validità
+ e al tempo di transazione, che applicati alle tabelle hanno trattazione
+ del tutto paragonabile a quella effettuata nelle pagine precedenti.
+ L'unica differenza sostanziale riguarda il costrutto PERIOD, che può essere
+ applicato dalla creazione delle tabelle, alla loro interrogazione, alla
+ modifica, e sarà esaminato nelle prossime righe.
+\end_layout
+
+\begin_layout Subsubsection
+Application time tables
+\end_layout
+
+\begin_layout Standard
+Le tabelle provviste di application time, rispetto alle tabelle con tempo
+ di validità già conosciute, cambiano solo nel nome, poichè i concetti teorici
+ sono esattamente gli stessi.
+ Hanno però il difetto di avere una gestione delle operazioni abbastanza
+ macchinosa (ricordiamo che per eseguire i costrutti UPDATE sono necessarie
+ fino a cinque query per ottenere il risultato richiesto)
+\end_layout
+
 \begin_layout Paragraph
 Chiavi Primarie
 \end_layout
@@ -16020,10 +16282,6 @@ La potenza, e al contempo la flessibilità, dei periodi non si ferma alle
 wide false
 sideways false
 status open
-
-\begin_layout Plain Layout
-
-\end_layout
 
 \begin_layout Plain Layout
 \begin_inset listings
@@ -16094,10 +16352,6 @@ Applicazione di una chiave primaria temporale alla tabella GIOCATORI
 
 \end_inset
 
-
-\end_layout
-
-\begin_layout Plain Layout
 
 \end_layout
 
@@ -16438,10 +16692,6 @@ Applicazionedi una chiave esterna temporale, con il costrutto PERIOD
 
 \end_layout
 
-\begin_layout Plain Layout
-
-\end_layout
-
 \end_inset
 
 
@@ -16477,257 +16727,18 @@ Ovviamente questo scenario si applica nel caso in cui le tabelle siano entrambe
 \end_layout
 
 \begin_layout Standard
-
-\end_layout
-
-\begin_layout Subsection
-Algebra di Allen applicata a SQL
-\end_layout
-
-\begin_layout Standard
-Con la release 2011, SQL introduce delle specifiche parole chiave che supportano
- il confronto tra periodi.
- e parole chiave sono molto simili a quelle introdotte da Allen nell'algebra
- omonima, ma nel caso di SQL sono stati leggermente modificati nel comportamento
-, in modo da rendere il loro comportamento leggermente più flessibile di
- quello teorizzato agli inizi.
- Le nuove parole chiave sono 
-\family typewriter
-CONTAINS, OVERLAPS, EQUALS, PRECEDES, SUCCEEDS, IMMEDIATELY PRECEDES
-\family default
- e 
-\family typewriter
-IMMEDIATELY SUCCEEDS
-\family default
-, e sono definiti come segue:
-\end_layout
-
-\begin_layout Itemize
-
-\family typewriter
-X CONTAINS Y
-\family default
- è verificato se il periodo X contiene completamente il periodo Y.
- Questa definizione è molto meno restrittiva di quella equivalente in algebra
- di Allen, perchè quest'ultime considera un periodo contenuto in un altro
- solo se non condividono gli istanti di inizio e/o di fine, poichè altrimenti
- ricadrebbero in altri casi.
- Il costrutto comprende:
-\end_layout
-
-\begin_deeper
-\begin_layout Itemize
-
-\family typewriter
-Y starts X
-\end_layout
-
-\begin_layout Itemize
-
-\family typewriter
-Y finishes X
-\end_layout
-
-\begin_layout Itemize
-
-\family typewriter
-Y during X
-\end_layout
-
-\begin_layout Itemize
-
-\family typewriter
-Y equal X
-\end_layout
-
-\end_deeper
-\begin_layout Itemize
-
-\family typewriter
-X OVERLAPS Y
-\family default
- ha un significato molto diverso in SQL: mentre l'algebra di Allen definisce
- sovrapposti due periodi che hano più di un istante in comune, per SQL è
- sufficiente che l'istante in comune sia solo uno.
- inoltre, mentre in SQL 
-\family typewriter
-X OVERLAPS Y
-\family default
- è uguale a 
-\family typewriter
-Y OVERLAPS X
-\family default
-, nell'algebra dei periodi ciò non è vero.
- Ne deriva che questo costrutto, in SQL, comprende molti casi dell'algebra
- dei periodi, ovvero:
-\end_layout
-
-\begin_deeper
-\begin_layout Itemize
-
-\family typewriter
-X overlaps Y
-\end_layout
-
-\begin_layout Itemize
-
-\family typewriter
-Y overlaps X
-\end_layout
-
-\begin_layout Itemize
-
-\family typewriter
-X during Y 
-\end_layout
-
-\begin_layout Itemize
-
-\family typewriter
-Y during X
-\end_layout
-
-\begin_layout Itemize
-
-\family typewriter
-X starts Y
-\end_layout
-
-\begin_layout Itemize
-
-\family typewriter
-Y starts X
-\end_layout
-
-\begin_layout Itemize
-
-\family typewriter
-X finishes Y
-\end_layout
-
-\begin_layout Itemize
-
-\family typewriter
-Y finishes X
-\end_layout
-
-\begin_layout Itemize
-
-\family typewriter
-X equals Y
-\end_layout
-
-\end_deeper
-\begin_layout Itemize
-
-\family typewriter
-X EQUALS Y
-\family default
- ha lo stesso significato sia in SQL che in algebra di Allen;
-\end_layout
-
-\begin_layout Itemize
-
-\family typewriter
-X PRECEDES Y
-\family default
- si considera vero se X condivide al massimo l'istante di fine con quello
- di inizio di Y.
- Perciò, nell'algebra dei periodi, corrisponde a:
-\end_layout
-
-\begin_deeper
-\begin_layout Itemize
-
-\family typewriter
-X before Y
-\end_layout
-
-\begin_layout Itemize
-
-\family typewriter
-X meets Y
-\end_layout
-
-\end_deeper
-\begin_layout Itemize
-
-\family typewriter
-X SUCCEEDS Y
-\family default
- è la controparte finale del punto precedente.
- Si considera vero se X condivide al massimo l'istante di inizio con quello
- di fine di Y, perciò equivale a:
-\end_layout
-
-\begin_deeper
-\begin_layout Itemize
-
-\family typewriter
-Y meets X
-\end_layout
-
-\begin_layout Itemize
-
-\family typewriter
-X after Y
-\end_layout
-
-\end_deeper
-\begin_layout Itemize
-
-\family typewriter
-X IMMEDIATELY PRECEDES Y
-\family default
- corrisponde al costrutto 
-\family typewriter
-X meets Y
-\end_layout
-
-\begin_layout Itemize
-
-\family typewriter
-X IMMEDIATELY SUCCEEDS Y
-\family default
- corrisponde al costrutto 
-\family typewriter
-Y meets X
-\end_layout
-
-\begin_layout Standard
-Come è possibile vedere, l'interpretazione che lo standard dà a queste parole
- chiave è, in alcuni casi, molto meno stringente della controparte teorica.
- Questo può sembrare un errore, ma in realtà è stato fatto anche per privilegiar
-e la logica: in molti casi (
-\family typewriter
-during
-\family default
- uno su tutti) l'algebra di Allen è fin troppo specifica, a volte anche
- poco naturale (come mai due periodi che iniziano insieme e finiscono in
- istanti diversi non sono considerati uno sovrapposto all'altro?), e una
- implementazione letterale di questi concetti renderebbe molto difficile
- la scrittura e la successiva comprensione del codice, poichè per verificare
- una condizione logicamente valida, è spesso necessario eseguire nel codice
- almeno due test, fino addirittura a sette.
- SQL risolve questo problema accorpando le regole di Allen che sono logicamente
- simili, rendendo così i test effettuati numericamente minori, ma allo stesso
- tempo assolutamente completi.
-\end_layout
-
-\begin_layout Subsection
-System time
-\end_layout
-
-\begin_layout Standard
 tabelle con tempo di transazione
 \end_layout
 
-\begin_layout Subsection
-Application time
-\end_layout
-
 \begin_layout Standard
-tabelle con tempo di validità
+Con il termine adottato nello standard SQL di Application time non si intende
+ altro che il concetto di tempo di validità menzionato all'inizio.
+ Di conseguenza, è possibile creare anche delle application time tables,
+ che come dice il nome hanno la stessa funzione delle tabelle con tempo
+ di validità.
+ Rispetto alla teoria, però, cambiano le operazioni eseguibili su di essa,
+ poichè è disponibile anche il costrutto PERIOD, che semplifica molto questi
+ passaggi.
 \end_layout
 
 \begin_layout Section
