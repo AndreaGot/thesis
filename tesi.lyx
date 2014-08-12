@@ -456,7 +456,7 @@ La vita dell'uomo, fin dalla sua prima comparsa sulla Terra, è sempre stata
  assunto una connotazione sempre più importante: se prima un'approssimazione
  anche di diverse ore non era particolarmente influente, questa approssimazione
  è diventata sempre meno estesa, e di conseguenza il calcolo del tempo è
- diventto più accurato, passando dai minuti, ai secondi, ai millesimi di
+ diventato più accurato, passando dai minuti, ai secondi, ai millesimi di
  secondo, fino ad arrivare ai moderni orologi atomici al cesio, che è stato
  calcolato possano sbagliare di un secondo ogni 100 milioni di anni.
  Esiste anche una nuova concezione di orologi atomici, che utilizza atomi
@@ -481,7 +481,7 @@ ata la conservazione dei dati, piuttosto che la loro precisione temporale.
  temporali presenti nella versione 2011 dello standard SQL.
  Infine, ma non meno importante, verrà presentato un caso concreto di utilizzo
  dei database temporali, ovvero la Fondazione Bruno Kessler, che li utilizza
- in maniera proficua ed efficiente.
+ in maniera particolare, ma proficua ed efficiente.
 \end_layout
 
 \begin_layout Abstract
@@ -599,7 +599,11 @@ re lo storico del database stesso.
  le basi per la nuova versione dello standard, nota come SQL3, che ha incluso
  direttamente nello standard i primi concetti temporali.
  Nell'ultima versione di SQL, SQL-2011, si è chiuso il cerchio, completando
- il processo di implementazione delle ultime caratteristiche temporali mancanti.
+ il processo di implementazione delle principali caratteristiche temporali
+ mancanti.
+ Il lavoro non è certo finito, perchè sono ancora molte le innovazioni da
+ introdurre, ma lo sviluppo procede, e sicuramente in futuro è lecito aspettarsi
+ ulteriori perfezionamenti e migliorie.
 \end_layout
 
 \begin_layout Section
