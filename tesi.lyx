@@ -15014,23 +15014,105 @@ Tabelle bitemporali
 \end_layout
 
 \begin_layout Standard
-Unione di tabelle con tempo di validità e tempo di transazione
+Come è facile immaginare, le tabelle bitemporali si possono interpretare
+ come un'unione tra tabelle con tempo di validità e tempo di transazione.
+ Sono utili quando è necessario ricostruire uno stato passato della tabella,
+ e allo stesso tempo verificare quali record erano validi nel momento richiesto.
+ La stessa cosa si può fare utilizzando due tabelle, ma se le due operazioni
+ appena elencate sono eseguite spesso in successione, a quel punto conviene
+ unire le due cose ed effettuare una query sola, con entrambe le richieste.
+ Inoltre, esiste un risparmio anche di spazio: una tabella temporale consente
+ di memorizzare una sola volta i dati che si vogliono monitorare, invece
+ di averli duplicati in tabelle distinte, e ciò se le tabelle sono particolarmen
+te ricche di campi è un notevole vantaggio.
 \end_layout
 
 \begin_layout Standard
-9 operazioni
+La costruzione di una tabella bitemporale è uguale a qualsiasi altra: la
+ differenza, ovviamente, sta nel fatto che le coppie di campi di tempo sono
+ due invece di una.
+ Anche la modifica di queste tabelle ha notevoli similitudini: ricordiamo
+ infatti che nelle tabelle con tempo di validità avevamo ben nove tipi di
+ modifiche (
+\family typewriter
+INSERT
+\family default
+, 
+\family typewriter
+UPDATE
+\family default
+ e 
+\family typewriter
+DELETE
+\family default
+ rispettivamente correnti, sequenziali e non sequenziali), oltre alle query
+ non temporali che comunque sono presenti in qualsiasi tabella, anche se
+ hanno poco significato.
+ Nelle tabelle con tempo di transazione, invece, ci sono solo tre tipi di
+ modifiche, cioè quelli correnti poichè le modifiche vengono eseguite nel
+ momento corrente, e non nel futuro.
+ Le tabelle bitemporali, adottando entrambi i meccanismi, hanno perciò solo
+ nove modifiche possibili, corrispondenti a quelli delle tabelle con tempo
+ di validità, poichè le modifiche correnti sono in comune con tutte.
+ Se sotto questo punto di vista le due tabelle sono perfettamente "fuse",
+ l'esecuzione necessita di una distinzione tra la parte di validità e quella
+ di transazione di una tabella bitemporale: infatti, è necessario prima
+ di tutto operare sul tempo di validità, e successivamente apporre a queste
+ modifiche i dati relativi al tempo di transazione, in modo da rendere ogni
+ record perfettamente coerente su entrambi gli aspetti.
 \end_layout
 
 \begin_layout Standard
-current
-\end_layout
-
-\begin_layout Standard
-sequenced
-\end_layout
-
-\begin_layout Standard
-non sequenced
+Ad esempio, nel caso corrente, sappiamo dalle sezioni precedenti che è necessari
+o svolgere un determinato numero di passi per poter perfezionare una modifica
+ in una tabella con tempo di validità.
+ Per le modifiche delle tabelle bitemporali, questo non è più sufficiente,
+ poichè è necessario, come detto, porre la modifica con tempo di transazione
+ da 
+\family typewriter
+NOW
+\family default
+ a 
+\family typewriter
+FOREVER
+\family default
+ (che in questo caso è interpretato come "finchè non subisce un cambiamento").
+ Tutto ciò a parole può sembrare facile, ma in pratica si rivela molto più
+ complicato del previsto, poichè alcune modifiche (in genere tutti gli 
+\family typewriter
+UPDATE
+\family default
+ e i 
+\family typewriter
+DELETE
+\family default
+) operano sul tempo di validità, ma ciò in questo tipo di tabelle non è
+ più tollerabile.
+ La spiegazione si trova nella conformazione della tabella: gli UPDATE e
+ i DELETE vanno a modificare il tempo di validità, il che è perfettamente
+ sensato nel caso di tabelle che prevedono solo quello, ma nel caso delle
+ tabelle bitemporali, non è possibile poichè significherebbe che la modifica
+ era già nota al momento dell'inserimento, cosa che vale nel caso di inserimenti
+ di eventi già finiti, ma non valida nel caso della maggioranza degli eventi,
+ che sono in corso o devono ancora iniziare.
+ La soluzione a questo problema, quindi, consiste nel convertire queste
+ operazioni "problematiche" in una sequenza di UPDATE sul tempo di transazione
+ (che potrà essere solo impostato a NOW) e di INSERT, in modo da rispettare
+ tutti i requisiti di una tabella bitemporale.
+ La tabella risultante sarà molto diversa da quelle viste finora, poichè
+ a prima vista ci saranno molti FOREVER rispetto alle altre tabelle, che
+ prevedono tale valore solo per i record in qualche modo validi.
+ La spiegazione, anche qui, va cercata nella conformazione della tabella:
+ siccome i record vengono inseriti sempre con il tempo di transazione, bisogna
+ basare la rilevazione su tale valore: se un record è valido e non ancora
+ iniziato al momento della transazione, allora rimarrà valido per sempre
+ perchè non si sa quando finirà, e cambierà solo il tempo di transazione
+ che lo definirà indirettamente come non più valido (o non più ritenuto
+ valido).
+ Al contrario, se un evento è già concluso al momento della transazione,
+ si sa la data di inizio e fine validità, e sarà generalmente sempre ritenuto
+ valido poichè a meno di casi eccezionali (interpretabili come errori scoperti
+ in futuro) non cambierà mai.
 \end_layout
 
 \begin_layout Part
