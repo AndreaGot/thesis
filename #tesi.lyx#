@@ -4409,8 +4409,7 @@ Ora, supponiamo che in data 25 luglio 2014, all'ufficio preposto venga notato
  un grossolano errore: nel database Giorgio Bianchi è listato come attuale
  residente a Trento, ma in realtà ha presentato richiesta per diventare
  residente di Bolzano! Fortunatamente, le tabelle con tempo di validità
- permettono, anche se in casi a dir poco eccezionali, la modifica di record,
- perciò sistemare l'errore è cosa facile.
+ permettono la modifica di record, perciò sistemare l'errore è cosa facile.
  Subito l'addetto modifica il database, che quindi, per quanto riguarda
  la tabella 
 \family typewriter
@@ -15033,9 +15032,21 @@ La costruzione di una tabella bitemporale è uguale a qualsiasi altra: la
  due invece di una.
  Anche la modifica di queste tabelle ha notevoli similitudini: ricordiamo
  infatti che nelle tabelle con tempo di validità avevamo ben nove tipi di
- modifiche (INSERT, UPDATE e DELETE rispettivamente correnti, sequenziali
- e non sequenziali), oltre alle query non temporali che comunque sono presenti
- in qualsiasi tabella, anche se hanno poco significato.
+ modifiche (
+\family typewriter
+INSERT
+\family default
+, 
+\family typewriter
+UPDATE
+\family default
+ e 
+\family typewriter
+DELETE
+\family default
+ rispettivamente correnti, sequenziali e non sequenziali), oltre alle query
+ non temporali che comunque sono presenti in qualsiasi tabella, anche se
+ hanno poco significato.
  Nelle tabelle con tempo di transazione, invece, ci sono solo tre tipi di
  modifiche, cioè quelli correnti poichè le modifiche vengono eseguite nel
  momento corrente, e non nel futuro.
@@ -15093,8 +15104,17 @@ DELETE
  La spiegazione, anche qui, va cercata nella conformazione della tabella:
  siccome i record vengono inseriti sempre con il tempo di transazione, bisogna
  basare la rilevazione su tale valore: se un record è valido e non ancora
- concluso al momento della transazione, allora rimarrà valido per sempre,
- e cambierà solo il tempo di transazione che lo definirà in
+ iniziato al momento della transazione, allora rimarrà valido per sempre
+ perchè non si sa quando finirà, e cambierà solo il tempo di transazione
+ che lo definirà indirettamente come non più valido (o non più ritenuto
+ valido).
+ Al contrario, se un evento è già concluso al momento della transazione,
+ si sa la data di inizio e fine validità, e sarà generalmente sempre ritenuto
+ valido poichè a meno di casi eccezionali non cambierà mai.
+\end_layout
+
+\begin_layout Standard
+Per quanto riguarda le interrogazioni,
 \end_layout
 
 \begin_layout Part

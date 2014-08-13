@@ -3672,9 +3672,8 @@ ritenuti
  Supponiamo che un record, presente sia in una tabella con tempo di validità
  che in una tabella con tempo di transazione, sia in qualche modo sbagliato
  a causa di un errore nell'inserimento (quindi non intrinseco del record):
- nella tabella con tempo di validità, seppur eccezionalmente data la situazione,
- è ammessa la modifica del dato, poichè l'errore è stato causato dall'addetto
- all'inserimento.
+ nella tabella con tempo di validità è ammessa la modifica diretta del dato,
+ poichè l'errore è stato causato dall'addetto all'inserimento.
  Quindi dopo la modifica, se si interroga la tabella è come se il dato corretto
  sia sempre stato inserito, perdendo quindi ogni traccia a riguardo del
  dato errato.
@@ -4409,8 +4408,7 @@ Ora, supponiamo che in data 25 luglio 2014, all'ufficio preposto venga notato
  un grossolano errore: nel database Giorgio Bianchi è listato come attuale
  residente a Trento, ma in realtà ha presentato richiesta per diventare
  residente di Bolzano! Fortunatamente, le tabelle con tempo di validità
- permettono, anche se in casi a dir poco eccezionali, la modifica di record,
- perciò sistemare l'errore è cosa facile.
+ permettono la modifica di record, perciò sistemare l'errore è cosa facile.
  Subito l'addetto modifica il database, che quindi, per quanto riguarda
  la tabella 
 \family typewriter
@@ -15111,8 +15109,11 @@ DELETE
  valido).
  Al contrario, se un evento è già concluso al momento della transazione,
  si sa la data di inizio e fine validità, e sarà generalmente sempre ritenuto
- valido poichè a meno di casi eccezionali (interpretabili come errori scoperti
- in futuro) non cambierà mai.
+ valido poichè a meno di casi eccezionali non cambierà mai.
+\end_layout
+
+\begin_layout Standard
+Per quanto riguarda le interrogazioni,
 \end_layout
 
 \begin_layout Part
