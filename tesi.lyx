@@ -15113,7 +15113,96 @@ DELETE
 \end_layout
 
 \begin_layout Standard
-Per quanto riguarda le interrogazioni,
+Per quanto riguarda le interrogazioni, invece, bisogna distinguere tra due
+ tipi generali di esse:
+\end_layout
+
+\begin_layout Itemize
+Interrogazioni "time sliced", che si basano sull'applicazione di determinati
+ criteri su un tempo (di validità o transazione) per ottenere una tabella
+ di tipo opposto.
+ Ad esempio, se si effettua una query specificando il tempo di transazione,
+ si otterrà una tabella con tempo di validità, e viceversa;
+\end_layout
+
+\begin_layout Itemize
+Interrogazioni "generali", che consistono in nove differenti query, corrisponden
+ti alle varie combinazioni di query sequenziali, correnti e non sequenziali
+ applicate al tempo di validità e al tempo di transazione;
+\end_layout
+
+\begin_layout Standard
+Nel primo caso, le interrogazioni sono molto simili a quelle viste nei capitoli
+ precedenti, con la differenza che, avendo due tipi di tempo differente,
+ si sfrutta al massimo la potenza delle tabelle bitemporali: nel caso sia
+ necessario vedere quali record sono validi a una certa data, è necessario
+ effettuare la query (detta "transaction time slice") specificando, nella
+ clausola WHERE, che i dati devono avere tempo di transazione sovrapposto
+ alla data che si ricerca: per questo si chiamano "transaction time slice",
+ perchè prendono in considerazione, nell'elaborazione, i tempi di transazione.
+ Questa condizione è sufficiente per ottenere una tabella con tempo di validità
+ così come si presentava alla data richiesta, eventualmente limitata ai
+ particolari dati che è necessario ottenere.
+ Al contrario, esiste anche un tipo di interrogazione detto "valid time
+ slice", che specificando nella clausola WHERE opportune condizioni riferite
+ al tempo di validità, ritorna una tabella con tempo di transazione.
+\end_layout
+
+\begin_layout Standard
+Nel secondo caso, invece, le query sono intuitivamente molto simili a quelle
+ viste finora, poichè come abbiamo visto si riconduce tutto ai concetti
+ di interrogazioni correnti, sequenziali e non sequenziali.
+\begin_inset Newline newline
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Le tabelle bitemporali non sono molto utilizzate in ambiti ordinari, poichè
+ spesso si predilige l'utilizzo delle sole tabelle con tempo di validità,
+ essendo il tempo di transazione o non necessario oppure gestito in altro
+ modo (come ad esempio con il salvataggio a intervalli regolari o più spesso
+ quotidiano, dello stato delle tabelle con tempo di validità).
+ Inoltre, anche se ci si trova in un caso in cui le tabelle bitemporali
+ possono essere utilizzate, rimane il fatto che la loro amministrazione,
+ se paragonata all'utilizzo di due tabelle separate, appare molto più complicata
+, e sotto alcuni aspetti effettivamente lo è, anche se questi "disagi" sono
+ spesso compensati dalla maggiore efficienza nel lungo periodo.
+ 
+\end_layout
+
+\begin_layout Standard
+Un'ulteriore testimonianza dello scarso utilizzo delle tabelle bitemporali,
+ per quanto sia decisamente empirico, riguarda i risultati che i principali
+ motori di ricerca restituiscono se si cercano i vari tipi di tabella.
+ In questo caso, sul motore di ricerca Google, sono state eseguite le seguenti
+ ricerche, con i rispettivi risultati:
+\end_layout
+
+\begin_layout Itemize
+"valid-time state tables" [13], che restituisce più di 23 milioni di risultati;
+\end_layout
+
+\begin_layout Itemize
+"transaction-time state tables" [14], che resittuisce piu di 31 milioni
+ di risultati;
+\end_layout
+
+\begin_layout Itemize
+"bitemporal tables" [15], che restituisce meno 400 mila risultati
+\end_layout
+
+\begin_layout Standard
+Ribadendo che questi dati non sempre rappresentano la realtà, è anche vero
+ che, soprattutto in ambito informatico, più una tecnologia è utilizzata,
+ più se ne parla e più risultati sono disponibili sui motori di ricerca,
+ sia da siti ufficiali sia da siti di semplici utenti che condividono vari
+ contenuti.
+ Detto questo si può facilmente vedere come le tabelle bitemporali non siano
+ particolarmente utilizzate, a favore delle loro controparti "singole",
+ che nella maggior parte dei casi consentono di risolvere la maggior parte
+ dei problemi in maniera molto più semplice, ma non per questo meno efficiente.
 \end_layout
 
 \begin_layout Part
@@ -17372,6 +17461,42 @@ key "12"
 Temporal features in SQL:2011 - Kulkarni http://metadata-standards.org/Document-l
 ibrary/Documents-by-number/WG2-N1501-N1550/WG2_N1536_koa046-Temporal-features-in
 -SQL-standard.ppt
+\end_layout
+
+\begin_layout Bibliography
+\begin_inset CommandInset bibitem
+LatexCommand bibitem
+label "13"
+key "13"
+
+\end_inset
+
+ Valid time state tables: Google query - https://www.google.it/webhp?sourceid=chro
+me-instant&ion=1&espv=2&ie=UTF-8#q=valid+time+state+tables
+\end_layout
+
+\begin_layout Bibliography
+\begin_inset CommandInset bibitem
+LatexCommand bibitem
+label "14"
+key "14"
+
+\end_inset
+
+ Transaction time state tables: Google query - https://www.google.it/webhp?sourcei
+d=chrome-instant&ion=1&espv=2&ie=UTF-8#q=transaction+time+state+tables
+\end_layout
+
+\begin_layout Bibliography
+\begin_inset CommandInset bibitem
+LatexCommand bibitem
+label "15"
+key "15"
+
+\end_inset
+
+ Bitemporal tables: Google query - https://www.google.it/webhp?sourceid=chrome-ins
+tant&ion=1&espv=2&ie=UTF-8#q=bitemporal%20tables
 \end_layout
 
 \end_body
