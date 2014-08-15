@@ -5231,10 +5231,10 @@ RICH_RESIDENZA
 \end_layout
 
 \begin_layout Standard
-Questo "finto" errore è dato proprio dalla necessità di poter ricostruire
- il database ogni volta che sia opportuno, ripristinando con esso anche
- gli errori che a quella data erano stati involontariamente commessi ma
- non ancora scoperti.
+Questa differenza è data proprio dalla necessità di poter ricostruire il
+ database ogni volta che sia opportuno, ripristinando con esso anche gli
+ errori che a quella data erano stati involontariamente commessi ma non
+ ancora scoperti.
  Per questo si dice che la tabella con tempi di validità rappresenta la
  realtà: perchè anche se gli errori vengono scoperti dopo l'inserimento,
  è sempre possibile ripristinare la situazione corretta, e proseguire come
@@ -5289,6 +5289,217 @@ Le tabelle bitemporali, come si può facilmente intuire dal nome, presentano
  del mese successivo, e quindi agosto.
  Nel caso di una tabella senza nessun tipo di tempo, si avrebbe la seguente
  situazione:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float table
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+noindent
+\backslash
+makebox[
+\backslash
+textwidth]{%
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Tabular
+<lyxtabular version="3" rows="4" columns="3">
+<features rotate="0" tabularvalignment="middle">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<row>
+<cell multicolumn="1" alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+PERSONALE
+\end_layout
+
+\end_inset
+</cell>
+<cell multicolumn="2" alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell multicolumn="2" alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+ID_Dip
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+Nome_Dipendente
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+Grado
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+1
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+Luca Verdi
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+2
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+2
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+Paolo Rossi
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+2
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Tabella 
+\family typewriter
+PERSONALE
+\family default
+ non temporale
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -6667,11 +6878,6 @@ FOREVER
  anche qui, per comodità, lo definiamo 
 \family typewriter
 NUOVO PERIODO
-\end_layout
-
-\begin_layout Standard
-In pratica, il tempo di permanenza di Paolo Rossi in azienda viene scisso
- in 3 periodi: 
 \end_layout
 
 \begin_layout Standard
@@ -8917,8 +9123,8 @@ Settore
  Nonostante queste premesse, in certi casi, il semplice tempo può non essere
  sufficiente: nel caso in cui un dipendente non possa essere presente in
  più di un settore, ad esempio per motivi contrattuali, questo tipo di chiavi
- primarie non è sufficiente perchè, al contrario dei primi casi, è addirittura
- troppo poco restrittivo.
+ primarie non basta perchè, al contrario dei primi casi, è addirittura troppo
+ poco restrittivo.
  Infatti, se prima veniva limitato l'inserimento di righe lecite sia dal
  punto di vista tecnico che interpretativo, ora verrebbe permesso l'inserimento
  di righe che sono lecite solo in termini tecnici, lasciando spazio, ad
@@ -9166,8 +9372,12 @@ Questo metodo, in SQL-2011, può essere evitato usando due costrutti di nuova
  introduzione che svolgono lo stesso lavoro in molte meno righe di codice,
  e quindi demendando la gestione al sistema piuttosto che all'utente, rendendo
  il tutto molto più sicuro ed efficiente.
- Questi costrutti sono PERIOD e un nuovo metodo di definizione delle chiavi
- primarie, che verrà trattato nella sezione 7.
+ Questi costrutti sono 
+\family typewriter
+PERIOD
+\family default
+ e un nuovo metodo di definizione delle chiavi primarie, che verrà trattato
+ nella sezione 7.
  
 \end_layout
 
@@ -9180,8 +9390,8 @@ La questione dell'unicità
  garantisce che i campi da essa coperti siano contemporaneamente non nulli
  e unici.
  Questa interpretazione fa capire che esiste un altro modo per ottenere
- lo stesso ruolo della chiave primaria, utilizzando due costrutti molto
- diffusi: 
+ lo stesso ruolo della chiave primaria, utilizzando contemporaneamente due
+ costrutti molto diffusi: 
 \family typewriter
 NOT NULL
 \family default
@@ -9321,7 +9531,7 @@ ID_Dip
 \begin_layout Plain Layout
 
 \family typewriter
-Grado
+Priorità
 \end_layout
 
 \end_inset
@@ -10025,8 +10235,12 @@ Il metodo per risolvere queste duplicazioni, qualora ci sia il bisogno di
 \family typewriter
 ASSERTION 
 \family default
-e CHECK, e nello specifico proprio quello listato nell'Algoritmo 9, per
- ottenere con minime modifiche i criteri che si vogliono applicare.
+e 
+\family typewriter
+CHECK
+\family default
+, e nello specifico proprio quello listato nell'Algoritmo 6, per ottenere
+ con minime modifiche i criteri che si vogliono applicare.
 \end_layout
 
 \begin_layout Subsection
@@ -10158,8 +10372,15 @@ Entrambe le tabelle sono temporali
 
 \begin_layout Standard
 Anche in questo caso, come nel caso dei duplicati e della chiave primaria,
- è necessario ricorrere al costrutto ASSERTION e CHECK, in modo da poter
- validare ad ogni momento l'esistenza della chiave primaria.
+ è necessario ricorrere al costrutto 
+\family typewriter
+ASSERTION
+\family default
+ e 
+\family typewriter
+CHECK
+\family default
+, in modo da poter validare ad ogni momento l'esistenza della chiave primaria.
  Nello specifico, vanno verificate tre condizioni:
 \end_layout
 
@@ -10183,9 +10404,13 @@ Non esistono "buchi" (cioè record che finiscono durante il periodo di validità
 Se tutte queste condizioni sono verificate, allora i record di tabella origine
  e tabella destinazione possono essere uniti in una relazione di chiave
  primaria e chiave esterna.
- In ogni caso, è necessario effettuare un CHECK sulla tabella che controlli,
- dopo ogni operazione, che nessun record sia presente nella tabella e non
- abbia nessun record correlato o non valido nella tabella destinazione.
+ In ogni caso, è necessario effettuare un 
+\family typewriter
+CHECK
+\family default
+ sulla tabella che controlli, dopo ogni operazione, che nessun record sia
+ presente nella tabella e non abbia nessun record correlato o non valido
+ nella tabella destinazione.
 \end_layout
 
 \begin_layout Subsection
@@ -10199,10 +10424,16 @@ Nelle applicazioni più sofisticate di SQL, del quale i database temporali
  semplice come un UPDATE possa causare notevoli modifiche in una tabella.
  Immaginiamo una tabella con tempo di transazione, che per garantire la
  possibilità di ripristino del database in qualsiasi momento del passato
- ha bisogno di almeno due operazioni per ogni singolo UPDATE effettuato:
- se le ASSERTIONS o i vincoli di integrità referenziale agissero subito
- dopo ogni singola query, le operazioni che andrebbero a buon fine sarebbero
- molto poche.
+ ha bisogno di almeno due operazioni per ogni singolo 
+\family typewriter
+UPDATE
+\family default
+ effettuato: se le 
+\family typewriter
+ASSERTION
+\family default
+ o i vincoli di integrità referenziale agissero subito dopo ogni singola
+ query, le operazioni che andrebbero a buon fine sarebbero molto poche.
  Se infatti il sistema deve essere perfettamente coerente alla fine della
  transazione (un insieme di query che ha la possibilità di essere annullato
  se una delle operazioni che lo compongono ha qualche problema), non è necessari
@@ -10212,11 +10443,15 @@ amente così nella maggior parte delle query intermedie.
 DEFERRABLE INITIALLY DEFERRED
 \family default
 , che non fanno altro che imporre i controlli di integrità referenziale,
- oppure le assertion, alla fine della transazione presa in esame.
+ oppure le 
+\family typewriter
+ASSERTION
+\family default
+, alla fine della transazione presa in esame.
  In questo modo, ad esempio, sarà possibile creare tabelle collegate tra
  loro senza la necessità di procedere con ordine dalle tabelle "libere"
  a quelle "legate", poichè i controlli verranno effettuati alla fine, senza
- riscontrare nessun errore critico.
+ riscontrare nessun errore critico in una fase di elaborazione parziale.
 \end_layout
 
 \begin_layout Section
@@ -10228,9 +10463,24 @@ Le tabelle, a seconda del loro tipo, presentano metodi di gestione (intesi
  come query eseguibili e concetti applicabili) molto diversi.
  Per quanto riguarda le tabelle con tempo di validità, che hanno come principale
  funzionalità quella di rappresentare i dati, verranno esaminati i costrutti
- SELECT e alcuni metodi per rendere efficienti le tabelle stesse, nonchè
- alcuni costrutti per modificare le tabelle (INSERT, UPDATE, DELETE) che
- verranno ripresi anche nei paragrafi successivi.
+ 
+\family typewriter
+SELECT
+\family default
+ e alcuni metodi per rendere efficienti le tabelle stesse, nonchè alcuni
+ costrutti per modificare le tabelle (
+\family typewriter
+INSERT
+\family default
+, 
+\family typewriter
+UPDATE
+\family default
+, 
+\family typewriter
+DELETE
+\family default
+) che verranno ripresi anche nei paragrafi successivi.
  Nelle tabelle con tempo di transazione, invece, verranno privilegiati i
  metodi utilizzati per mantenere la tabella coerente nel corso del tempo
  e delle modifiche, con alcuni accenni alle tecniche di ricostruzione di
