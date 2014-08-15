@@ -17473,46 +17473,24 @@ i costrutti
 \family typewriter
 UPDATE
 \family default
- e 
-\family typewriter
-DELETE
-\family default
- devono poter operare solo su record attualmente validi: modificare record
- non più validi causerebbe potenziali incoerenze nello stato della tabella;
+ e DELETE devono poter operare solo su record attualmente validi: modificare
+ record non più validi causerebbe potenziali incoerenze nello stato della
+ tabella;
 \end_layout
 
 \begin_layout Standard
-Anche le operazioni stesse funzionano in maniera diversa: 
-\family typewriter
-UPDATE
-\family default
-, per esempio, crea una copia della riga da modificare, in modo da preservare
- la coerenza della tabella, e imposta il tempo di fine alla data della transazio
-ne corrente.
+Anche le operazioni stesse funzionano in maniera diversa: UPDATE, per esempio,
+ crea una copia della riga da modificare, in modo da preservare la coerenza
+ della tabella, e imposta il tempo di fine alla data della transazione corrente.
  Allo stesso modo, modifica la riga attuale impostando la data di inizio
  alla data della transazione, modificando ciò che serve, e salvando il tutto
- (il tempo di fine non viene modificato poichè è già impostato a 
-\family typewriter
-FOREVER
-\family default
-).
- È importante notare che un 
-\family typewriter
-UPDATE
-\family default
- non effettua, sull'inserimento, i controlli che un normale 
-\family typewriter
-INSERT
-\family default
- avvierebbe, poichè la copia della riga verrebbe sicuramente segnalata come
- un errore, e quindi non effettuata.
- Il 
-\family typewriter
-DELETE
-\family default
-, invece, funziona esattamente come quello delle tabelle con tempo di applicazio
-ne, modificando la data finale del record inserendo quella di esecuzione
- della transazione.
+ (il tempo di fine non viene modificato poichè è già impostato a FOREVER).
+ È importante notare che un UPDATE non effettua, sull'inserimento, i controlli
+ che un normale INSERT avvierebbe, poichè la copia della riga verrebbe sicuramen
+te segnalata come un errore, e quindi non effettuata.
+ Il DELETE, invece, funziona esattamente come quello delle tabelle con tempo
+ di applicazione, modificando la data finale del record inserendo quella
+ di esecuzione della transazione.
 \end_layout
 
 \begin_layout Standard
@@ -17637,8 +17615,7 @@ e fino ai giorni nostri hanno avuto una notevole evoluzione: sono passati
  utilizzare solo una parte di questa tecnologia, poichè ad esempio le funzionali
 tà transazionali sono o di complicata implementazione, o inutili dal loro
  scopo di utilizzo (basti pensare ai backup, che se effettuati a intervalli
- di tempo adeguati, rendono molto meno utili le tabelle citate), così come
- le tabelle bitemporali.
+ di tempo adeguati, rendono molto meno utili le tabelle citate).
  Comunque, indipendentemente dal livello di implementazione adottato, con
  i naturali miglioramenti che ha avuto nel corso degli anni, questa tecnologia
  si è subito affermata come uno dei modi più validi per rappresentare lo
@@ -17659,10 +17636,9 @@ o di questi metodi è diventato molto più facile, veloce ed efficiente, anche
  le lacune ad oggi presenti verranno colmate, e le funzionalità già implementate
  verranno ulteriormente affinate, in modo che la scelta sulla struttura
  del database, ove la situazione lo richieda, vada a ricadere sempre più
- verso un sistema temporale, che sicuramente è di più difficile implementazione
- rispetto a un sistema tradizionale, ma che apporta, ai fini della gestione
- aziendale e del sistema, innegabili vantaggi in termini di completezza
- dei dati e di affidabilità dell'insieme.
+ verso un sistema temporale, che forse è di più difficile implementazione,
+ ma che apporta, ai fini dell'economia aziendale e del sistema, innegabili
+ vantaggi in termini di completezza dei dati.
  
 \end_layout
 
