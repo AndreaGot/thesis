@@ -1016,6 +1016,8 @@ textwidth]{%
 \begin_inset Text
 
 \begin_layout Plain Layout
+
+\family typewriter
 Rappresentazione
 \end_layout
 
@@ -1025,6 +1027,8 @@ Rappresentazione
 \begin_inset Text
 
 \begin_layout Plain Layout
+
+\family typewriter
 Istante di inizio
 \end_layout
 
@@ -1034,6 +1038,8 @@ Istante di inizio
 \begin_inset Text
 
 \begin_layout Plain Layout
+
+\family typewriter
 Istante di fine
 \end_layout
 
@@ -1045,6 +1051,8 @@ Istante di fine
 \begin_inset Text
 
 \begin_layout Plain Layout
+
+\family typewriter
 chiuso/chiuso
 \end_layout
 
@@ -1078,6 +1086,8 @@ chiuso/chiuso
 \begin_inset Text
 
 \begin_layout Plain Layout
+
+\family typewriter
 chiuso/aperto
 \end_layout
 
@@ -1111,6 +1121,8 @@ chiuso/aperto
 \begin_inset Text
 
 \begin_layout Plain Layout
+
+\family typewriter
 aperto/chiuso
 \end_layout
 
@@ -1144,6 +1156,8 @@ aperto/chiuso
 \begin_inset Text
 
 \begin_layout Plain Layout
+
+\family typewriter
 aperto/aperto
 \end_layout
 
@@ -9610,6 +9624,8 @@ Val_End
 \begin_inset Text
 
 \begin_layout Plain Layout
+
+\family typewriter
 1
 \end_layout
 
@@ -9654,6 +9670,8 @@ Val_End
 \begin_inset Text
 
 \begin_layout Plain Layout
+
+\family typewriter
 1
 \end_layout
 
@@ -9698,6 +9716,8 @@ Val_End
 \begin_inset Text
 
 \begin_layout Plain Layout
+
+\family typewriter
 1
 \end_layout
 
@@ -9742,6 +9762,8 @@ Val_End
 \begin_inset Text
 
 \begin_layout Plain Layout
+
+\family typewriter
 1
 \end_layout
 
@@ -14639,6 +14661,8 @@ Trento
 \begin_inset Text
 
 \begin_layout Plain Layout
+
+\family typewriter
 3
 \end_layout
 
