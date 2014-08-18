@@ -173,6 +173,8 @@ vspace{30pt}
 \end_layout
 
 \begin_layout Standard
+
+\size large
 Elaborato Finale
 \end_layout
 
@@ -401,6 +403,17 @@ Prima di tutto, voglio ringraziare i miei genitori e i miei fratelli, per
 \end_layout
 
 \begin_layout Standard
+Grazie anche alla mia fidanzata Giulia, per il sostegno mai mancato in questi
+ anni, ma soprattutto per aver ascoltato le mie paranoie alla fine di ogni
+ esame, dicendomi che sarebbe andato bene (e puntualmente azzeccandoci ogni
+ volta, anche se non ho mai voluto ammettere avesse ragione ☺);
+\begin_inset Newline newline
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
 Grazie ai miei "colleghi" e compagni di corso Alessandro, Antonio, Mattia
  e Stefano, per aver trascorso insieme la preparazione di questi ultimi
  esami, dove casa mia é diventata il quartier generale dello studio (senza
@@ -415,17 +428,6 @@ Grazie ai miei "colleghi" e compagni di corso Alessandro, Antonio, Mattia
 Grazie a tutti i colleghi della Fondazione Bruno Kessler, area Sistemi Informati
 vi, per avermi fatto passare i sei mesi di stage trattandomi come uno di
  loro e facendomi sentire ogni giorno come a casa;
-\end_layout
-
-\begin_layout Standard
-
-\end_layout
-
-\begin_layout Standard
-Grazie anche alla mia fidanzata Giulia, per il sostegno mai mancato in questi
- anni, ma soprattutto per aver ascoltato le mie paranoie alla fine di ogni
- esame, dicendomi che sarebbe andato bene (e puntualmente azzeccandoci ogni
- volta, anche se non ho mai voluto ammettere avesse ragione ☺)
 \begin_inset Newline newline
 \end_inset
 
@@ -17560,12 +17562,12 @@ Nel periodo di stage, da dicembre 2013 fino ad aprile 2014, che ho passato
  a che fare con i database, anche perchè sono stato frequentemente impegnato
  in lavori di manipolazione e analisi dei dati.
  Non tutti i database della Fondazione, però, sono database temporali: gestendo
- una gran mole di informazioni di tutti tipi, impostare ogni tabella o database
- con un approccio temporale diventerebbe, a lungo andare, complicato e inutilmen
-te faticoso, anche perchè non sempre i database necessitano di questo tipo
- di organizzazione.
- Per questo motivo, tra tutti le tabelle che ho avuto modo di utilizzare,
- ho notato che le poche ad avere un'impostazione temporale sono soprattutto
+ una gran mole di informazioni di tutti i tipi, impostare ogni tabella o
+ database con un approccio temporale diventerebbe, a lungo andare, complicato
+ e inutilmente faticoso, anche perchè non sempre i database necessitano
+ di questo tipo di organizzazione.
+ Per questo motivo, tra tutte le tabelle che ho avuto modo di utilizzare,
+ ho notato che quelle che hanno un'impostazione temporale sono soprattutto
  quelle dedicate al personale, come residenza e coordinate bancarie.
 \end_layout
 
@@ -17751,6 +17753,10 @@ TSQL - Temporal SQL, versione di SQL sviluppata da Richard T.
 \begin_layout Itemize
 T-SQL - Transact SQL, versione di SQL sviluppata da Microsoft e utilizzata
  nell'applicativo SQL Server
+\end_layout
+
+\begin_layout Itemize
+FBK - Fondazione Bruno Kessler
 \end_layout
 
 \begin_layout Standard
