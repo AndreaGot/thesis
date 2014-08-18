@@ -448,6 +448,26 @@ Infine, grazie a tutti coloro, parenti, amici o anche semplici conoscenti,
 
 \end_layout
 
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+mbox{} 
+\backslash
+thispagestyle{empty} 
+\backslash
+newpage
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
 \begin_layout Abstract
 La vita dell'uomo, fin dalla sua prima comparsa sulla Terra, è sempre stata
  scandita dal tempo: all'inizio le unità di misura del tempo erano molto
@@ -488,6 +508,26 @@ ata la conservazione dei dati, piuttosto che la loro precisione temporale.
 
 \begin_layout Abstract
 \begin_inset Newpage newpage
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+mbox{} 
+\backslash
+thispagestyle{empty} 
+\backslash
+newpage
+\end_layout
+
 \end_inset
 
 
