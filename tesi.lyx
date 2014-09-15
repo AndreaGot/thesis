@@ -382,6 +382,26 @@ LatexCommand tableofcontents
 \end_layout
 
 \begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+mbox{} 
+\backslash
+thispagestyle{empty} 
+\backslash
+newpage
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
 \begin_inset Newpage newpage
 \end_inset
 
@@ -600,6 +620,13 @@ Generalmente, tutte queste vicissitudini riguardo l'organizzazione della
  creazione dei database, in modo da dedicare magari qualche ora in più nella
  redazione dello schema della base di dati, ma evitando disagi ben più consisten
 ti nel futuro, sia a medio che lungo termine.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Newpage newpage
+\end_inset
+
+
 \end_layout
 
 \begin_layout Part
@@ -8697,6 +8724,13 @@ Come è possibile notare, la tabella ormai mostra solo il record di Paolo
  lasciato l'azienda, diretto verso nuove occasioni.
 \end_layout
 
+\begin_layout Standard
+\begin_inset Newpage newpage
+\end_inset
+
+
+\end_layout
+
 \begin_layout Part
 Database temporali: Applicazioni
 \end_layout
@@ -15611,6 +15645,33 @@ Ribadendo che questi dati non sempre rappresentano la realtà, è anche vero
  problemi in maniera molto più semplice, ma non per questo meno efficiente.
 \end_layout
 
+\begin_layout Standard
+\begin_inset Newpage newpage
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+mbox{} 
+\backslash
+thispagestyle{empty} 
+\backslash
+newpage
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
 \begin_layout Part
 Confronti
 \end_layout
@@ -17683,6 +17744,26 @@ Nonostante l'approccio non sia certamente aderente a ciò che è stato esposto
 
 \end_layout
 
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+mbox{} 
+\backslash
+thispagestyle{empty} 
+\backslash
+newpage
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
 \begin_layout Part
 Conclusione
 \end_layout
@@ -17734,6 +17815,26 @@ o di questi metodi è diventato molto più facile, veloce ed efficiente, anche
 
 \begin_layout Standard
 \begin_inset Newpage newpage
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+mbox{} 
+\backslash
+thispagestyle{empty} 
+\backslash
+newpage
+\end_layout
+
 \end_inset
 
 
